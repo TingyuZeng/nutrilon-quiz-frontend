@@ -75,18 +75,40 @@ export default function handler(req, res) {
             console.log(response.data);
             const { openid, nickname, headimgurl } = response.data;
 
-            // Create player entry in database
+            if (!openid) {
+              res.status(400).json({
+                error: "openid not found",
+                message: "Please try again.",
+              });
+            }
+
+            // Double check if this player exists
             axios
-              .post(`${process.env.BACKEND}/players`, {
-                openid,
-                username: nickname,
-                headimgurl,
-              })
+              .get(`${process.env.BACKEND}/players?openid=${openid}`)
               .then((response) => {
-                res.status(200).json(response.data);
+                // If this player exists, send back the info rather than creating
+                if (response.data.length !== 0) {
+                  res.status(200).json(response.data[0]);
+                }
+                // Create player entry in database
+                else {
+                  axios
+                    .post(`${process.env.BACKEND}/players`, {
+                      openid,
+                      username: nickname,
+                      headimgurl,
+                    })
+                    .then((response) => {
+                      res.status(200).json(response.data);
+                    })
+                    .catch((error) => {
+                      console.log("Cannot create a user on the database");
+                    });
+                }
               })
               .catch((error) => {
-                console.log("Cannot create a user on the database");
+                console.log("Cannot access the backend");
+                console.log(error);
               });
           })
           // TODO: error when retrieving userinfo from WeChat

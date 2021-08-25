@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { playerActions } from "../store/store";
 
 const Login = (props) => {
+  const [loaded, setLoaded] = useState(false);
+  const [synced, setSynced] = useState(false);
   const router = useRouter();
-  const [player, setPlayer] = useState({});
+  const player = useSelector((state) => state.player);
+  const dispatch = useDispatch();
 
   const newPlayerHandler = () => {
     const { APPID, REGISTERURL } = props;
@@ -12,7 +17,10 @@ const Login = (props) => {
       `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${REGISTERURL}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
     );
   };
-  const existingPlayerHandler = () => {};
+  // TODO
+  const existingPlayerHandler = () => {
+    router.push("/landing");
+  };
 
   useEffect(() => {
     const queryString = window.location.search;
@@ -24,17 +32,21 @@ const Login = (props) => {
     const getUser = async () => {
       axios
         .get("/api/getPlayer", { params: { code } })
-        // TODO: Store player data in Redux
+        // Store player data in Redux
         .then((res) => {
           if (res.status === 204) {
             console.log("response status 204");
-            setPlayer({ exist: "not found" });
           } else {
             console.log("response status 200");
-            setPlayer(res.data);
+            dispatch(playerActions.sync(res.data));
+            setSynced(true);
+            console.log("player data synced");
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => {
+          setLoaded(true);
+        });
     };
 
     getUser();
@@ -51,13 +63,13 @@ const Login = (props) => {
         </div>
       </div>
 
-      {player.exist && (
+      {loaded && !synced && (
         <div>
           <div>player not found</div>
-          <button onClick={newPlayerHandler}>continue</button>
+          <button onClick={newPlayerHandler}>register</button>
         </div>
       )}
-      {player.username && (
+      {loaded && synced && (
         <div>
           <div>username: {player.username}</div>
           <button onClick={existingPlayerHandler}>continue</button>
