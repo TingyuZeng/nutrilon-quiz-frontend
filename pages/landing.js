@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { playerActions } from "../store/store";
+import logError from "../lib/logError";
 
 const Landing = () => {
   const router = useRouter();
@@ -10,7 +11,18 @@ const Landing = () => {
   const dispatch = useDispatch();
 
   const testHandler = () => {
-    axios.put("/updatePlayerInfo", { username: "happy" });
+    axios
+      .put("/api/updatePlayerInfo", {
+        id: player.id,
+        nickname: "Tingyu",
+      })
+      .then((res) => {
+        dispatch(playerActions.sync(res.data));
+        console.log(`player ${player.nickname} updated!`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -37,7 +49,7 @@ const Landing = () => {
   return (
     <>
       <div>Landing - this is the start of the game</div>
-      {player.username && <div>username: {player.username}</div>}
+      {player.nickname && <div>nickname: {player.nickname}</div>}
       <button onClick={testHandler}>Change name test</button>
     </>
   );

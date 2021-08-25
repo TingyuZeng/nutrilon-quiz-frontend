@@ -4,30 +4,42 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { playerActions } from "../store/store";
+import logError from "../lib/logError";
 
 export default function Home({ APPID, LOGINURL }) {
-  const [loaded, setLoaded] = useState(false);
   const router = useRouter();
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    console.log("happy");
-  };
+  const player = useSelector((state) => state.player);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const queryString = window.location.search;
-    const queryObject = new URLSearchParams(queryString);
-    const registered = queryObject.get("registered");
-
-    if (registered === "false") {
-      console.log("This player is not registered!");
-      return;
+    // Check if the user exists on his phone
+    const playerCode = localStorage.getItem("NUTRILON_PLAYER");
+    if (playerCode) {
+      axios
+        .get("/api/getPlayer", { params: { playerCode } })
+        .then((response) => {
+          dispatch(playerActions.sync(response.data));
+          console.log("Received player info.");
+          router.push("/landing");
+        })
+        .catch((error) => {
+          console.log(error);
+          logError({
+            error,
+            message: "Failed at getting player info by hashid",
+          });
+        });
     }
 
-    console.log("getting open information from WeChat...");
-    window.location.assign(
-      `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${LOGINURL}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`
-    );
+    // Getting userinfo from WeChat (scope: base)
+    else {
+      console.log("getting open information from WeChat...");
+      window.location.assign(
+        `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${LOGINURL}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`
+      );
+    }
   }, []);
 
   return (

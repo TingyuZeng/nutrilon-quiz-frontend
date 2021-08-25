@@ -1,8 +1,10 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-const initialState = {
+export const initialState = {
+  id: null,
   openid: "",
-  username: "",
+  hashid: "",
+  nickname: "",
   avatar: null,
   headimgurl: "",
   shopurl: "",
@@ -21,6 +23,12 @@ const playerSlice = createSlice({
   name: "player",
   initialState,
   reducers: {
+    login: (state, action) => {
+      localStorage.setItem("NUTRILON_PLAYER", action.payload);
+    },
+    logout: (state) => {
+      localStorage.removeItem("NUTRILON_PLAYER");
+    },
     sync: (state, action) => {
       // Verify the payload is valid
       const validPayload = Object.keys(action.payload)

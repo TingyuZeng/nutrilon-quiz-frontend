@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../store/store";
+import logError from "../lib/logError";
 
 const Login = (props) => {
   const [loaded, setLoaded] = useState(false);
@@ -39,11 +40,15 @@ const Login = (props) => {
           } else {
             console.log("response status 200");
             dispatch(playerActions.sync(res.data));
+            dispatch(playerActions.login(res.data.hashid));
             setSynced(true);
             console.log("player data synced");
           }
         })
-        .catch((err) => console.log(err))
+        .catch((error) => {
+          console.log(error);
+          logError({ error, message: "Cannot get userinfo from WeChat" });
+        })
         .finally(() => {
           setLoaded(true);
         });
@@ -71,7 +76,7 @@ const Login = (props) => {
       )}
       {loaded && synced && (
         <div>
-          <div>username: {player.username}</div>
+          <div>nickname: {player.nickname}</div>
           <button onClick={existingPlayerHandler}>continue</button>
         </div>
       )}

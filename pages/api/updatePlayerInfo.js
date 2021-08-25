@@ -1,4 +1,5 @@
 import axios from "axios";
+import { initialState as playerState } from "../../store/playerSlice";
 
 export default function handler(req, res) {
   if (req.method !== "PUT") {
@@ -8,33 +9,19 @@ export default function handler(req, res) {
     });
   }
 
-  // openid must be included
-  const { openid } = req.body;
-  if (!openid) {
+  // id must be included
+  const { id, ...updateItems } = req.body;
+
+  if (!id) {
     res.status(400).json({
-      error: "openid not found",
+      error: "player id not found",
       message: "Please try again.",
     });
   }
 
   // Verify the body
   const bodyKeys = Object.keys(req.body);
-  const validKeys = [
-    "openid",
-    "username",
-    "avatar",
-    "headimgurl",
-    "shopurl",
-    "score1",
-    "score2",
-    "score3",
-    "score4",
-    "scoreTotal",
-    "currentLevel",
-    "life",
-    "lastCertificateDate",
-    "certificates",
-  ];
+  const validKeys = Object.keys(playerState);
   const mixedSet = new Set([...bodyKeys, ...validKeys]);
   const isValid = mixedSet.size === validKeys.length;
   if (!isValid) {
@@ -46,9 +33,13 @@ export default function handler(req, res) {
 
   // Send request to backend
   axios
-    .put(`${process.env.BACKEND}/players?openid=${openid}`, { ...req.body })
-    .then((response) => res.status(200).json({ ...response }))
+    .put(`${process.env.BACKEND}/players/${id}`, { ...updateItems })
+    .then((response) => {
+      console.log(`player ${id} updated.`);
+      res.status(200).json(response.data);
+    })
     .catch((error) => {
+      console.log("failed at backend");
       console.log(error);
       res.status(500).json({});
     });

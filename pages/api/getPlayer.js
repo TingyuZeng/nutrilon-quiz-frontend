@@ -1,49 +1,63 @@
 //https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
 
 import axios from "axios";
+import hashCode from "../../lib/hashCode";
 
 export default function handler(req, res) {
   // Check if the user exists in the database
   if (req.method === "GET") {
-    const { code } = req.query;
+    const { code, playerCode } = req.query;
 
-    axios
-      .get(
-        `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${process.env.APPID}&secret=${process.env.APPSECRET}&code=${code}&grant_type=authorization_code`
-      )
-      .then((response) => {
-        const { openid } = response.data;
-        console.log(`openid = ${openid}`);
+    // query backend by playerCode
+    if (playerCode) {
+      axios
+        .get(`${process.env.BACKEND}/players/${playerCode}`)
+        .then((response) => {
+          console.log("Got player info from the database");
+          res.status(200).json(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    // query by code via WeChat API
+    else if (code) {
+      axios
+        .get(
+          `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${process.env.APPID}&secret=${process.env.APPSECRET}&code=${code}&grant_type=authorization_code`
+        )
+        .then((response) => {
+          const { openid } = response.data;
+          console.log(`openid = ${openid}`);
 
-        // Todo: error handling, returned data contains no WeChat openid
-        if (!openid) {
-          console.log("returned data contains no WeChat openid");
-        }
+          // Todo: error handling, returned data contains no WeChat openid
+          if (!openid) {
+            console.log("returned data contains no WeChat openid");
+          }
 
-        // Query db
-        axios
-          .get(`${process.env.BACKEND}/players?openid=${openid}`)
-          .then((response) => {
-            console.log("Getting data from the backend");
-            console.log(response.data);
-            // TODO: if cannot find the player in the database
-            if (Array.isArray(response.data) && response.data.length !== 1) {
-              res.status(204).json({ message: "player not found" });
-            } else {
-              res.status(200).json(response.data[0]);
-            }
-          })
-          // TODO: error when querying the db
-          .catch((error) => {
-            console.log("Cannot access the Game DB");
-            // res.redirect("/");
-          });
-      })
-      // Todo: error when requesting data from WeChat
-      .catch((error) => {
-        console.log("Cannot access WeChat API");
-        // res.redirect("/");
-      });
+          // Query db
+          axios
+            .get(`${process.env.BACKEND}/players?openid=${openid}`)
+            .then((response) => {
+              console.log("Getting data from the backend");
+              console.log(response.data);
+              // TODO: if cannot find the player in the database
+              if (Array.isArray(response.data) && response.data.length !== 1) {
+                res.status(204).json({ message: "player not found" });
+              } else {
+                res.status(200).json(response.data[0]);
+              }
+            })
+            // TODO: error when querying the db
+            .catch((error) => {
+              console.log("Cannot access the Game DB");
+            });
+        })
+        // Todo: error when requesting data from WeChat
+        .catch((error) => {
+          console.log("Cannot access WeChat API");
+        });
+    }
   }
 
   // Create a new user
@@ -60,9 +74,10 @@ export default function handler(req, res) {
 
         // Todo: error handling, returned data contains no WeChat openid
         if (!openid || !access_token) {
-          console.log(
-            "returned data contains no WeChat openid or access_token"
-          );
+          res.status(400).json({
+            error: "openid or token not found",
+            message: "Please try again.",
+          });
         }
 
         // Query WeChat API to get userinfo
@@ -73,14 +88,13 @@ export default function handler(req, res) {
           .then((response) => {
             console.log("Getting user data from WeChat API");
             console.log(response.data);
-            const { openid, nickname, headimgurl } = response.data;
+            const { nickname, headimgurl } = response.data;
 
-            if (!openid) {
-              res.status(400).json({
-                error: "openid not found",
-                message: "Please try again.",
-              });
-            }
+            // Generate hashid
+            const hashid = openid
+              .substr(-5)
+              .concat(hashCode(openid).toString());
+            console.log(hashid);
 
             // Double check if this player exists
             axios
@@ -95,7 +109,8 @@ export default function handler(req, res) {
                   axios
                     .post(`${process.env.BACKEND}/players`, {
                       openid,
-                      username: nickname,
+                      hashid,
+                      nickname,
                       headimgurl,
                     })
                     .then((response) => {
@@ -108,7 +123,6 @@ export default function handler(req, res) {
               })
               .catch((error) => {
                 console.log("Cannot access the backend");
-                console.log(error);
               });
           })
           // TODO: error when retrieving userinfo from WeChat
@@ -116,13 +130,11 @@ export default function handler(req, res) {
             console.log(
               "Cannot access WeChat API with the given token and openid"
             );
-            // res.redirect("/");
           });
       })
       // Todo: error when requesting data from WeChat
       .catch((error) => {
         console.log("Cannot access WeChat API");
-        // res.redirect("/");
       });
   }
 }
