@@ -3,8 +3,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
+import axios from "axios";
 
-export default function Home({ APPID, REDIRECTURL }) {
+export default function Home({ APPID, LOGINURL }) {
   const [loaded, setLoaded] = useState(false);
   const router = useRouter();
 
@@ -14,35 +15,36 @@ export default function Home({ APPID, REDIRECTURL }) {
   };
 
   useEffect(() => {
-    const { code } = router.query;
-    console.log(code);
-    if (code) setLoaded(true);
-  }, []);
+    const queryString = window.location.search;
+    const queryObject = new URLSearchParams(queryString);
+    const registered = queryObject.get("registered");
 
-  useEffect(() => {
-    if (loaded === true) return;
-    console.log("getting info from WeChat...");
-    console.log(APPID, REDIRECTURL);
+    if (registered === "false") {
+      console.log("This player is not registered!");
+      return;
+    }
+
+    console.log("getting open information from WeChat...");
     window.location.assign(
-      `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${REDIRECTURL}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+      `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${LOGINURL}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`
     );
-    setLoaded(true);
   }, []);
 
   return (
-    <form onSubmit={submitHandler}>
-      <button>submit</button>
-    </form>
+    <>
+      <div>Loading...</div>
+      <div>Note: just show the loader here.</div>
+    </>
   );
 }
 
 export async function getStaticProps() {
   const APPID = process.env.APPID;
-  const REDIRECTURL = process.env.REDIRECTURL;
+  const LOGINURL = process.env.LOGINURL;
   return {
     props: {
       APPID,
-      REDIRECTURL,
+      LOGINURL,
     },
   };
 }
