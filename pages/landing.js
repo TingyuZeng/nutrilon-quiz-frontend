@@ -4,6 +4,8 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../store/store";
 import logError from "../lib/logError";
+import Img from "../component/ui/Image/Img";
+import BgLanding from "../component/ui/Background/BgLanding";
 
 const Landing = (props) => {
   const [loaded, setLoaded] = useState(false);
@@ -59,6 +61,7 @@ const Landing = (props) => {
       .catch((error) => {
         console.log(error);
         logError({ error, message: "Cannot get userinfo from WeChat" });
+        router.push("/");
       })
       .finally(() => {
         setLoaded(true);
@@ -67,11 +70,12 @@ const Landing = (props) => {
 
   return (
     <>
-      <div style={{ marginBottom: "20px", color: "blue" }}>
-        <div>LANDING - this is the start of the game</div>
-        <div>showing loader first, until setloaded = true</div>
-        <div>{player.openid}</div>
-      </div>
+      {!loaded && (
+        <div style={{ marginBottom: "20px", color: "blue" }}>
+          <div>LANDING - this is the start of the game</div>
+          <div>showing loader first, until setloaded = true</div>
+        </div>
+      )}
 
       {loaded && !synced && (
         <div>
@@ -81,6 +85,7 @@ const Landing = (props) => {
       {loaded && synced && (
         <div>
           <div>nickname: {player.nickname}</div>
+          <BgLanding />
         </div>
       )}
     </>
