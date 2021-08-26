@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../store/store";
 import logError from "../lib/logError";
 
-const Landing = () => {
+const Landing = (props) => {
+  const [loaded, setLoaded] = useState(false);
+  const [synced, setSynced] = useState(false);
   const router = useRouter();
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
 
+  // For future reference - update player info
   const testHandler = () => {
     axios
       .put("/api/updatePlayerInfo", {
@@ -25,34 +28,87 @@ const Landing = () => {
       });
   };
 
+  const newPlayerHandler = () => {
+    const { APPID, REGISTERURL } = props;
+    window.location.assign(
+      `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${REGISTERURL}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+    );
+  };
+  // TODO
+  const existingPlayerHandler = () => {
+    router.push("/landing");
+  };
+
   useEffect(() => {
-    if (player.openid) return;
+    // If player info is present, just continue
+    if (player.openid && localStorage.getItem("NUTRILON_PLAYER")) {
+      setSynced(true);
+      setLoaded(true);
+      return;
+    }
+
+    // Otherwise, query player info
     const queryString = window.location.search;
     const queryObject = new URLSearchParams(queryString);
     const code = queryObject.get("code");
 
-    if (!code) router.push("/");
+    if (!code) {
+      router.push("/");
+      return;
+    }
 
-    const createUser = async () => {
-      axios
-        .post("/api/getPlayer", { code })
-        .then((res) => {
-          dispatch(playerActions.sync(res.data));
-          console.log("player data synced");
-        })
-        .catch((err) => console.log(err));
-    };
-
-    createUser();
+    axios
+      .post("/api/getPlayer", { code })
+      // Store player data in Redux
+      .then((res) => {
+        console.log("response status 200");
+        dispatch(playerActions.sync(res.data));
+        dispatch(playerActions.login(res.data.hashid));
+        setSynced(true);
+        console.log("player data synced");
+      })
+      .catch((error) => {
+        console.log(error);
+        logError({ error, message: "Cannot get userinfo from WeChat" });
+      })
+      .finally(() => {
+        setLoaded(true);
+      });
   }, []);
 
   return (
     <>
-      <div>Landing - this is the start of the game</div>
-      {player.nickname && <div>nickname: {player.nickname}</div>}
-      <button onClick={testHandler}>Change name test</button>
+      <div style={{ marginBottom: "20px", color: "blue" }}>
+        <div>LANDING - this is the start of the game</div>
+        <div>showing loader first, until setloaded = true</div>
+        <div>{player.openid}</div>
+      </div>
+
+      {loaded && !synced && (
+        <div>
+          <div>player not found</div>
+          <button onClick={newPlayerHandler}>register</button>
+        </div>
+      )}
+      {loaded && synced && (
+        <div>
+          <div>nickname: {player.nickname}</div>
+          <button onClick={existingPlayerHandler}>continue</button>
+        </div>
+      )}
     </>
   );
 };
 
 export default Landing;
+
+export async function getStaticProps() {
+  const APPID = process.env.APPID;
+  const REGISTERURL = process.env.REGISTERURL;
+  return {
+    props: {
+      APPID,
+      REGISTERURL,
+    },
+  };
+}

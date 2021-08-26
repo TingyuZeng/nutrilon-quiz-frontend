@@ -6,21 +6,30 @@ import hashCode from "../../lib/hashCode";
 export default function handler(req, res) {
   // Check if the user exists in the database
   if (req.method === "GET") {
-    const { code, playerCode } = req.query;
+    const { code, hashid } = req.query;
 
-    // query backend by playerCode
-    if (playerCode) {
+    // query backend by hashid
+    if (hashid) {
       axios
-        .get(`${process.env.BACKEND}/players/${playerCode}`)
+        .get(`${process.env.BACKEND}/players/${hashid}`)
         .then((response) => {
           console.log("Got player info from the database");
           res.status(200).json(response.data);
         })
         .catch((error) => {
+          // In case the hashid is invalid
+          if (error.response.status === 404) {
+            console.log("Error: invalid hashid.");
+            res
+              .status(404)
+              .send({ error: "invalid hashid", message: "Please try again!" });
+          }
+          // Other errors
           console.log(error);
+          res.status(500).send(error);
         });
     }
-    // query by code via WeChat API
+    // query by code via WeChat API (scope=base)
     else if (code) {
       axios
         .get(
@@ -30,9 +39,10 @@ export default function handler(req, res) {
           const { openid } = response.data;
           console.log(`openid = ${openid}`);
 
-          // Todo: error handling, returned data contains no WeChat openid
+          // error handling, returned data contains no WeChat openid
           if (!openid) {
-            console.log("returned data contains no WeChat openid");
+            console.log("Error: returned data contains no WeChat openid");
+            res.status(400).send();
           }
 
           // Query db
@@ -43,26 +53,35 @@ export default function handler(req, res) {
               console.log(response.data);
               // TODO: if cannot find the player in the database
               if (Array.isArray(response.data) && response.data.length !== 1) {
-                res.status(204).json({ message: "player not found" });
+                res.status(204).send({ message: "player not found" });
               } else {
                 res.status(200).json(response.data[0]);
               }
             })
-            // TODO: error when querying the db
+            // error when querying the db
             .catch((error) => {
-              console.log("Cannot access the Game DB");
+              console.log("Error: cannot access the Game DB");
+              res.status(500).send(error);
             });
         })
-        // Todo: error when requesting data from WeChat
+        // error when requesting data from WeChat
         .catch((error) => {
-          console.log("Cannot access WeChat API");
+          console.log("Error: cannot access WeChat API (base)");
+          res.status(500).send(error);
         });
     }
   }
 
-  // Create a new user
+  // Check via WeChat API(scope = userinfo)
+  // if the user doesn't exist then create a new user
   else {
     const code = req.body.code;
+    if (!code) {
+      res.status(400).send({
+        error: "code not found",
+        message: "Please try again.",
+      });
+    }
 
     axios
       .get(
@@ -72,9 +91,9 @@ export default function handler(req, res) {
         const { access_token, openid } = response.data;
         console.log(`openid = ${openid}`);
 
-        // Todo: error handling, returned data contains no WeChat openid
+        // error handling, returned data contains no WeChat openid
         if (!openid || !access_token) {
-          res.status(400).json({
+          res.status(400).send({
             error: "openid or token not found",
             message: "Please try again.",
           });
@@ -94,7 +113,6 @@ export default function handler(req, res) {
             const hashid = openid
               .substr(-5)
               .concat(hashCode(openid).toString());
-            console.log(hashid);
 
             // Double check if this player exists
             axios
@@ -117,24 +135,30 @@ export default function handler(req, res) {
                       res.status(200).json(response.data);
                     })
                     .catch((error) => {
-                      console.log("Cannot create a user on the database");
+                      console.log(
+                        "Error: cannot create a user on the database"
+                      );
+                      res.status(500).send(error);
                     });
                 }
               })
               .catch((error) => {
-                console.log("Cannot access the backend");
+                console.log("Error: cannot access the backend");
+                res.status(500).send(error);
               });
           })
-          // TODO: error when retrieving userinfo from WeChat
+          // error when retrieving userinfo from WeChat
           .catch((error) => {
             console.log(
-              "Cannot access WeChat API with the given token and openid"
+              "Error: cannot access WeChat API with the given token and openid"
             );
+            res.status(500).send(error);
           });
       })
-      // Todo: error when requesting data from WeChat
+      // error when requesting data from WeChat
       .catch((error) => {
-        console.log("Cannot access WeChat API");
+        console.log("Error: cannot access WeChat API (userinfo)");
+        res.status(500).send(error);
       });
   }
 }
