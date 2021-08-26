@@ -28,17 +28,6 @@ const Landing = (props) => {
       });
   };
 
-  const newPlayerHandler = () => {
-    const { APPID, REGISTERURL } = props;
-    window.location.assign(
-      `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${REGISTERURL}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
-    );
-  };
-  // TODO
-  const existingPlayerHandler = () => {
-    router.push("/landing");
-  };
-
   useEffect(() => {
     // If player info is present, just continue
     if (player.openid && localStorage.getItem("NUTRILON_PLAYER")) {
@@ -87,13 +76,11 @@ const Landing = (props) => {
       {loaded && !synced && (
         <div>
           <div>player not found</div>
-          <button onClick={newPlayerHandler}>register</button>
         </div>
       )}
       {loaded && synced && (
         <div>
           <div>nickname: {player.nickname}</div>
-          <button onClick={existingPlayerHandler}>continue</button>
         </div>
       )}
     </>
@@ -101,14 +88,3 @@ const Landing = (props) => {
 };
 
 export default Landing;
-
-export async function getStaticProps() {
-  const APPID = process.env.APPID;
-  const REGISTERURL = process.env.REGISTERURL;
-  return {
-    props: {
-      APPID,
-      REGISTERURL,
-    },
-  };
-}
