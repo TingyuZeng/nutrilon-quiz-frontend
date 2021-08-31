@@ -16,10 +16,12 @@ const Landing = (props) => {
 
   // For future reference - update player info
   const testHandler = () => {
+    const hashid = localStorage.getItem("NUTRILON_PLAYER");
     axios
       .put("/api/updatePlayerInfo", {
-        id: player.id,
-        nickname: "Tingyu",
+        hashid,
+        current: player,
+        update: { nickname: "Tingyu" },
       })
       .then((res) => {
         dispatch(playerActions.sync(res.data));
@@ -84,8 +86,11 @@ const Landing = (props) => {
       )}
       {loaded && synced && (
         <div>
-          <div>nickname: {player.nickname}</div>
           <BgLanding />
+          <div style={{ position: "absolute", bottom: "50px" }}>
+            <div>nickname: {player.nickname}</div>
+            <button onClick={testHandler}>Change your name to Alimama</button>
+          </div>
         </div>
       )}
     </>

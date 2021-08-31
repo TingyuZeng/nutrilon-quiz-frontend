@@ -3,47 +3,53 @@ import { initialState as playerState } from "../../store/playerSlice";
 
 export default function handler(req, res) {
   if (req.method !== "PUT") {
-    res.status(400).send({
-      error: "request rejected",
-      message: "Invalid request method chosen.",
-    });
+    res.status(400).send("Invalid request method.");
   }
 
-  // id must be included
-  const { id, ...updateItems } = req.body;
+  // hashid must be included
+  // it should be stored in localStorage
+  const { hashid, current, update } = req.body;
 
-  if (!id) {
-    res.status(400).send({
-      error: "player id not found",
-      message: "Please try again.",
-    });
+  if (!hashid) {
+    res.status(400).send("Hashid not found");
   }
 
-  // Verify the body
-  const bodyKeys = Object.keys(req.body);
+  // Cannot update player id
+  if ("id" in update) res.status(400).send("Cannot change id");
+  // Verify the other update items
+  const updateKeys = Object.keys(update);
   const validKeys = Object.keys(playerState);
-  const mixedSet = new Set([...bodyKeys, ...validKeys]);
+  const mixedSet = new Set([...updateKeys, ...validKeys]);
   const isValid = mixedSet.size === validKeys.length;
-  if (!isValid) {
-    res.status(400).send({
-      error: "invalid api",
-      message: "Invalid request to the backend.",
-    });
-  }
+  if (!isValid) res.status(400).send("Invalid update");
 
-  // Send request to backend
-  axios
-    .put(`${process.env.BACKEND}/players/${id}`, { ...updateItems })
-    .then((response) => {
-      console.log(`player ${id} updated.`);
-      res.status(200).json(response.data);
-    })
-    .catch((error) => {
-      console.log("failed at backend");
-      console.log(error);
-      res.status(500).send({
-        error,
-        message: "Failed at backend.",
-      });
-    });
+  (async () => {
+    try {
+      // Verify the player
+      // Get the id from hashid
+      const idRes = await axios.get(
+        `${process.env.BACKEND}/players/getid/${hashid}`
+      );
+      const validId = idRes.data;
+
+      // Verify the id
+      const isValidPlayer = validId === current.id;
+
+      // If the player info is not correct, abort the update
+      if (!isValidPlayer) res.status(400).send("INVALID PLAYER");
+
+      // Update the valid player's info
+      const response = await axios.put(
+        `${process.env.BACKEND}/players/${validId}`,
+        update
+      );
+
+      // Success
+      if (response.data) res.status(200).json(response.data);
+      // Fail
+      res.status(500).send("Update failed");
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  })();
 }

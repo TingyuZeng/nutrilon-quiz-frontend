@@ -1,4 +1,4 @@
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
   id: null,
@@ -28,6 +28,7 @@ const playerSlice = createSlice({
     },
     logout: (state) => {
       localStorage.removeItem("NUTRILON_PLAYER");
+      state = initialState;
     },
     sync: (state, action) => {
       // Verify the payload is valid

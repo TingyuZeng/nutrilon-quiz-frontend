@@ -20,15 +20,17 @@ export default function Home({ APPID, LANDINGURL }) {
       axios
         .get("/api/getPlayer", { params: { hashid } })
         .then((response) => {
+          console.log(response.data);
           dispatch(playerActions.sync(response.data));
           console.log("Received player info.");
           router.push("/landing");
         })
         .catch((error) => {
+          console.error(error);
           // If the hashid is invalid
           if (error.response.status === 404) {
-            localStorage.removeItem("NUTRILON_PLAYER");
-            router.replace("/");
+            dispatch(playerActions.logout());
+            router.reload();
           } else {
             console.log(error);
             logError({
@@ -39,7 +41,7 @@ export default function Home({ APPID, LANDINGURL }) {
         });
     }
 
-    // Getting userinfo from WeChat (scope: base)
+    // Getting userinfo from WeChat (scope: userinfo)
     else {
       console.log("getting open information from WeChat...");
       window.location.assign(
