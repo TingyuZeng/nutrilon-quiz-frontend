@@ -8,7 +8,9 @@ const Img = ({
   objectFit = "cover",
   imgClass,
   className = "",
+  blurDataURL = "",
 }) => {
+  const placeholder = blurDataURL ? "blur" : "empty";
   const imageComponent =
     !!width && !!height ? (
       <Image
@@ -17,6 +19,8 @@ const Img = ({
         width={width}
         height={height}
         className={imgClass}
+        placeholder={placeholder}
+        blurDataURL={blurDataURL}
       />
     ) : (
       <Image
@@ -25,6 +29,8 @@ const Img = ({
         layout="fill"
         objectFit={objectFit}
         className={imgClass}
+        placeholder={placeholder}
+        blurDataURL={blurDataURL}
       />
     );
 

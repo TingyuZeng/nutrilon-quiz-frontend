@@ -2,11 +2,12 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import styles from "../styles/Home.module.css";
+import classes from "../styles/Home.module.css";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../store/store";
 import logError from "../lib/logError";
+import Loader from "../component/ui/Loader/Loader";
 
 export default function Home({ APPID, LANDINGURL }) {
   const router = useRouter();
@@ -51,10 +52,9 @@ export default function Home({ APPID, LANDINGURL }) {
   }, []);
 
   return (
-    <>
-      <div>Loading...</div>
-      <div>Note: just show the loader here.</div>
-    </>
+    <div className={classes.bg}>
+      <Loader />
+    </div>
   );
 }
 

@@ -20,12 +20,13 @@
       //   overflow: hidden;
       //   box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
       //   transform: translateY(0px);
-      animation: float 6s ease-in-out infinite;
+
       border-radius: 50%;
 
       @for $i from 1 through 4 {
         &:nth-of-type(#{$i}) {
           top: ($i - 1) * 25% - 5%;
+          animation: float #{$i * 4}s ease-in-out #{$i * 0.2}s infinite;
 
           @if $i % 2 == 1 {
             left: $i * 2% - 5%;
