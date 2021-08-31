@@ -17,11 +17,6 @@
       position: absolute !important;
       width: 180px;
       height: 180px;
-      //   overflow: hidden;
-      //   box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
-      //   transform: translateY(0px);
-
-      border-radius: 50%;
 
       @for $i from 1 through 4 {
         &:nth-of-type(#{$i}) {
@@ -49,15 +44,15 @@
 
 @keyframes float {
   0% {
-    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.4);
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
     transform: translateY(0px);
   }
   50% {
-    box-shadow: 0 10px 15px 0px rgba(0, 0, 0, 0.2);
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
     transform: translateY(-5px);
   }
   100% {
-    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.4);
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
     transform: translateY(0px);
   }
 }
