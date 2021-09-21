@@ -80,16 +80,18 @@ const Landing = (props) => {
 
   return (
     <>
-      {!loaded && <LoaderDrop loaderProps={loaderProps} bgProps={bgProps} />}
+      <BgLanding bgProps={bgProps} />
+
+      {!loaded && <LoaderDrop loaderProps={loaderProps} />}
 
       {loaded && !synced && (
         <div>
           <div>player not found</div>
         </div>
       )}
+
       {loaded && synced && (
         <div>
-          <BgLanding />
           <div style={{ position: "absolute", bottom: "50px" }}>
             <div>nickname: {player.nickname}</div>
             <button onClick={testHandler.bind(null, "Alimama")}>
@@ -109,11 +111,11 @@ export default Landing;
 
 export const getStaticProps = async () => {
   const { base64: dropletBase64, img: dropletImg } = await getPlaiceholder(
-    "https://res.cloudinary.com/npc2021/image/upload/v1630414882/asset_droplet_97fae8690e.png"
+    "https://res.cloudinary.com/npc2021/image/upload/v1631799581/asset_droplet_97fae8690e.png"
   );
 
   const { base64: bgBase64, img: bgImg } = await getPlaiceholder(
-    "https://res.cloudinary.com/npc2021/image/upload/v1630077352/bg_landing_90a0720ec7.png"
+    "https://res.cloudinary.com/npc2021/image/upload/v1631793369/bg_landing_90a0720ec7.png"
   );
 
   return {

@@ -1,15 +1,13 @@
 import Img from "../Image/Img";
+import ProgressBar from "./ProgressBar";
 import classes from "./LoaderDrop.module.scss";
 
-const LoaderDrop = ({ loaderProps, bgProps }) => {
+const LoaderDrop = ({ loaderProps }) => {
   return (
-    <>
-      <div className={classes.text}>Loading</div>
-      <div className={classes.mask}>
-        <Img {...loaderProps} className={classes.loader} />
-      </div>
-      <Img {...bgProps} className={classes.bg} />
-    </>
+    <div className={classes.wrapper}>
+      <Img {...loaderProps} className={classes.loader} />
+      <ProgressBar />
+    </div>
   );
 };
 
