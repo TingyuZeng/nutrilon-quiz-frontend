@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../store/store";
 import logError from "../lib/logError";
 import Img from "../component/ui/Image/Img";
-import BgLanding from "../component/ui/Background/BgLanding";
+import Bg from "../component/ui/Background/Bg";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 
 const Landing = (props) => {
@@ -80,7 +80,7 @@ const Landing = (props) => {
 
   return (
     <>
-      <BgLanding bgProps={bgProps} />
+      <Bg bgProps={bgProps} />
 
       {!loaded && <LoaderDrop loaderProps={loaderProps} />}
 

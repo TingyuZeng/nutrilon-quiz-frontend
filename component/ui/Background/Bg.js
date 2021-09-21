@@ -1,6 +1,6 @@
 import shuffle from "../../../lib/shuffle";
 import Img from "../Image/Img";
-import classes from "./BgLanding.module.scss";
+import classes from "./Bg.module.scss";
 
 const levelProfiles = [
   "https://res.cloudinary.com/npc2021/image/upload/v1630080772/level_profile_1_6edcdecaa4.png",
@@ -18,7 +18,7 @@ const defaultBg = {
   type: "png",
 };
 
-const BgLanding = ({ bgProps = defaultBg }) => {
+const Bg = ({ bgProps = defaultBg }) => {
   delete bgProps.width;
   delete bgProps.height;
 
@@ -32,8 +32,6 @@ const BgLanding = ({ bgProps = defaultBg }) => {
     />
   ));
 
-  console.log(bgProps);
-
   return (
     // <div className={classes.wrapper}>
     //   <div className={classes.levels}>{levelBubbles}</div>
@@ -43,9 +41,9 @@ const BgLanding = ({ bgProps = defaultBg }) => {
     //   />
     // </div>
     <div className={classes.wrapper}>
-      <Img {...bgProps} className={classes.bg} />
+      <Img {...bgProps} className={classes.bg} objectFit="fill" />
     </div>
   );
 };
 
-export default BgLanding;
+export default Bg;
