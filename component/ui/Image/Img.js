@@ -1,4 +1,5 @@
 import Image from "next/image";
+import classes from "./Img.module.scss";
 
 const Img = ({
   src,
@@ -34,7 +35,9 @@ const Img = ({
       />
     );
 
-  return <div className={`img ${className}`}>{imageComponent}</div>;
+  return (
+    <div className={`${classes.wrapper} ${className}`}>{imageComponent}</div>
+  );
 };
 
 export default Img;

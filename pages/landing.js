@@ -8,6 +8,9 @@ import logError from "../lib/logError";
 import Img from "../component/ui/Image/Img";
 import Bg from "../component/ui/Background/Bg";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
+import AvatarScene from "../component/Avatar/AvatarScene";
+import Button from "../component/ui/Button/Button";
+import Header from "../component/ui/Header/Header";
 
 const Landing = (props) => {
   const { loaderProps, bgProps } = props;
@@ -90,17 +93,22 @@ const Landing = (props) => {
         </div>
       )}
 
-      {loaded && synced && (
-        <div>
-          <div style={{ position: "absolute", bottom: "50px" }}>
-            <div>nickname: {player.nickname}</div>
-            <button onClick={testHandler.bind(null, "Alimama")}>
-              Change your name to Alimama
-            </button>
-            <button onClick={testHandler.bind(null, lastNickname)}>
-              Change your name back
-            </button>
-          </div>
+      {loaded && synced && !player.avatar && <AvatarScene />}
+
+      {loaded && synced && player.avatar && (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "8% 0",
+            justifyContent: "space-between",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <Header>The game is under construction</Header>
+          <Img src={player.headimgurl} height={200} width={200} />
+          <Button>Thank you, {player.nickname}!</Button>
         </div>
       )}
     </>

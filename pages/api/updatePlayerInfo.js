@@ -16,6 +16,7 @@ export default function handler(req, res) {
 
   // Cannot update player id
   if ("id" in update) res.status(400).send("Cannot change id");
+
   // Verify the other update items
   const updateKeys = Object.keys(update);
   const validKeys = Object.keys(playerState);

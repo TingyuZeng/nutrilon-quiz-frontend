@@ -21,11 +21,11 @@ export const getStaticProps = async () => {
     bgLanding:
       "https://res.cloudinary.com/npc2021/image/upload/v1631793369/bg_landing_90a0720ec7.png",
     bgMom:
-      "https://res.cloudinary.com/npc2021/image/upload/v1632222979/bg_mom_2x_65bedb6ae0.png",
+      "https://res.cloudinary.com/npc2021/image/upload/v1632321460/bg_mom_2x_65bedb6ae0.png",
     bgDad:
-      "https://res.cloudinary.com/npc2021/image/upload/v1632222979/bg_dad_2x_e77a59ee5e.png",
+      "https://res.cloudinary.com/npc2021/image/upload/v1632321526/bg_dad_2x_e77a59ee5e.png",
     bgbaby:
-      "https://res.cloudinary.com/npc2021/image/upload/v1632222979/bg_baby_2x_1232d80d5d.png",
+      "https://res.cloudinary.com/npc2021/image/upload/v1632321500/bg_baby_2x_1232d80d5d.png",
   };
 
   const images = await Promise.all(
