@@ -2,9 +2,24 @@
 
 // Styling for rectangle buttons
 
-@mixin button-color($color) {
+@mixin button-convex($color) {
   box-shadow: inset 3px 3px 6px rgba(255, 255, 255, 0.8),
     inset -3px -3px 6px $color, 2px 2px 8px rgba(181, 181, 181, 0.8);
+}
+
+@mixin button-concave($color) {
+  box-shadow: inset -3px -3px 6px rgba(255, 255, 255, 0.8),
+    inset 3px 3px 6px $color, 2px 2px 8px rgba(181, 181, 181, 0.8);
+}
+
+@mixin create-shape($color) {
+  &.concave {
+    @include button-concave($color);
+  }
+
+  &.convex {
+    @include button-convex($color);
+  }
 }
 
 .btn {
@@ -24,28 +39,34 @@
 .gold {
   color: colors.$blue-dark;
   background: colors.gold(90);
-  @include button-color(colors.gold());
+  @include create-shape(colors.gold());
 }
 
 .blue {
   color: #fff;
   background: colors.$blue-dark;
-  @include button-color(colors.$blue-dark);
+  @include create-shape(colors.$blue-dark);
 }
 
-.large {
+.gray {
+  color: #fff;
+  background: colors.$gray;
+  @include create-shape(colors.$gray);
+}
+
+.l {
   min-width: 65%;
   min-height: 56px;
   font-size: 26px;
 }
 
-.middle {
+.m {
   min-width: 40%;
   min-height: 48px;
   font-size: 21px;
 }
 
-.small {
+.s {
   min-width: 25%;
   min-height: 32px;
   font-size: 15px;

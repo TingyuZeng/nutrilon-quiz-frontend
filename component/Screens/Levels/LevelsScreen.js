@@ -55,6 +55,7 @@ const LevelsScreen = (props) => {
             level={0}
             status={levels[0]}
             position={{ bottom: "0", left: "8%", transform: "translateY(40%)" }}
+            text="Zoetermeer"
           />
           <LevelRing
             level={1}
@@ -64,21 +65,24 @@ const LevelsScreen = (props) => {
               bottom: "175px",
               transform: "translateY(50%)",
             }}
+            text="Utrecht"
           />
           <LevelRing
             level={2}
             status={levels[2]}
             position={{ left: "3%", top: "80px" }}
+            text="Cuijk"
           />
           <LevelRing
             level={3}
             status={levels[3]}
             position={{ top: "-1%", right: "6%" }}
+            text="Amsterdam"
           />
         </section>
 
         <section className={classes.action}>
-          <Button />
+          <Button>即刻启程</Button>
         </section>
       </div>
     </>

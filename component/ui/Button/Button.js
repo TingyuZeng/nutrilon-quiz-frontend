@@ -1,18 +1,6 @@
 import classNames from "../../../lib/classNames";
 import classes from "./Button.module.scss";
 
-const COLORS = {
-  blue: classes.blue,
-  gold: classes.gold,
-  white: classes.white,
-};
-
-const SIZES = {
-  s: classes.small,
-  m: classes.middle,
-  l: classes.large,
-};
-
 const Button = (props) => {
   const {
     onClick = null,
@@ -20,14 +8,16 @@ const Button = (props) => {
     color = "gold",
     size = "l",
     className = "",
+    active = true,
   } = props;
 
   return (
     <button
       className={classNames(
         classes.btn,
-        COLORS[color] || classes.gold,
-        SIZES[size.toLowerCase()] || classes.large,
+        classes[color] || classes.gold,
+        classes[size] || classes.l,
+        active ? classes.convex : classes.concave,
         className
       )}
       onClick={onClick}

@@ -7,6 +7,12 @@
   align-items: center;
   transform-origin: center;
 
+  .btn {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(125%);
+  }
+
   .level {
     width: calc(100% - 24px);
     height: calc(100% - 24px);
@@ -35,11 +41,13 @@
 .inactive {
   width: 135px;
   height: 135px;
-  filter: grayscale(100%);
+  div {
+    filter: grayscale(100%);
+  }
   &::before {
     content: "";
     @extend ._ring-general;
-    background: linear-gradient(to right bottom, #ccf2fc, #8db8f4);
+    background: linear-gradient(to right bottom, #f1faff, #ebf4ff);
   }
 }
 
@@ -56,7 +64,11 @@
 .passed {
   width: 150px;
   height: 150px;
-  filter: sepia(0.6);
+
+  div {
+    filter: sepia(0.6) saturate(1.2);
+  }
+
   &::before {
     content: "";
     @extend ._ring-general;

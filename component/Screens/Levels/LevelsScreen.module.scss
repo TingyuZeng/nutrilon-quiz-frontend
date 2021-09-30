@@ -2,6 +2,7 @@
   max-height: 150px;
   width: 100%;
   position: fixed;
+  z-index: 10;
 }
 
 .content {
@@ -90,5 +91,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 32px auto;
+  margin-bottom: 64px;
+  padding-top: 64px;
 }

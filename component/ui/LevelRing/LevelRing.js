@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import classNames from "../../../lib/classNames";
+import Button from "../Button/Button";
+import ButtonCircle from "../Button/ButtonCircle";
 import Img from "../Image/Img";
 import classes from "./LevelRing.module.scss";
 
@@ -9,6 +11,11 @@ const LEVELCOVERS = [
   "https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_3_ff792ef78e.png",
   "https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_4_4d0a70795c.png",
 ];
+const COLORS = {
+  active: "blue",
+  inactive: "gray",
+  passed: "gold",
+};
 
 const LevelRing = ({
   src,
@@ -17,6 +24,7 @@ const LevelRing = ({
   position = {},
   className,
   size,
+  text,
 }) => {
   size =
     typeof size === "number"
@@ -30,6 +38,16 @@ const LevelRing = ({
       initial={{ width: size, height: size, ...position }}
     >
       <Img src={src ? src : LEVELCOVERS[level]} className={classes.level} />
+      {text && (
+        <Button
+          size="s"
+          color={COLORS[status]}
+          active={status === "active" ? true : false}
+          className={classes.btn}
+        >
+          {text}
+        </Button>
+      )}
     </motion.div>
   );
 };
