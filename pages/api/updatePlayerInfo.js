@@ -1,28 +1,29 @@
 import axios from "axios";
+import { errorHandler } from "../../lib/api/error-handler";
 import { initialState as playerState } from "../../store/playerSlice";
 
 export default function handler(req, res) {
   if (req.method !== "PUT") {
-    res.status(400).send("Invalid request method.");
+    return res.status(400).json("Invalid request method.");
   }
 
   // hashid must be included
   // it should be stored in localStorage
   const { hashid, current, update } = req.body;
 
-  if (!hashid) {
-    res.status(400).send("Hashid not found");
-  }
+  if (!hashid) return res.status(400).json({ message: "Hashid not found" });
 
   // Cannot update player id
-  if ("id" in update) res.status(400).send("Cannot change id");
+  if ("id" in update)
+    return res.status(400).json({ message: "Cannot change id" });
 
   // Verify the other update items
   const updateKeys = Object.keys(update);
   const validKeys = Object.keys(playerState);
   const mixedSet = new Set([...updateKeys, ...validKeys]);
   const isValid = mixedSet.size === validKeys.length;
-  if (!isValid) res.status(400).send("Invalid update");
+  if (!isValid)
+    return res.status(400).json({ message: "Invalid update request" });
 
   (async () => {
     try {
@@ -37,7 +38,7 @@ export default function handler(req, res) {
       const isValidPlayer = validId === current.id;
 
       // If the player info is not correct, abort the update
-      if (!isValidPlayer) res.status(400).send("INVALID PLAYER");
+      if (!isValidPlayer) throw "Invalid user";
 
       // Update the valid player's info
       const response = await axios.put(
@@ -46,11 +47,11 @@ export default function handler(req, res) {
       );
 
       // Success
-      if (response.data) res.status(200).json(response.data);
+      if (response.data) return res.status(200).json(response.data);
       // Fail
-      res.status(500).send("Update failed");
+      else throw "Connection failed";
     } catch (error) {
-      res.status(500).send(error);
+      errorHandler(error, res);
     }
   })();
 }

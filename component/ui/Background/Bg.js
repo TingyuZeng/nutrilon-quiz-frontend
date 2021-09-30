@@ -22,24 +22,7 @@ const Bg = ({ bgProps = defaultBg }) => {
   delete bgProps.width;
   delete bgProps.height;
 
-  const levelBubbles = shuffle(levelProfiles).map((src) => (
-    <Img
-      key={src}
-      src={src}
-      className={classes.bubble}
-      width={500}
-      height={500}
-    />
-  ));
-
   return (
-    // <div className={classes.wrapper}>
-    //   <div className={classes.levels}>{levelBubbles}</div>
-    //   <Img
-    //     src="https://res.cloudinary.com/npc2021/image/upload/v1631793369/bg_landing_90a0720ec7.png"
-    //     className={classes.bg}
-    //   />
-    // </div>
     <div className={classes.wrapper}>
       <Img {...bgProps} className={classes.bg} objectFit="fill" />
     </div>

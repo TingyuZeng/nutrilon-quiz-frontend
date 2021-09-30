@@ -1,7 +1,7 @@
 @function gold($deg: null) {
   @if type-of($deg) == "number" {
     @return linear-gradient(
-      "#{$deg}deg",
+      #{$deg}deg,
       rgba(255, 234, 150, 1) 0%,
       rgba(255, 234, 150, 1) 11%,
       rgba(255, 249, 209, 1) 27%,

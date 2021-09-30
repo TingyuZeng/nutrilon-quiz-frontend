@@ -1,4 +1,4 @@
-@use "../../styles/colors";
+@use "../../../styles/colors";
 
 .mirror {
   transform: scale(-1, 1);
@@ -31,7 +31,7 @@
   }
 
   .title {
-    margin-top: 6%;
+    margin-top: 32px;
     width: 75%;
     position: relative;
     left: 50%;

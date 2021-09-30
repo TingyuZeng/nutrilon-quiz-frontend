@@ -1,9 +1,10 @@
+import classNames from "../../../lib/classNames";
 import classes from "./ButtonCircle.module.scss";
 
-const ButtonCircle = ({ children, onClick = null }) => {
+const ButtonCircle = ({ className, children, onClick = null, src, alt }) => {
   return (
-    <button className={classes.btn} onClick={onClick}>
-      {children}
+    <button className={classNames(classes.btn, className)} onClick={onClick}>
+      {children || <img src={src} alt={alt} />}
     </button>
   );
 };

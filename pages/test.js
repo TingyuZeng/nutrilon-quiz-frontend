@@ -1,13 +1,39 @@
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { playerActions } from "../store/store";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import { getPlaiceholder } from "plaiceholder";
-import AvatarScene from "../component/Avatar/AvatarScene";
+import AvatarScreen from "../component/Screens/Avatar/AvatarScreen";
 import Bg from "../component/ui/Background/Bg";
 import Button from "../component/ui/Button/Button";
-import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 
 const Test = (props) => {
+  const router = useRouter();
+  const player = useSelector((state) => state.player);
+  const dispatch = useDispatch();
+  console.log(player);
+  useEffect(() => {
+    axios
+      .get("./api/getPlayer", {
+        params: {
+          hashid: localStorage.getItem("NUTRILON_PLAYER"),
+        },
+      })
+      .then((res) => {
+        dispatch(playerActions.sync(res.data));
+      });
+  }, []);
+
+  const clickHandler = () => {
+    router.push("/levels");
+  };
+
   return (
     <>
-      <AvatarScene />
+      <Bg />
+      <AvatarScreen />
+      {/* <Button onClick={clickHandler} /> */}
     </>
   );
 };

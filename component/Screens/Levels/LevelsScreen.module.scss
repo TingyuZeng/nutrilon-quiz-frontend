@@ -1,0 +1,94 @@
+.nav {
+  max-height: 150px;
+  width: 100%;
+  position: fixed;
+}
+
+.content {
+  margin-top: 150px;
+}
+
+.header {
+  padding: 32px 16px;
+
+  display: flex;
+  gap: 16px;
+
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    padding: 0.4em 0;
+    flex: 1;
+    background: none;
+    box-shadow: none;
+  }
+
+  button {
+    flex: 0 0 48px;
+  }
+}
+
+.side {
+  min-height: 36px;
+  position: relative;
+  left: -32px;
+
+  .btn {
+    padding-left: calc(32px + 1em);
+    padding-right: 1.5em;
+  }
+}
+
+.map {
+  position: relative;
+  pointer-events: none;
+  min-height: 500px;
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+
+  //   padding-top: 72.8%;
+
+  margin-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 5%;
+    bottom: 0;
+    right: 5%;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+    background-image: url("/bg-map-path.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+  }
+
+  * {
+    pointer-events: unset;
+  }
+
+  .path {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 5%;
+    right: 5%;
+    width: 80%;
+    height: auto;
+    z-index: -1;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.16));
+  }
+}
+
+.action {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 32px auto;
+}

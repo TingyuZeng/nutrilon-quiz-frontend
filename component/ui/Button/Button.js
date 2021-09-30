@@ -1,3 +1,4 @@
+import classNames from "../../../lib/classNames";
 import classes from "./Button.module.scss";
 
 const COLORS = {
@@ -21,12 +22,16 @@ const Button = (props) => {
     className = "",
   } = props;
 
-  const btnClass1 = COLORS[color];
-  const btnClass2 = SIZES[size.toLowerCase()];
-
-  const btnClasses = `${className} ${classes.btn} ${btnClass1} ${btnClass2}`;
   return (
-    <button className={btnClasses} onClick={onClick}>
+    <button
+      className={classNames(
+        classes.btn,
+        COLORS[color] || classes.gold,
+        SIZES[size.toLowerCase()] || classes.large,
+        className
+      )}
+      onClick={onClick}
+    >
       {children ? children : "确认"}
     </button>
   );

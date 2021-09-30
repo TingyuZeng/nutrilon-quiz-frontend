@@ -1,16 +1,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { playerActions } from "../../store/store";
+import { playerActions } from "../../../store/store";
 import axios from "axios";
-import useScreenSize from "../../hooks/useScreenSize";
+import useScreenSize from "../../../hooks/useScreenSize";
 
-import Bg from "../ui/Background/Bg";
-import Button from "../ui/Button/Button";
-import ButtonCircle from "../ui/Button/ButtonCircle";
-import Header from "../ui/Header/Header";
+import Bg from "../../ui/Background/Bg";
+import Button from "../../ui/Button/Button";
+import ButtonCircle from "../../ui/Button/ButtonCircle";
+import Header from "../../ui/Header/Header";
 
-import classes from "./AvatarScene.module.scss";
+import classes from "./AvatarScreen.module.scss";
 
 const BGS = [
   {
@@ -70,7 +70,7 @@ const AVATARS = [
 const SWIPE_THRESHOLD = 60000;
 const swipePower = (offset, velocity) => Math.abs(offset) * velocity;
 
-const AvatarScene = (props) => {
+const AvatarScreen = (props) => {
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
 
@@ -118,6 +118,7 @@ const AvatarScene = (props) => {
         update: { avatar: index },
       })
       .then((res) => {
+        console.log(res.data);
         dispatch(playerActions.sync(res.data));
         console.log(`player ${player.nickname} updated!`);
       })
@@ -129,7 +130,7 @@ const AvatarScene = (props) => {
   return (
     <>
       <AnimatePresence initial={false} custom={direction}>
-        <motion.div
+        <motion.section
           className={classes.background}
           key={page}
           variants={variants}
@@ -164,10 +165,10 @@ const AvatarScene = (props) => {
             // width={AVATARS[avatarIndex].width}
             // height={AVATARS[avatarIndex].height}
           />
-        </motion.div>
+        </motion.section>
       </AnimatePresence>
 
-      <div className={classes.console}>
+      <section className={classes.console}>
         <div className={classes.title}>
           <Header>玩家形象选择</Header>
           <div className={classes.paginate}>
@@ -189,9 +190,9 @@ const AvatarScene = (props) => {
           className={classes.confirm}
           onClick={selectAvatarHandler.bind(null, avatarIndex)}
         />
-      </div>
+      </section>
     </>
   );
 };
 
-export default AvatarScene;
+export default AvatarScreen;
