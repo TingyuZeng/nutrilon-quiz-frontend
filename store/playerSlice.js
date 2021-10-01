@@ -13,7 +13,7 @@ export const initialState = {
   score3: 0,
   score4: 0,
   scoreTotal: 0,
-  currentLevel: 1,
+  currentLevel: 0,
   life: 3,
   lastCertificateDate: null,
   certificates: [],

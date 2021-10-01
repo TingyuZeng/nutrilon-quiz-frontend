@@ -21,7 +21,7 @@ const LevelRing = ({
   src,
   level = 1,
   status = "active",
-  position = {},
+  custom = {},
   className,
   size,
   text,
@@ -35,7 +35,7 @@ const LevelRing = ({
   return (
     <motion.div
       className={classNames(classes.wrapper, classes[status], className)}
-      initial={{ width: size, height: size, ...position }}
+      initial={{ width: size, height: size, ...custom }}
     >
       <Img src={src ? src : LEVELCOVERS[level]} className={classes.level} />
       {text && (

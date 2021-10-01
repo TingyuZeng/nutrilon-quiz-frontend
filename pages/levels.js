@@ -18,6 +18,7 @@ const Levels = (props) => {
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
 
+  console.log(player);
   // console.log(player);
   // useEffect(() => {}, []);
 

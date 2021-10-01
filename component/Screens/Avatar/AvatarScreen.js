@@ -128,7 +128,7 @@ const AvatarScreen = (props) => {
   };
 
   return (
-    <>
+    <div className={classes.wrapper}>
       <AnimatePresence initial={false} custom={direction}>
         <motion.section
           className={classes.background}
@@ -191,7 +191,7 @@ const AvatarScreen = (props) => {
           onClick={selectAvatarHandler.bind(null, avatarIndex)}
         />
       </section>
-    </>
+    </div>
   );
 };
 

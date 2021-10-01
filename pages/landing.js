@@ -82,8 +82,6 @@ const Landing = (props) => {
 
   return (
     <>
-      <Bg bgProps={bgProps} />
-
       {!loaded && <LoaderDrop loaderProps={loaderProps} />}
 
       {loaded && !synced && (
@@ -95,6 +93,8 @@ const Landing = (props) => {
       {loaded && synced && !player.avatar && <AvatarScreen />}
 
       {loaded && synced && player.avatar && <LandingScreen />}
+
+      <Bg bgProps={bgProps} />
     </>
   );
 };

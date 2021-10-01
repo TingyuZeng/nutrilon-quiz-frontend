@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 
 import Button from "../../ui/Button/Button";
 import ButtonCircle from "../../ui/Button/ButtonCircle";
@@ -14,7 +12,7 @@ import { useSelector } from "react-redux";
 
 const LevelsScreen = (props) => {
   const player = useSelector((state) => state.player);
-  const currentLevelIndex = player.currentLevel - 1;
+  const currentLevelIndex = player.currentLevel;
   const levels = [0, 1, 2, 3].map((index) =>
     index < currentLevelIndex
       ? "passed"
@@ -54,13 +52,13 @@ const LevelsScreen = (props) => {
           <LevelRing
             level={0}
             status={levels[0]}
-            position={{ bottom: "0", left: "8%", transform: "translateY(40%)" }}
+            custom={{ bottom: "0", left: "8%", transform: "translateY(40%)" }}
             text="Zoetermeer"
           />
           <LevelRing
             level={1}
             status={levels[1]}
-            position={{
+            custom={{
               right: "10%",
               bottom: "175px",
               transform: "translateY(50%)",
@@ -70,13 +68,13 @@ const LevelsScreen = (props) => {
           <LevelRing
             level={2}
             status={levels[2]}
-            position={{ left: "3%", top: "80px" }}
+            custom={{ left: "3%", top: "80px" }}
             text="Cuijk"
           />
           <LevelRing
             level={3}
             status={levels[3]}
-            position={{ top: "-1%", right: "6%" }}
+            custom={{ top: "-1%", right: "6%" }}
             text="Amsterdam"
           />
         </section>
