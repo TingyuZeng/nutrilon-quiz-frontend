@@ -19,7 +19,6 @@ const Levels = (props) => {
   const dispatch = useDispatch();
 
   console.log(player);
-  // console.log(player);
   // useEffect(() => {}, []);
 
   return (
