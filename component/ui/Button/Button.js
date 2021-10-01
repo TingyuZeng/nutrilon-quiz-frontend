@@ -7,14 +7,17 @@ const Button = (props) => {
     children,
     color = "gold",
     size = "l",
+    type = "rect",
     className = "",
     active = true,
+    src,
+    alt,
   } = props;
 
   return (
     <button
       className={classNames(
-        classes.btn,
+        classes[type] || classes.rect,
         classes[color] || classes.gold,
         classes[size] || classes.l,
         active ? classes.convex : classes.concave,
@@ -22,7 +25,7 @@ const Button = (props) => {
       )}
       onClick={onClick}
     >
-      {children ? children : "确认"}
+      {children ? children : src ? <img src={src} alt={alt} /> : "确认"}
     </button>
   );
 };

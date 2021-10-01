@@ -7,7 +7,6 @@ import useScreenSize from "../../../hooks/useScreenSize";
 
 import Bg from "../../ui/Background/Bg";
 import Button from "../../ui/Button/Button";
-import ButtonCircle from "../../ui/Button/ButtonCircle";
 import Header from "../../ui/Header/Header";
 
 import classes from "./AvatarScreen.module.scss";
@@ -172,17 +171,24 @@ const AvatarScreen = (props) => {
         <div className={classes.title}>
           <Header>玩家形象选择</Header>
           <div className={classes.paginate}>
-            <ButtonCircle onClick={changePage(-1)}>
-              <img src="/icons/icon-angle-bracket.svg" alt="icon of previous" />
-            </ButtonCircle>
+            <Button
+              size="m"
+              color="blue"
+              type="circle"
+              src="/icons/icon-angle-bracket.svg"
+              alt="icon of previous"
+              onClick={changePage(-1)}
+            />
             <span>{BGS[avatarIndex].title}</span>
-            <ButtonCircle onClick={changePage(1)}>
-              <img
-                className={classes.mirror}
-                src="/icons/icon-angle-bracket.svg"
-                alt="icon of next"
-              />
-            </ButtonCircle>
+            <Button
+              className={classes.mirror}
+              src="/icons/icon-angle-bracket.svg"
+              alt="icon of next"
+              size="m"
+              color="blue"
+              type="circle"
+              onClick={changePage(1)}
+            />
           </div>
         </div>
 

@@ -2,32 +2,6 @@
   position: absolute !important;
 }
 
-.text {
-  @extend .absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  z-index: 10;
-
-  text-align: center;
-  font-size: 10vw;
-  font-family: "Staatliches";
-  text-transform: uppercase;
-  // -webkit-text-stroke: 2px #ffea96;
-  -webkit-text-fill-color: #204199;
-  text-shadow: 1px 1px rgba(255, 255, 255, 0.952);
-}
-
-@keyframes loading {
-  from {
-    bottom: 80vh;
-  }
-  to {
-    bottom: 0;
-  }
-}
-
 .wrapper {
   position: absolute;
   width: 100%;
@@ -39,48 +13,6 @@
 
   .loader {
     width: 60%;
-  }
-}
-
-.mask {
-  @extend .absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  animation: loading 3s ease-in-out infinite;
-
-  .loader {
-    top: 50vh;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
-
-    z-index: 5;
-
-    filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.15));
-  }
-}
-
-.bg {
-  @extend .absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-
-  z-index: -1;
-
-  &:before {
-    content: "";
-    @extend .absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 1;
+    min-height: 250px;
   }
 }

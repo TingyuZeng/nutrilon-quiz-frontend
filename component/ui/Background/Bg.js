@@ -1,13 +1,7 @@
+import { useEffect, useRef } from "react";
 import shuffle from "../../../lib/shuffle";
 import Img from "../Image/Img";
 import classes from "./Bg.module.scss";
-
-const levelProfiles = [
-  "https://res.cloudinary.com/npc2021/image/upload/v1630080772/level_profile_1_6edcdecaa4.png",
-  "https://res.cloudinary.com/npc2021/image/upload/v1630080784/level_profile_2_f96982efc1.png",
-  "https://res.cloudinary.com/npc2021/image/upload/v1630080794/level_profile_3_c867acb0ce.png",
-  "https://res.cloudinary.com/npc2021/image/upload/v1630080803/level_profile_4_6afe96a25c.png",
-];
 
 const defaultBg = {
   width: 750,
@@ -18,15 +12,18 @@ const defaultBg = {
   type: "png",
 };
 
-const Bg = ({ bgProps = defaultBg }) => {
-  delete bgProps.width;
-  delete bgProps.height;
+const Bg = ({ bgProps = defaultBg, stretch = true }) => {
+  if (stretch) {
+    bgProps.width = null;
+    bgProps.height = null;
+    bgProps.layout = "fill";
+    bgProps.objectFit = "fill";
+  } else {
+    bgProps.layout = null;
+    bgProps.objectPosition = "top";
+  }
 
-  return (
-    <div className={classes.wrapper}>
-      <Img {...bgProps} className={classes.bg} objectFit="fill" />
-    </div>
-  );
+  return <Img {...bgProps} className={classes.bg} data-background-image />;
 };
 
 export default Bg;

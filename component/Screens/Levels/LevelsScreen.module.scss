@@ -29,6 +29,12 @@
 
   button {
     flex: 0 0 48px;
+    width: 48px !important;
+    min-width: 48px !important;
+    max-width: 48px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
   }
 }
 

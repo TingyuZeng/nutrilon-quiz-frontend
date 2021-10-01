@@ -37,7 +37,12 @@ const LevelRing = ({
       className={classNames(classes.wrapper, classes[status], className)}
       initial={{ width: size, height: size, ...custom }}
     >
-      <Img src={src ? src : LEVELCOVERS[level]} className={classes.level} />
+      <Img
+        src={src ? src : LEVELCOVERS[level]}
+        className={classes.level}
+        layout="fill"
+        objectFit="cover"
+      />
       {text && (
         <Button
           size="s"

@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 
 import Button from "../../ui/Button/Button";
-import ButtonCircle from "../../ui/Button/ButtonCircle";
 import Header from "../../ui/Header/Header";
 import Img from "../../ui/Image/Img";
 
@@ -12,16 +11,17 @@ import { useSelector } from "react-redux";
 
 const LevelsScreen = (props) => {
   const player = useSelector((state) => state.player);
+
   const currentLevelIndex = player.currentLevel;
-  const levels = [0, 1, 2, 3].map((index) =>
-    index < currentLevelIndex
-      ? "passed"
-      : index === currentLevelIndex
-      ? "active"
-      : "inactive"
-  );
+  // const levels = [0, 1, 2, 3].map((index) =>
+  //   index < currentLevelIndex
+  //     ? "passed"
+  //     : index === currentLevelIndex
+  //     ? "active"
+  //     : "inactive"
+  // );
   // const levels = ["active", "inactive", "inactive", "inactive"];
-  // const levels = ["passed", "active", "inactive", "inactive"];
+  const levels = ["passed", "active", "inactive", "inactive"];
   // const levels = ["passed", "passed", "active", "inactive"];
   // const levels = ["passed", "passed", "passed", "active"];
 
@@ -31,13 +31,22 @@ const LevelsScreen = (props) => {
     <>
       <div className={classes.nav}>
         <section className={classes.header}>
-          <ButtonCircle
+          <Button
+            size="m"
+            color="blue"
+            type="circle"
             src="/icons/icon-angle-bracket.svg"
             alt="icon of previous"
             onClick={() => router.back()}
           />
           <Header className={classes.title}>选择参观景点</Header>
-          <ButtonCircle src="/icons/icon-me.svg" alt="icon of me" />
+          <Button
+            size="m"
+            color="blue"
+            type="circle"
+            src="/icons/icon-me.svg"
+            alt="icon of me"
+          />
         </section>
 
         <section className={classes.side}>

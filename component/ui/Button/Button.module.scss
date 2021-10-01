@@ -22,30 +22,66 @@
   }
 }
 
-.btn {
+._btn {
   outline: none;
   border: none;
-  border-radius: 100px;
-  padding: 0.6em 2em;
   font-weight: 600;
   text-align: center;
   letter-spacing: 0.08em;
 }
 
-.general {
-  @extend .btn;
+.rect {
+  // outline: none;
+  // border: none;
+  @extend ._btn;
+  border-radius: 100px;
+  padding: 0.6em 2em;
+  // font-weight: 600;
+  // text-align: center;
+  // letter-spacing: 0.08em;
+}
+
+.circle {
+  @extend ._btn;
+  position: relative;
+  border-radius: 50%;
+
+  // box-shadow: 0 0 4px rgba(0, 0, 0, 0.2),
+  //   inset 2px 2px 6px rgba(255, 255, 255, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .gold {
   color: colors.$blue-dark;
   background: colors.gold(90);
   @include create-shape(colors.gold());
+
+  &.circle {
+    background: colors.gold(135);
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 150%;
+      height: 150%;
+      border-radius: 50%;
+      background: red;
+      filter: blur(10px);
+    }
+  }
 }
 
 .blue {
   color: #fff;
   background: colors.$blue-dark;
   @include create-shape(colors.$blue-dark);
+
+  &.circle {
+    border: solid 4px colors.$blue-light;
+  }
 }
 
 .gray {
@@ -55,19 +91,43 @@
 }
 
 .l {
-  min-width: 65%;
-  min-height: 56px;
-  font-size: 26px;
+  &.rect {
+    min-width: 65%;
+    min-height: 56px;
+    font-size: 26px;
+  }
+
+  &.circle {
+    width: 56px;
+    height: 56px;
+    font-size: 30px;
+  }
 }
 
 .m {
-  min-width: 40%;
-  min-height: 48px;
-  font-size: 21px;
+  &.rect {
+    min-width: 40%;
+    min-height: 48px;
+    font-size: 21px;
+  }
+
+  &.circle {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
 }
 
 .s {
-  min-width: 25%;
-  min-height: 32px;
-  font-size: 15px;
+  &.rect {
+    min-width: 25%;
+    min-height: 32px;
+    font-size: 15px;
+  }
+
+  &.circle {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
 }
