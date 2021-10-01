@@ -1,15 +1,21 @@
 @use "../../../styles/colors";
 
-// Styling for rectangle buttons
-
+// Shadow Settings
 @mixin button-convex($color) {
-  box-shadow: inset 3px 3px 6px rgba(255, 255, 255, 0.8),
-    inset -3px -3px 6px $color, 2px 2px 8px rgba(181, 181, 181, 0.8);
+  &.rect {
+    box-shadow: inset 3px 3px 6px rgba(255, 255, 255, 0.8),
+      inset -3px -3px 6px darken($color, 30%),
+      2px 2px 8px rgba(181, 181, 181, 0.8);
+  }
+  &.circle {
+    box-shadow: inset 3px 3px 6px rgba(255, 255, 255, 0.8),
+      inset -3px -3px 6px darken($color, 30%);
+  }
 }
 
 @mixin button-concave($color) {
   box-shadow: inset -3px -3px 6px rgba(255, 255, 255, 0.8),
-    inset 3px 3px 6px $color, 2px 2px 8px rgba(181, 181, 181, 0.8);
+    inset 3px 3px 6px darken($color, 30%), 2px 2px 8px rgba(181, 181, 181, 0.8);
 }
 
 @mixin create-shape($color) {
@@ -22,6 +28,26 @@
   }
 }
 
+// Create a pseudo element underneath and blur it
+@mixin float($color) {
+  &::after {
+    content: "";
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: lighten(transparentize($color: $color, $amount: 0.5), 20%);
+    filter: blur(8px);
+  }
+}
+
+// Create text outline effect
+@mixin text-outline($color: white, $size: 1px, $blur: 0) {
+  text-shadow: $size $size $blur transparentize($color, 0.65),
+    $size * -1 $size $blur transparentize($color, 0.65),
+    $size $size * -1 $blur transparentize($color, 0.65),
+    $size * -1 $size * -1 $blur transparentize($color, 0.65);
+}
+
 ._btn {
   outline: none;
   border: none;
@@ -30,15 +56,12 @@
   letter-spacing: 0.08em;
 }
 
+// SHAPES
+
 .rect {
-  // outline: none;
-  // border: none;
   @extend ._btn;
   border-radius: 100px;
   padding: 0.6em 2em;
-  // font-weight: 600;
-  // text-align: center;
-  // letter-spacing: 0.08em;
 }
 
 .circle {
@@ -46,13 +69,15 @@
   position: relative;
   border-radius: 50%;
 
-  // box-shadow: 0 0 4px rgba(0, 0, 0, 0.2),
-  //   inset 2px 2px 6px rgba(255, 255, 255, 0.4);
-
   display: flex;
   justify-content: center;
   align-items: center;
+
+  // overflow: hidden;
+  padding: 0;
 }
+
+// COLORS
 
 .gold {
   color: colors.$blue-dark;
@@ -60,17 +85,8 @@
   @include create-shape(colors.gold());
 
   &.circle {
+    @include text-outline();
     background: colors.gold(135);
-    &::after {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      width: 150%;
-      height: 150%;
-      border-radius: 50%;
-      background: red;
-      filter: blur(10px);
-    }
   }
 }
 
@@ -80,7 +96,7 @@
   @include create-shape(colors.$blue-dark);
 
   &.circle {
-    border: solid 4px colors.$blue-light;
+    @include text-outline(colors.$gray);
   }
 }
 
@@ -90,6 +106,8 @@
   @include create-shape(colors.$gray);
 }
 
+// SIZES
+
 .l {
   &.rect {
     min-width: 65%;
@@ -98,9 +116,9 @@
   }
 
   &.circle {
-    width: 56px;
-    height: 56px;
-    font-size: 30px;
+    width: 64px;
+    height: 64px;
+    font-size: 32px;
   }
 }
 
@@ -129,5 +147,21 @@
     width: 32px;
     height: 32px;
     font-size: 18px;
+  }
+}
+
+// FLOATING EFFECT
+
+.float {
+  &.gold {
+    @include float(colors.gold());
+  }
+
+  &.blue {
+    @include float(colors.$blue-light);
+  }
+
+  &.gray {
+    @include float(colors.$gray);
   }
 }

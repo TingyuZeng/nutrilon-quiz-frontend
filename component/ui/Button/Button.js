@@ -10,6 +10,7 @@ const Button = (props) => {
     type = "rect",
     className = "",
     active = true,
+    float = false,
     src,
     alt,
   } = props;
@@ -21,6 +22,7 @@ const Button = (props) => {
         classes[color] || classes.gold,
         classes[size] || classes.l,
         active ? classes.convex : classes.concave,
+        float && classes.float,
         className
       )}
       onClick={onClick}

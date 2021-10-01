@@ -21,13 +21,10 @@ const Game = (props) => {
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
 
-  // console.log(player);
-  // console.log(player);
-  // useEffect(() => {}, []);
-
-  const [height, setHeight] = useState(600);
+  const [height, setHeight] = useState(1300);
 
   useEffect(() => {
+    // TODO API get questions or send user back
     setTimeout(() => {
       setLoaded(true);
     }, 2000);
@@ -53,7 +50,27 @@ const Game = (props) => {
           <Bg bgProps={bgProps} stretch={false} />
           <div style={{ height }}>
             <div style={{ margin: "50px" }}>
-              <Button type="circle" onClick={() => console.log("Hello World")}>
+              <Button
+                float
+                type="circle"
+                onClick={() => console.log("Hello World")}
+              >
+                10
+              </Button>
+              <Button
+                float
+                color="gray"
+                type="circle"
+                onClick={() => console.log("Hello World")}
+              >
+                1
+              </Button>
+              <Button
+                float
+                color="blue"
+                type="circle"
+                onClick={() => console.log("Hello World")}
+              >
                 1
               </Button>
             </div>
