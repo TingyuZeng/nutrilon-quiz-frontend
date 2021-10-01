@@ -1,5 +1,7 @@
 @use "../../../styles/colors";
 
+// MIXINS
+
 // Shadow Settings
 @mixin button-convex($color) {
   &.rect {
@@ -33,10 +35,29 @@
   &::after {
     content: "";
     position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+
     width: 150%;
     height: 150%;
-    background: lighten(transparentize($color: $color, $amount: 0.5), 20%);
+    background: lighten(transparentize($color, 0.5), 20%);
     filter: blur(8px);
+  }
+}
+
+// Create a ring
+// (WeChat browser renders border differently)
+@mixin ring($color) {
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+
+    width: 120%;
+    height: 120%;
+    background: transparentize($color, 0.5);
+    box-shadow: 2px 2px 8px rgba(181, 181, 181, 0.8);
   }
 }
 
@@ -85,7 +106,8 @@
   @include create-shape(colors.gold());
 
   &.circle {
-    @include text-outline();
+    // @include text-outline();
+    @include ring(colors.gold());
     background: colors.gold(135);
   }
 }
@@ -96,7 +118,8 @@
   @include create-shape(colors.$blue-dark);
 
   &.circle {
-    @include text-outline(colors.$gray);
+    @include ring(colors.$blue-light);
+    // @include text-outline(colors.$gray);
   }
 }
 
@@ -104,6 +127,10 @@
   color: #fff;
   background: colors.$gray;
   @include create-shape(colors.$gray);
+
+  &.circle {
+    @include ring(colors.$gray);
+  }
 }
 
 // SIZES

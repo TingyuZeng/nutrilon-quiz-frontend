@@ -49,12 +49,7 @@ const LevelsScreen = (props) => {
         </section>
 
         <section className={classes.side}>
-          <Button
-            size="s"
-            color="blue"
-            className={classes.btn}
-            onClick={() => router.push("/game")}
-          >
+          <Button size="s" color="blue" className={classes.btn}>
             游戏说明
           </Button>
         </section>
@@ -93,7 +88,7 @@ const LevelsScreen = (props) => {
         </section>
 
         <section className={classes.action}>
-          <Button>即刻启程</Button>
+          <Button onClick={() => router.push("/game")}>即刻启程</Button>
         </section>
       </div>
     </>

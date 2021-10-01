@@ -49,7 +49,14 @@ const Game = (props) => {
         <>
           <Bg bgProps={bgProps} stretch={false} />
           <div style={{ height }}>
-            <div style={{ margin: "50px" }}>
+            <div
+              style={{
+                // padding: "50px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "24px",
+              }}
+            >
               <Button
                 float
                 type="circle"
@@ -73,6 +80,9 @@ const Game = (props) => {
               >
                 1
               </Button>
+              <Button color="blue" type="circle" src=" " />
+              <Button color="gold" type="circle" src=" " />
+              <Button color="gray" type="circle" src=" " />
             </div>
           </div>
         </>
