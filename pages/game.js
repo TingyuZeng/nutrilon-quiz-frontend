@@ -1,17 +1,21 @@
 import { getPlaiceholder } from "plaiceholder";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../store/store";
 import logError from "../lib/logError";
 
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
+
 import Bg from "../component/ui/Background/Bg";
 import Button from "../component/ui/Button/Button";
 import LevelsScreen from "../component/Screens/Levels/LevelsScreen";
 import useScreenSize from "../hooks/useScreenSize";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
-import ButtonCircle from "../component/ui/Button/ButtonCircle";
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const Game = (props) => {
   const { loaderProps, bgProps } = props;
@@ -21,19 +25,32 @@ const Game = (props) => {
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
 
-  const [height, setHeight] = useState(1300);
-
   useEffect(() => {
     // TODO API get questions or send user back
     setTimeout(() => {
       setLoaded(true);
-    }, 2000);
+    }, 500);
   }, []);
 
   useEffect(() => {
+    if (!loaded) return;
+
     const bgEl = document.querySelector("[data-background-image]");
-    console.log(bgEl.getBoundingClientRect().height);
-    setHeight(bgEl.getBoundingClientRect().height);
+    document.querySelector("#__next").style.height = `${
+      bgEl.getBoundingClientRect().height
+    }px`;
+
+    const tween = gsap.to(window, {
+      duration: 2,
+      scrollTo: document.documentElement.scrollHeight,
+      ease: "power3.in",
+      delay: 0.35,
+    });
+
+    return () => {
+      document.querySelector("#__next").removeAttribute("style");
+      tween?.kill();
+    };
   }, [loaded]);
 
   return (
@@ -48,42 +65,36 @@ const Game = (props) => {
       {loaded && (
         <>
           <Bg bgProps={bgProps} stretch={false} />
-          <div style={{ height }}>
-            <div
-              style={{
-                // padding: "50px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "24px",
-              }}
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "24px",
+            }}
+          >
+            <Button float type="circle" onClick={() => router.push("/levels")}>
+              10
+            </Button>
+            <Button
+              float
+              color="gray"
+              type="circle"
+              onClick={() => console.log("Hello World")}
             >
-              <Button
-                float
-                type="circle"
-                onClick={() => console.log("Hello World")}
-              >
-                10
-              </Button>
-              <Button
-                float
-                color="gray"
-                type="circle"
-                onClick={() => console.log("Hello World")}
-              >
-                1
-              </Button>
-              <Button
-                float
-                color="blue"
-                type="circle"
-                onClick={() => console.log("Hello World")}
-              >
-                1
-              </Button>
-              <Button color="blue" type="circle" src=" " />
-              <Button color="gold" type="circle" src=" " />
-              <Button color="gray" type="circle" src=" " />
-            </div>
+              1
+            </Button>
+            <Button
+              float
+              color="blue"
+              type="circle"
+              onClick={() => console.log("Hello World")}
+            >
+              1
+            </Button>
+            <Button color="blue" type="circle" src=" " />
+            <Button color="gold" type="circle" src=" " />
+            <Button color="gray" type="circle" src=" " />
           </div>
         </>
       )}
