@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const initialState = {
   id: null,
@@ -31,21 +32,25 @@ const playerSlice = createSlice({
       state = initialState;
     },
     sync: (state, action) => {
-      // Verify the payload is valid
-      const validPayload = Object.keys(action.payload)
-        .filter((key) => key in initialState)
-        .reduce((obj, key) => {
-          obj[key] = action.payload[key];
-          return obj;
-        }, {});
-
-      const isValid = validPayload.length === initialState.length;
-      if (!isValid) {
-        console.log("Cannot sync the player info");
-        return;
-      }
-
       state = Object.assign(state, action.payload);
+    },
+    upload: (state, action) => {
+      // if (!verifyPayload(action.payload)) return;
+
+      const hashid = localStorage.getItem("NUTRILON_PLAYER");
+      axios
+        .put("/api/updatePlayerInfo", {
+          hashid,
+          current: state,
+          update: action.payload,
+        })
+        .then((res) => {
+          state = res.data;
+          console.log(`player ${state.nickname} updated!`);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     setAvatar: (state, action) => {
       // TODO: log error
@@ -66,3 +71,10 @@ const playerSlice = createSlice({
 });
 
 export default playerSlice;
+
+const verifyPayload = (payload) => {
+  if (typeof payload !== "object") return false;
+  const payloadKeys = Object.keys(payload);
+  const validKeys = payloadKeys.filter((key) => key in initialState);
+  return validKeys.length !== payloadKeys.length ? false : true;
+};

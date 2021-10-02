@@ -73,6 +73,8 @@ const AvatarScreen = (props) => {
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
 
+  console.log(player);
+
   //record current page and paginate direction
   const [[page, direction], setPage] = useState([0, 0]);
   const changePage = (newDirection) => {
@@ -109,21 +111,7 @@ const AvatarScreen = (props) => {
 
   // Selecting avatars
   const selectAvatarHandler = (index) => {
-    const hashid = localStorage.getItem("NUTRILON_PLAYER");
-    axios
-      .put("/api/updatePlayerInfo", {
-        hashid,
-        current: player,
-        update: { avatar: index },
-      })
-      .then((res) => {
-        console.log(res.data);
-        dispatch(playerActions.sync(res.data));
-        console.log(`player ${player.nickname} updated!`);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    dispatch(playerActions.upload({ avatar: index }));
   };
 
   return (
