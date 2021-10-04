@@ -11,6 +11,7 @@ const Button = (props) => {
     className = "",
     active = true,
     float = false,
+    ring = true,
     src,
     alt,
   } = props;
@@ -23,11 +24,12 @@ const Button = (props) => {
         classes[size] || classes.l,
         active ? classes.convex : classes.concave,
         float && classes.float,
+        ring && classes.ring,
         className
       )}
       onClick={onClick}
     >
-      {children ? children : src ? <img src={src} alt={alt} /> : "确认"}
+      {src ? <img src={src} alt={alt} /> : children ?? "确认"}
     </button>
   );
 };

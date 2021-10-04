@@ -4,7 +4,7 @@ import { initialState as playerState } from "../../store/playerSlice";
 
 export default function handler(req, res) {
   if (req.method !== "PUT") {
-    return res.status(400).json("Invalid request method.");
+    return res.status(400).json({ message: "Invalid method" });
   }
 
   // hashid must be included

@@ -1,0 +1,13 @@
+.btns {
+  position: absolute;
+  left: 16px;
+  bottom: 12.15%;
+  height: 57.69%;
+
+  width: calc(100% - 32px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}

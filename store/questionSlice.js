@@ -1,31 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const questions = [];
+
+for (let i = 0; i < 10; i += 1) {
+  questions[i] = {
+    id: i + 1,
+    question: "",
+    feedback: "",
+    answerA: "",
+    answerB: "",
+    answerC: "",
+    answerD: "",
+    correctAnswer: "",
+    media: {},
+  };
+}
+
 export const initialState = {
-  id: null,
-  openid: "",
-  hashid: "",
-  nickname: "",
-  avatar: null,
-  headimgurl: "",
-  shopurl: "",
-  score1: 0,
-  score2: 0,
-  score3: 0,
-  score4: 0,
-  scoreTotal: 0,
-  currentLevel: 0,
-  life: 3,
-  lastCertificateDate: null,
-  certificates: [],
+  id: 0,
+  levelInfo: "",
+  isActive: false,
+  openDate: "",
+  questions,
 };
 
-const playerSlice = createSlice({
-  name: "player",
+const questionSlice = createSlice({
+  name: "question",
   initialState,
   reducers: {
-    login: (state, action) => {
-      localStorage.setItem("NUTRILON_PLAYER", action.payload);
+    get: (state, action) => {
+      console.log(action);
+      const level = action.payload;
+      axios
+        .get("/api/getQuestions", { params: { level } })
+        .then((res) => {
+          state = res.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     logout: (state) => {
       localStorage.removeItem("NUTRILON_PLAYER");
@@ -65,11 +79,4 @@ const playerSlice = createSlice({
   },
 });
 
-export default playerSlice;
-
-const verifyPayload = (payload) => {
-  if (typeof payload !== "object") return false;
-  const payloadKeys = Object.keys(payload);
-  const validKeys = payloadKeys.filter((key) => key in initialState);
-  return validKeys.length !== payloadKeys.length ? false : true;
-};
+export default questionSlice;

@@ -107,8 +107,12 @@
 
   &.circle {
     // @include text-outline();
-    @include ring(colors.gold());
+
     background: colors.gold(135);
+
+    &.ring {
+      @include ring(colors.gold());
+    }
   }
 }
 
@@ -117,7 +121,7 @@
   background: colors.$blue-dark;
   @include create-shape(colors.$blue-dark);
 
-  &.circle {
+  &.circle.ring {
     @include ring(colors.$blue-light);
     // @include text-outline(colors.$gray);
   }
@@ -128,8 +132,18 @@
   background: colors.$gray;
   @include create-shape(colors.$gray);
 
-  &.circle {
+  &.circle.ring {
     @include ring(colors.$gray);
+  }
+}
+
+.white {
+  color: colors.$blue-dark;
+  background: colors.$gray-light;
+  @include create-shape(colors.$gray-light);
+
+  &.circle.ring {
+    @include ring(colors.$gray-light);
   }
 }
 

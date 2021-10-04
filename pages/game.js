@@ -14,6 +14,7 @@ import Button from "../component/ui/Button/Button";
 import LevelsScreen from "../component/Screens/Levels/LevelsScreen";
 import useScreenSize from "../hooks/useScreenSize";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
+import GameScreen from "../component/Screens/Game/GameScreen";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -32,26 +33,26 @@ const Game = (props) => {
     }, 500);
   }, []);
 
-  useEffect(() => {
-    if (!loaded) return;
+  // useEffect(() => {
+  //   if (!loaded) return;
 
-    const bgEl = document.querySelector("[data-background-image]");
-    document.querySelector("#__next").style.height = `${
-      bgEl.getBoundingClientRect().height
-    }px`;
+  //   const bgEl = document.querySelector("[data-background-image]");
+  //   document.querySelector("#__next").style.height = `${
+  //     bgEl.getBoundingClientRect().height
+  //   }px`;
 
-    const tween = gsap.to(window, {
-      duration: 2,
-      scrollTo: document.documentElement.scrollHeight,
-      ease: "power3.in",
-      delay: 0.35,
-    });
+  //   const tween = gsap.to(window, {
+  //     duration: 2,
+  //     scrollTo: document.documentElement.scrollHeight,
+  //     ease: "power3.in",
+  //     delay: 0.35,
+  //   });
 
-    return () => {
-      document.querySelector("#__next").removeAttribute("style");
-      tween?.kill();
-    };
-  }, [loaded]);
+  //   return () => {
+  //     document.querySelector("#__next").removeAttribute("style");
+  //     tween?.kill();
+  //   };
+  // }, [loaded]);
 
   return (
     <>
@@ -62,42 +63,7 @@ const Game = (props) => {
         </>
       )}
 
-      {loaded && (
-        <>
-          <Bg bgProps={bgProps} stretch={false} />
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "24px",
-            }}
-          >
-            <Button float type="circle" onClick={() => router.push("/levels")}>
-              10
-            </Button>
-            <Button
-              float
-              color="gray"
-              type="circle"
-              onClick={() => console.log("Hello World")}
-            >
-              1
-            </Button>
-            <Button
-              float
-              color="blue"
-              type="circle"
-              onClick={() => console.log("Hello World")}
-            >
-              1
-            </Button>
-            <Button color="blue" type="circle" src=" " />
-            <Button color="gold" type="circle" src=" " />
-            <Button color="gray" type="circle" src=" " />
-          </div>
-        </>
-      )}
+      {loaded && <GameScreen bgProps={bgProps} />}
     </>
   );
 };

@@ -32,3 +32,11 @@ body {
   position: relative;
   overflow-x: hidden !important;
 }
+
+[data-fixed] {
+  z-index: 20;
+  position: fixed;
+  width: 100%;
+  max-width: 500px;
+  overflow-x: hidden !important;
+}
