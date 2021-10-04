@@ -23,20 +23,10 @@ export default function handler(req, res) {
       // encrypt the answers
       const newQuestions = data.questions.map((question) => {
         const temp = JSON.parse(JSON.stringify(question));
-        const answers = {
-          answerA: temp.answerA,
-          answerB: temp.answerB,
-          answerC: temp.answerC,
-          answerD: temp.answerD,
-        };
-
-        for (const key in answers) {
-          if (answers[key].isCorrect)
-            temp.correctAnswer = hashCode(answers[key].answer);
-          answers[key] = answers[key].answer;
-        }
-
-        return { ...temp, ...answers };
+        temp.correctAnswer = hashCode(temp.answers[temp.correctAnswer]);
+        delete temp.answers.isCorrect;
+        delete temp.answers.answer;
+        return temp;
       });
 
       res.status(200).json({ ...data, questions: newQuestions });
