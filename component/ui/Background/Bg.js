@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import classNames from "../../../lib/classNames";
 import shuffle from "../../../lib/shuffle";
 import Img from "../Image/Img";
 import classes from "./Bg.module.scss";
@@ -12,7 +13,7 @@ const defaultBg = {
   type: "png",
 };
 
-const Bg = ({ bgProps = defaultBg, stretch = true }) => {
+const Bg = ({ bgProps = defaultBg, stretch = true, className }) => {
   if (stretch) {
     bgProps.width = null;
     bgProps.height = null;
@@ -23,7 +24,13 @@ const Bg = ({ bgProps = defaultBg, stretch = true }) => {
     bgProps.objectPosition = "top";
   }
 
-  return <Img {...bgProps} className={classes.bg} data-background-image />;
+  return (
+    <Img
+      {...bgProps}
+      className={classNames(classes.bg, className)}
+      data-background-image
+    />
+  );
 };
 
 export default Bg;

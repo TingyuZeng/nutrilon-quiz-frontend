@@ -147,6 +147,16 @@
   }
 }
 
+.red {
+  color: #fff;
+  background: colors.$red;
+  @include create-shape(colors.$red);
+
+  &.circle.ring {
+    @include ring(colors.$red);
+  }
+}
+
 // SIZES
 
 .l {
@@ -204,5 +214,9 @@
 
   &.gray {
     @include float(colors.$gray);
+  }
+
+  &.red {
+    @include float(colors.$red);
   }
 }

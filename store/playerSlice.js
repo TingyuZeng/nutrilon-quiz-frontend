@@ -7,7 +7,8 @@ export const initialState = {
   hashid: "",
   nickname: "",
   avatar: null,
-  headimgurl: "",
+  headimgurl:
+    "https://res.cloudinary.com/npc2021/image/upload/v1633443295/default_profile_image_3109ee6c17.jpg",
   shopurl: "",
   score1: 0,
   score2: 0,

@@ -9,8 +9,9 @@ import LifeCounter from "./LifeCounter";
 const GameConsole = (props) => {
   const router = useRouter();
   const player = useSelector((state) => state.player);
+  const game = useSelector((state) => state.game);
   const { life } = player;
-  const currentScore = player[`score${player.currentLevel + 1}`];
+  const { currentLevelScore } = game;
 
   return (
     <ClientOnlyPortal selector="[data-fixed]">
@@ -18,7 +19,10 @@ const GameConsole = (props) => {
         <div className={classes.bg}>
           <Button
             className={classes.profile}
-            src={player.headimgurl}
+            src={
+              player.headimgurl ||
+              "https://res.cloudinary.com/npc2021/image/upload/v1633443295/default_profile_image_3109ee6c17.jpg"
+            }
             color="white"
             type="circle"
             ring={false}
@@ -34,7 +38,7 @@ const GameConsole = (props) => {
 
             <div className={classes.control}>
               <Button color="white" type="circle" ring={false}>
-                {currentScore}
+                {currentLevelScore}
               </Button>
               <span className={classes.label}>能量值</span>
             </div>

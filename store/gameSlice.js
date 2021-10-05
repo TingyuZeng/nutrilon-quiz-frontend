@@ -21,7 +21,7 @@ for (let i = 0; i < 10; i += 1) {
 
 export const initialState = {
   questionList: {
-    level: 0,
+    level: -1,
     levelInfo: "",
     isActive: false,
     openDate: "",
@@ -34,7 +34,10 @@ export const initialState = {
     isAnswered: Array(10).fill(false),
     isCorrect: Array(10).fill(false),
   },
-  currentQuestion: 0,
+  currentQuestionIndex: 0,
+  currentLevelScore: 0,
+  startTime: 0,
+  endTime: 0,
 };
 
 export const getCurrentLevelQuestions = createAsyncThunk(
@@ -52,24 +55,23 @@ export const uploadCurrentLevelScores = createAsyncThunk(
   "question/uploadCurrentLevelScores",
   async (_, thunkAPI) => {
     const { game, player } = thunkAPI.getState();
-    const { questionList, answerList, currentQuestion } = game;
-    if (currentQuestion !== 10) throw "Game not finished!";
+    const { questionList, currentQuestionIndex, currentLevelScore } = game;
+    if (currentQuestionIndex !== 10) throw "Game not finished!";
 
-    const currentLevelTotalScore = answerList.scores.reducer(
-      (prev, curr) => prev + curr,
-      0
-    );
-    if (currentLevelTotalScore > 100 || currentLevelTotalScore < 0)
+    if (currentLevelScore > 100 || currentLevelScore < 0)
       throw "Invalid level score!";
 
-    const { scoreTotal } = player;
-    const newScoreTotal = scoreTotal + currentLevelTotalScore;
+    const { scoreTotal, currentLevel } = player;
+    const newLevel = currentLevel + 1;
+    if (newLevel > 3) throw "Available levels not found!";
+    const newScoreTotal = scoreTotal + currentLevelScore;
     if (newScoreTotal > 400 || newScoreTotal < 0) throw "Invalid total score!";
 
     const levelIndex = questionList.level;
     const update = {};
     update["scoreTotal"] = newScoreTotal;
-    update[`score${levelIndex + 1}`] = currentLevelTotalScore;
+    update[`score${levelIndex + 1}`] = currentLevelScore;
+    update["currentLevel"] = newLevel;
 
     const dispatch = thunkAPI.dispatch();
     return await dispatch(syncPlayerData(update));
@@ -80,25 +82,45 @@ const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    scoreCurrentQuestion: (state, action) => {
-      const { start, end, answer } = action.payload;
+    scorecurrentQuestionIndex: (state, action) => {
+      const answer = action.payload;
       if (!answer) return;
 
-      const index = state.currentQuestion;
+      state.endTime = Date.now();
+      let time = state.endTime - state.startTime;
+      if (time < 0) {
+        state.startTime = null;
+        state.endTime = null;
+        return;
+      } else if (time > MAX_TIME) time = MAX_TIME;
+
+      const index = state.currentQuestionIndex;
+      if (index > 9) return;
+
       state.answerList.playerAnswers[index] = answer;
       state.answerList.isAnswered[index] = true;
 
       const isCurrentCorrect =
         hashCode(answer) === state.answerList.correctAnswers[index];
+
       state.answerList.isCorrect[index] = isCurrentCorrect;
-      state.answerList.scores[index] = isCurrentCorrect
-        ? Math.round(
-            (Math.abs(end - start) / MAX_TIME) * (MAX_SCORE - MIN_SCORE)
-          )
+      const currentQuestionScore = isCurrentCorrect
+        ? Math.round(MAX_SCORE - ((MAX_SCORE - MIN_SCORE) / MAX_TIME) * time)
         : 0;
 
-      // when currentQuestion === 10, it means the player finishes the game
-      if (index < 10) state.currentQuestion++;
+      state.answerList.scores[index] = currentQuestionScore;
+      state.currentLevelScore += currentQuestionScore;
+
+      // when currentQuestionIndex === 10, it means the player finishes the game
+      if (index < 10) state.currentQuestionIndex++;
+    },
+    recordStartTime: (state) => {
+      state.endTime = 0;
+      state.startTime = Date.now();
+    },
+    resetStartTime: (state) => {
+      state.startTime = 0;
+      state.endTime = 0;
     },
     resetGame: (state) => (state = initialState),
   },

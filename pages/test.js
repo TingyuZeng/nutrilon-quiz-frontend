@@ -36,6 +36,13 @@ const Test = (props) => {
       <Bg />
       {/* <AvatarScreen /> */}
       <Button onClick={clickHandler} />
+      <Button
+        onClick={() => {
+          router.push("/game");
+        }}
+      >
+        to Game
+      </Button>
     </>
   );
 };
