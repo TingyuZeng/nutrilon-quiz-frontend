@@ -1,12 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { playerActions } from "../store/store";
+import { playerActions } from "../store/playerSlice";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { getPlaiceholder } from "plaiceholder";
 import AvatarScreen from "../component/Screens/Avatar/AvatarScreen";
 import Bg from "../component/ui/Background/Bg";
 import Button from "../component/ui/Button/Button";
+import { syncPlayerData } from "../store/playerSlice";
 
 const Test = (props) => {
   const router = useRouter();
@@ -21,19 +22,20 @@ const Test = (props) => {
         },
       })
       .then((res) => {
-        dispatch(playerActions.sync(res.data));
+        dispatch(playerActions.replacePlayerInfo(res.data));
       });
   }, []);
 
   const clickHandler = () => {
-    router.push("/levels");
+    // router.push("/levels");
+    dispatch(syncPlayerData({ nickname: "Tingyu" }));
   };
 
   return (
     <>
       <Bg />
-      <AvatarScreen />
-      {/* <Button onClick={clickHandler} /> */}
+      {/* <AvatarScreen /> */}
+      <Button onClick={clickHandler} />
     </>
   );
 };

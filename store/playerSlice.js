@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const initialState = {
@@ -20,6 +20,23 @@ export const initialState = {
   certificates: [],
 };
 
+// TODO?
+// const fetchPlayerData = createAsyncThunk();
+
+export const syncPlayerData = createAsyncThunk(
+  "player/syncPlayerData",
+  async (dataToBeUpdated, thunkAPI) => {
+    const hashid = localStorage.getItem("NUTRILON_PLAYER");
+    const { id } = thunkAPI.getState().player;
+    const res = await axios.put("/api/updatePlayerInfo", {
+      hashid,
+      id,
+      update: dataToBeUpdated,
+    });
+    return res.data;
+  }
+);
+
 const playerSlice = createSlice({
   name: "player",
   initialState,
@@ -31,41 +48,26 @@ const playerSlice = createSlice({
       localStorage.removeItem("NUTRILON_PLAYER");
       state = initialState;
     },
-    sync: (state, action) => {
+    replacePlayerInfo: (state, action) => {
       state = Object.assign(state, action.payload);
     },
-    upload: (state, action) => {
-      // if (!verifyPayload(action.payload)) return;
-
-      const hashid = localStorage.getItem("NUTRILON_PLAYER");
-      axios
-        .put("/api/updatePlayerInfo", {
-          hashid,
-          current: state,
-          update: action.payload,
-        })
-        .then((res) => {
-          state = res.data;
-          console.log(`player ${state.nickname} updated!`);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-    setScoreLevel: (state, action) => {
-      const level = state.currentLevel - 1;
-      const score = action.payload;
-
-      // TODO: log error
-      if (score > 100) return;
-
-      const scores = ["score1", "score2", "score3", "score4"];
-      state[scores[level]] = score;
-    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(syncPlayerData.pending, (state, action) => {
+      console.log(`trying to update player ${state.nickname}...`);
+    });
+    builder.addCase(syncPlayerData.fulfilled, (state, action) => {
+      state = action.payload;
+      console.log(`player ${state.nickname} updated!`);
+    });
+    builder.addCase(syncPlayerData.rejected, (state, action) => {
+      console.log(`player ${state.nickname} cannot be updated!`);
+    });
   },
 });
 
 export default playerSlice;
+export const playerActions = playerSlice.actions;
 
 const verifyPayload = (payload) => {
   if (typeof payload !== "object") return false;

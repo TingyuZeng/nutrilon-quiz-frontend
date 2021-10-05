@@ -9,7 +9,7 @@ export default function handler(req, res) {
 
   // hashid must be included
   // it should be stored in localStorage
-  const { hashid, current, update } = req.body;
+  const { hashid, id, update } = req.body;
 
   if (!hashid) return res.status(400).json({ message: "Hashid not found" });
 
@@ -35,7 +35,7 @@ export default function handler(req, res) {
       const validId = idRes.data;
 
       // Verify the id
-      const isValidPlayer = validId === current.id;
+      const isValidPlayer = validId === id;
 
       // If the player info is not correct, abort the update
       if (!isValidPlayer) throw "Invalid user";

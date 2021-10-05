@@ -1,15 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import playerSlice from "./playerSlice";
-import questionSlice from "./questionSlice";
+import gameSlice from "./gameSlice";
 
 const store = configureStore({
   reducer: {
     player: playerSlice.reducer,
-    question: questionSlice.reducer,
+    game: gameSlice.reducer,
   },
 });
 
 export default store;
-
-export const playerActions = playerSlice.actions;
-export const questionActions = questionSlice.actions;

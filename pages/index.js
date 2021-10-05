@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import classes from "../styles/Home.module.css";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { playerActions } from "../store/store";
+import { playerActions } from "../store/playerSlice";
 import logError from "../lib/logError";
 import Loader from "../component/ui/Loader/Loader";
 
@@ -22,7 +22,7 @@ export default function Home({ APPID, LANDINGURL }) {
         .get("/api/getPlayer", { params: { hashid } })
         .then((response) => {
           console.log(response.data);
-          dispatch(playerActions.sync(response.data));
+          dispatch(playerActions.replacePlayerInfo(response.data));
           console.log("Received player info.");
           router.push("/landing");
         })

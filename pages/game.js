@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { playerActions } from "../store/store";
+import { playerActions } from "../store/playerSlice";
 import logError from "../lib/logError";
 
 import { gsap } from "gsap";
@@ -32,27 +32,6 @@ const Game = (props) => {
       setLoaded(true);
     }, 500);
   }, []);
-
-  // useEffect(() => {
-  //   if (!loaded) return;
-
-  //   const bgEl = document.querySelector("[data-background-image]");
-  //   document.querySelector("#__next").style.height = `${
-  //     bgEl.getBoundingClientRect().height
-  //   }px`;
-
-  //   const tween = gsap.to(window, {
-  //     duration: 2,
-  //     scrollTo: document.documentElement.scrollHeight,
-  //     ease: "power3.in",
-  //     delay: 0.35,
-  //   });
-
-  //   return () => {
-  //     document.querySelector("#__next").removeAttribute("style");
-  //     tween?.kill();
-  //   };
-  // }, [loaded]);
 
   return (
     <>

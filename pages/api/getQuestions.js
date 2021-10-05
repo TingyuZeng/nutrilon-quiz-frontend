@@ -12,8 +12,6 @@ export default function handler(req, res) {
   if (!level || isNaN(index) || index < 0 || index > 3)
     return res.status(400).json({ message: "invalid level" });
 
-  console.log(`${process.env.BACKEND}/level-${index + 1}`);
-
   (async () => {
     try {
       const { data } = await axios.get(

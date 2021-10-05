@@ -10,6 +10,7 @@ import Button from "../../ui/Button/Button";
 import Header from "../../ui/Header/Header";
 
 import classes from "./AvatarScreen.module.scss";
+import { syncPlayerData } from "../../../store/playerSlice";
 
 const BGS = [
   {
@@ -111,7 +112,7 @@ const AvatarScreen = (props) => {
 
   // Selecting avatars
   const selectAvatarHandler = (index) => {
-    dispatch(playerActions.upload({ avatar: index }));
+    dispatch(syncPlayerData({ avatar: index }));
   };
 
   return (

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { playerActions } from "../store/store";
+import { playerActions } from "../store/playerSlice";
 import logError from "../lib/logError";
 
 import Bg from "../component/ui/Background/Bg";
@@ -18,29 +18,6 @@ const Landing = (props) => {
   const router = useRouter();
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
-
-  // For future reference - update player info
-  const testHandler = (name) => {
-    if (player.nickname !== "Alimama") {
-      setLastNickname(player.nickname);
-    }
-    const hashid = localStorage.getItem("NUTRILON_PLAYER");
-    axios
-      .put("/api/updatePlayerInfo", {
-        hashid,
-        current: player,
-        update: { nickname: name },
-      })
-      .then((res) => {
-        dispatch(playerActions.sync(res.data));
-        console.log(`player ${player.nickname} updated!`);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  // For fun
-  const [lastNickname, setLastNickname] = useState("");
 
   useEffect(() => {
     // If player info is present, just continue
@@ -65,7 +42,7 @@ const Landing = (props) => {
       // Store player data in Redux
       .then((res) => {
         console.log("response status 200");
-        dispatch(playerActions.sync(res.data));
+        dispatch(playerActions.replacePlayerInfo(res.data));
         dispatch(playerActions.login(res.data.hashid));
         setSynced(true);
         console.log("player data synced");
