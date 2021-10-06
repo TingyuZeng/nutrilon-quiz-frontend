@@ -4,7 +4,7 @@ import classNames from "../../../lib/classNames";
 import Button from "../../ui/Button/Button";
 import ClientOnlyPortal from "../../ui/ClientOnlyPortal/ClientOnlyPortal";
 import classes from "./GameConsole.module.scss";
-import LifeCounter from "./LifeCounter";
+import GameConsoleLifeCounter from "./GameConsoleLifeCounter";
 
 const GameConsole = (props) => {
   const router = useRouter();
@@ -31,7 +31,7 @@ const GameConsole = (props) => {
           <div className={classes.controls}>
             <div className={classes.control}>
               <Button color="white" type="circle" ring={false}>
-                <LifeCounter life={life} />
+                <GameConsoleLifeCounter life={life} />
               </Button>
               <span className={classes.label}>动力值</span>
             </div>

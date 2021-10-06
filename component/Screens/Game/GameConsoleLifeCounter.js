@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import classNames from "../../../lib/classNames";
 
-import classes from "./LifeCounter.module.scss";
+import classes from "./GameConsoleLifeCounter.module.scss";
 
-const LifeCounter = () => {
+const GameConsoleLifeCounter = () => {
   const { life } = useSelector((state) => state.player);
 
   return (
@@ -15,4 +15,4 @@ const LifeCounter = () => {
   );
 };
 
-export default LifeCounter;
+export default GameConsoleLifeCounter;

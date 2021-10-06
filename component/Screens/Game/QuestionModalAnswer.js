@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import classes from "./QuestionPanelAnswer.module.scss";
+import classes from "./QuestionModalAnswer.module.scss";
 import Button from "../../ui/Button/Button";
 import { gameActions } from "../../../store/gameSlice";
 import classNames from "../../../lib/classNames";
 
-const QuestionPanelAnswer = ({ answer, answerKey }) => {
+const QuestionModalAnswer = ({ answer, answerKey }) => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(false);
+
   const clickHandler = () => {
     setSelected((state) => !state);
   };
@@ -28,4 +29,4 @@ const QuestionPanelAnswer = ({ answer, answerKey }) => {
   );
 };
 
-export default QuestionPanelAnswer;
+export default QuestionModalAnswer;

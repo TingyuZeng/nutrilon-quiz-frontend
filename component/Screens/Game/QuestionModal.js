@@ -1,33 +1,36 @@
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { gameActions } from "../../../store/gameSlice";
+import { motion } from "framer-motion";
+
 import Bg from "../../ui/Background/Bg";
 import Button from "../../ui/Button/Button";
 import Img from "../../ui/Image/Img";
-import classes from "./QuestionPanel.module.scss";
-import QuestionPanelAnswer from "./QuestionPanelAnswer";
-import QuestionPanelQuestion from "./QuestionPanelQuestion";
+import QuestionModalAnswer from "./QuestionModalAnswer";
+import QuestionModalQuestion from "./QuestionModalQuestion";
+import { uiActions } from "../../../store/uiSlice";
+
+import classes from "./QuestionModal.module.scss";
+
 const temp =
   "https://res.cloudinary.com/npc2021/image/upload/v1633447448/nutricia_research_center_building_f753839aae.jpg";
 
-const QuestionPanel = (props) => {
+const QuestionModal = (props) => {
   const game = useSelector((state) => state.game);
   const dispatch = useDispatch();
   const { questionList, currentQuestionIndex } = game;
   const question = questionList.questions[currentQuestionIndex];
 
+  const hideQuestionModalHandler = () => {
+    dispatch(uiActions.hideQuestion());
+  };
+
   const optionEls = Object.entries(question.answers)
     .filter(([key, _]) => key !== "id")
     .map(([key, value]) => (
-      <QuestionPanelAnswer answer={value} answerKey={key} key={key + value} />
+      <QuestionModalAnswer answer={value} answerKey={key} key={key + value} />
     ));
 
-  useEffect(() => {
-    dispatch(gameActions.recordStartTime());
-  }, [dispatch, currentQuestionIndex]);
-
   return (
-    <div className={classes.screen}>
+    <motion.div className={classes.screen}>
       <Bg className={classes.bg} />
       <Img
         src={temp}
@@ -42,15 +45,15 @@ const QuestionPanel = (props) => {
         color="blue"
         src="/icons/icon-angle-bracket.svg"
         ring
-        onclick={null}
+        onClick={hideQuestionModalHandler}
       />
 
       <div className={classes.console}>
-        <QuestionPanelQuestion question={question.question} />
+        <QuestionModalQuestion question={question.question} />
         <ul className={classes.answers}>{optionEls}</ul>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-export default QuestionPanel;
+export default QuestionModal;

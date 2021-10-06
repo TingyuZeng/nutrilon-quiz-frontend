@@ -1,33 +1,39 @@
 import { useSelector, useDispatch } from "react-redux";
+import { uiActions } from "../../../store/uiSlice";
 
 import Button from "../../ui/Button/Button";
-import ClientOnlyPortal from "../../ui/ClientOnlyPortal/ClientOnlyPortal";
-import QuestionPanel from "./QuestionPanel";
-import classes from "./Questions.module.scss";
+import classes from "./GameQuestionMap.module.scss";
 
-const Questions = (props) => {
+const GameQuestionMap = (props) => {
   const game = useSelector((state) => state.game);
+  const dispatch = useDispatch();
   const { answerList, currentQuestionIndex } = game;
   const { isCorrect } = answerList;
 
   const questionBtns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].reverse().map((e) => {
     const index = e - 1;
     let color = "gray",
-      active = true;
+      active = true,
+      clickHandler = null;
     if (index === currentQuestionIndex) {
       color = "gold";
+      clickHandler = () => {
+        dispatch(uiActions.showQuestion());
+      };
     } else if (index < currentQuestionIndex) {
       active = false;
       color = isCorrect[index] ? "blue" : "red";
     }
+
     return (
       <Button
+        key={e}
+        className={classes[`btn-${e}`]}
         float
         type="circle"
         color={color}
         active={active}
-        key={e}
-        className={classes[`btn-${e}`]}
+        onClick={clickHandler}
       >
         {e}
       </Button>
@@ -36,12 +42,8 @@ const Questions = (props) => {
   return (
     <>
       <div className={classes.btns}>{questionBtns}</div>
-
-      <ClientOnlyPortal selector="[data-fixed]">
-        <QuestionPanel />
-      </ClientOnlyPortal>
     </>
   );
 };
 
-export default Questions;
+export default GameQuestionMap;

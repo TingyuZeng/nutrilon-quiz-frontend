@@ -2,16 +2,22 @@ import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 
-import Bg from "../../ui/Background/Bg";
-import Button from "../../ui/Button/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { gameActions } from "../../../store/gameSlice";
 
-import classes from "./GameScreen.module.scss";
-import Questions from "./Questions";
+import Bg from "../../ui/Background/Bg";
+import GameQuestionMap from "./GameQuestionMap";
 import GameConsole from "./GameConsole";
+import ClientOnlyPortal from "../../ui/ClientOnlyPortal/ClientOnlyPortal";
+import QuestionModal from "./QuestionModal";
 
 gsap.registerPlugin(ScrollToPlugin);
 
 const GameScreen = ({ bgProps }) => {
+  const ui = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
+
+  // Styling and animation
   useEffect(() => {
     const bgEl = document.querySelector("[data-background-image]");
     document.querySelector("#__next").style.height = `${
@@ -31,13 +37,27 @@ const GameScreen = ({ bgProps }) => {
     };
   }, []);
 
+  // show or hide the modal
+  useEffect(() => {
+    if (ui.questionModal) {
+      dispatch(gameActions.recordStartTime());
+    } else {
+      dispatch(gameActions.resetStartTime());
+    }
+  }, [dispatch, ui.questionModal]);
+
   return (
     <>
       <Bg bgProps={bgProps} stretch={false} />
 
-      <Questions />
+      <GameQuestionMap />
 
       <GameConsole />
+
+      <ClientOnlyPortal selector="[data-fixed]">
+        {ui.questionModal && <QuestionModal />}
+        {ui.feedbackModal && ""}
+      </ClientOnlyPortal>
     </>
   );
 };
