@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import classes from "./QuestionModalQuestion.module.scss";
 import QuestionModalQuestionTimer from "./QuestionModalQuestionTimer";
 

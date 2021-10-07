@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 
-import Bg from "../../ui/Background/Bg";
 import Button from "../../ui/Button/Button";
 import Img from "../../ui/Image/Img";
 import QuestionModalAnswer from "./QuestionModalAnswer";

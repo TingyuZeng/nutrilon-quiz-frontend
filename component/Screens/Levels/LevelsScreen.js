@@ -2,13 +2,12 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 import Button from "../../ui/Button/Button";
-import ButtonCircle from "../../ui/Button/ButtonCircle";
 import Header from "../../ui/Header/Header";
 import LevelRing from "../../ui/LevelRing/LevelRing";
 
 import classes from "./LevelsScreen.module.scss";
 
-const LevelsScreen = (props) => {
+const LevelsScreen = () => {
   const player = useSelector((state) => state.player);
 
   const currentLevelIndex = player.currentLevel;
@@ -19,10 +18,6 @@ const LevelsScreen = (props) => {
       ? "active"
       : "inactive"
   );
-  // const levels = ["active", "inactive", "inactive", "inactive"];
-  // const levels = ["passed", "active", "inactive", "inactive"];
-  // const levels = ["passed", "passed", "active", "inactive"];
-  // const levels = ["passed", "passed", "passed", "active"];
 
   const router = useRouter();
 

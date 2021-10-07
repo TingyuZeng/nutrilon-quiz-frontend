@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from "react-redux";
-import { gameActions } from "../../../store/gameSlice";
 import { uiActions } from "../../../store/uiSlice";
 
 import Button from "../../ui/Button/Button";

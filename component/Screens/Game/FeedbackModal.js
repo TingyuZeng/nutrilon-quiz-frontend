@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 import { uiActions } from "../../../store/uiSlice";
 import Bg from "../../ui/Background/Bg";
@@ -9,8 +8,7 @@ import { getBgProps } from "../../../lib/brandAssets";
 import Img from "../../ui/Image/Img";
 import Header from "../../ui/Header/Header";
 import Button from "../../ui/Button/Button";
-import { gameActions } from "../../../store/gameSlice";
-import hashCode from "../../../lib/hashCode";
+
 import classNames from "../../../lib/classNames";
 import FeedbackModalScore from "./FeedbackModalScore";
 
