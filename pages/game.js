@@ -21,6 +21,7 @@ import hashCode from "../lib/hashCode";
 gsap.registerPlugin(ScrollToPlugin);
 
 const Game = (props) => {
+  console.log(props);
   const { loaderProps, bgProps } = props;
   const [loaded, setLoaded] = useState(false);
   const router = useRouter();
@@ -46,7 +47,7 @@ const Game = (props) => {
         </>
       )}
 
-      {loaded && <GameScreen bgProps={bgProps} />}
+      {loaded && <GameScreen />}
     </>
   );
 };
@@ -55,13 +56,23 @@ export default Game;
 
 export const getStaticProps = async () => {
   const { base64: dropletBase64, img: dropletImg } = await getPlaiceholder(
-    "https://res.cloudinary.com/npc2021/image/upload/v1631799581/asset_droplet_97fae8690e.png"
+    "https://res.cloudinary.com/npc2021/image/upload/v1631799581/asset_droplet_97fae8690e.png",
+    { size: 10 }
   );
 
   const { base64: bgBase64, img: bgImg } = await getPlaiceholder(
-    "https://res.cloudinary.com/npc2021/image/upload/v1633101534/test_background_2x_e3d0411eca.png"
+    "https://res.cloudinary.com/npc2021/image/upload/v1633596736/bg_landing_90a0720ec7.png",
+    { size: 10 }
   );
 
+  const correctCard = await getPlaiceholder(
+    "https://res.cloudinary.com/npc2021/image/upload/v1633596096/bf_feedback_sky_blue_2x_e90b64d422.png",
+    { size: 10 }
+  );
+  const incorrectCard = await getPlaiceholder(
+    "https://res.cloudinary.com/npc2021/image/upload/v1633596096/bf_feedback_sky_gray_2x_fe594bd898.png",
+    { size: 10 }
+  );
   return {
     props: {
       loaderProps: {
@@ -72,6 +83,8 @@ export const getStaticProps = async () => {
         ...bgImg,
         blurDataURL: bgBase64,
       },
+      correctCard,
+      incorrectCard,
     },
   };
 };

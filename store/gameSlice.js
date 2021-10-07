@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import hashCode from "../lib/hashCode";
 import { syncPlayerData } from "./playerSlice";
+import { uiActions } from "./uiSlice";
 
 const MAX_TIME = 30 * 1000;
 const MAX_SCORE = 10;
@@ -32,7 +33,7 @@ export const initialState = {
     playerAnswers: Array(10).fill(""),
     scores: Array(10).fill(0),
     isAnswered: Array(10).fill(false),
-    isCorrect: Array(10).fill(false),
+    isCorrect: Array(10).fill(null),
   },
   currentQuestionIndex: 0,
   currentLevelScore: 0,
@@ -110,9 +111,10 @@ const gameSlice = createSlice({
 
       state.answerList.scores[index] = currentQuestionScore;
       state.currentLevelScore += currentQuestionScore;
-
+    },
+    goToNextQuestion: (state) => {
       // when currentQuestionIndex === 10, it means the player finishes the game
-      if (index < 10) state.currentQuestionIndex++;
+      if (state.currentQuestionIndex < 10) state.currentQuestionIndex++;
     },
     recordStartTime: (state) => {
       state.endTime = 0;

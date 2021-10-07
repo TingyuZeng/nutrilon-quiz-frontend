@@ -4,6 +4,7 @@ import classes from "./QuestionModalAnswer.module.scss";
 import Button from "../../ui/Button/Button";
 import { gameActions } from "../../../store/gameSlice";
 import classNames from "../../../lib/classNames";
+import { uiActions } from "../../../store/uiSlice";
 
 const QuestionModalAnswer = ({ answer, answerKey }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const QuestionModalAnswer = ({ answer, answerKey }) => {
   };
   const confirmHandler = () => {
     dispatch(gameActions.scorecurrentQuestionIndex(answer));
+    dispatch(uiActions.showFeedback());
   };
 
   return (

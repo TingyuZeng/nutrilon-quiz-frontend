@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 
@@ -10,11 +11,17 @@ import GameQuestionMap from "./GameQuestionMap";
 import GameConsole from "./GameConsole";
 import ClientOnlyPortal from "../../ui/ClientOnlyPortal/ClientOnlyPortal";
 import QuestionModal from "./QuestionModal";
+import FeedbackModal from "./FeedbackModal";
+import { getBgProps } from "../../../lib/brandAssets";
 
 gsap.registerPlugin(ScrollToPlugin);
 
-const GameScreen = ({ bgProps }) => {
+const GameScreen = (props) => {
   const ui = useSelector((state) => state.ui);
+  const { answerList, currentQuestionIndex } = useSelector(
+    (state) => state.game
+  );
+  const { isAnswered } = answerList;
   const dispatch = useDispatch();
 
   // Styling and animation
@@ -25,10 +32,9 @@ const GameScreen = ({ bgProps }) => {
     }px`;
 
     const tween = gsap.to(window, {
-      duration: 2,
+      duration: 1,
       scrollTo: document.documentElement.scrollHeight,
       ease: "power3.in",
-      delay: 0.35,
     });
 
     return () => {
@@ -37,7 +43,7 @@ const GameScreen = ({ bgProps }) => {
     };
   }, []);
 
-  // show or hide the modal
+  // start or reset the timer for scoring
   useEffect(() => {
     if (ui.questionModal) {
       dispatch(gameActions.recordStartTime());
@@ -46,17 +52,34 @@ const GameScreen = ({ bgProps }) => {
     }
   }, [dispatch, ui.questionModal]);
 
+  // handler to go to the next question or not
+  const goToNextQuestionHandler = () => {
+    if (currentQuestionIndex < 10 && isAnswered[currentQuestionIndex]) {
+      dispatch(gameActions.goToNextQuestion());
+    }
+  };
+
+  // end the game when the player finishes 10 questions
+  useEffect(() => {
+    if (currentQuestionIndex === 10) {
+      console.log("game finished!");
+      // TODO: UPLOAD USER GAME SCORES HERE
+    }
+  }, [currentQuestionIndex]);
+
   return (
     <>
-      <Bg bgProps={bgProps} stretch={false} />
+      <Bg bgProps={getBgProps("level1")} stretch={false} />
 
       <GameQuestionMap />
 
       <GameConsole />
 
       <ClientOnlyPortal selector="[data-fixed]">
-        {ui.questionModal && <QuestionModal />}
-        {ui.feedbackModal && ""}
+        <AnimatePresence onExitComplete={goToNextQuestionHandler}>
+          {ui.questionModal && <QuestionModal key="questionModal" />}
+          {ui.feedbackModal && <FeedbackModal key="feedbackModal" />}
+        </AnimatePresence>
       </ClientOnlyPortal>
     </>
   );

@@ -30,14 +30,20 @@ const QuestionModal = (props) => {
     ));
 
   return (
-    <motion.div className={classes.screen}>
-      <Bg className={classes.bg} />
+    <motion.div
+      className={classes.screen}
+      initial={{ y: "100vh" }}
+      animate={{ y: "0" }}
+      exit={{ y: "100vh" }}
+      transition={{ duration: 1, type: "tween", ease: "anticipate" }}
+    >
       <Img
         src={temp}
         className={classes.image}
         layout="fill"
         objectFit="cover"
       />
+
       <Button
         className={classes.backbtn}
         type="circle"

@@ -1,6 +1,9 @@
+import classNames from "../../../lib/classNames";
 import classes from "./Header.module.scss";
 
 const Header = ({ children, className }) => {
-  return <div className={`${classes.wrapper} ${className}`}>{children}</div>;
+  return (
+    <div className={classNames(classes.wrapper, className)}>{children}</div>
+  );
 };
 export default Header;

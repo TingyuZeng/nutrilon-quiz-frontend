@@ -1,19 +1,11 @@
 import { useEffect, useRef } from "react";
+import { getBgProps } from "../../../lib/brandAssets";
 import classNames from "../../../lib/classNames";
 import shuffle from "../../../lib/shuffle";
 import Img from "../Image/Img";
 import classes from "./Bg.module.scss";
 
-const defaultBg = {
-  width: 750,
-  height: 1624,
-  blurDataURL:
-    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAECAIAAAArjXluAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAJUlEQVQImWPIqW4saulh+Pzz17f//xku3Hv28tM3hqDEJAZOKQDrGA9imORcewAAAABJRU5ErkJggg==",
-  src: "https://res.cloudinary.com/npc2021/image/upload/v1631793369/bg_landing_90a0720ec7.png",
-  type: "png",
-};
-
-const Bg = ({ bgProps = defaultBg, stretch = true, className }) => {
+const Bg = ({ bgProps = getBgProps("default"), stretch = true, className }) => {
   if (stretch) {
     bgProps.width = null;
     bgProps.height = null;

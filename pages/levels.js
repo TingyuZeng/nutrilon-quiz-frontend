@@ -23,7 +23,7 @@ const Levels = (props) => {
 
   return (
     <>
-      <Bg bgProps={bgProps} />
+      <Bg />
       <LevelsScreen />
     </>
   );

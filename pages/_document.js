@@ -12,6 +12,7 @@ class MyDocument extends Document {
         <Head />
         <body>
           <div data-fixed />
+
           <Main />
           <NextScript />
         </body>

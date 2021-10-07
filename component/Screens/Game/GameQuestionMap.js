@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { gameActions } from "../../../store/gameSlice";
 import { uiActions } from "../../../store/uiSlice";
 
 import Button from "../../ui/Button/Button";
@@ -22,7 +23,11 @@ const GameQuestionMap = (props) => {
       };
     } else if (index < currentQuestionIndex) {
       active = false;
-      color = isCorrect[index] ? "blue" : "red";
+      color = isCorrect[index]
+        ? "blue"
+        : isCorrect[index] === false
+        ? "red"
+        : "gray";
     }
 
     return (
