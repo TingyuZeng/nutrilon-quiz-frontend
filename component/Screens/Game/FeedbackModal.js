@@ -39,6 +39,9 @@ const FeedbackModal = () => {
       <div className={classes.modal}>
         <motion.div
           className={classNames(classes.content, !result && classes.negative)}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, ease: "anticipate" }}
         >
           <Bg className={classes.bg} />
 
@@ -50,6 +53,14 @@ const FeedbackModal = () => {
             <div className={classes.info}>
               <Header className={classes.header}>能量值</Header>
               <FeedbackModalScore result={result} score={score} />
+              <Button
+                className={classes.exit}
+                type="circle"
+                color="blue"
+                size="m"
+                src="/icons/icon-x.svg"
+                onClick={hideModalsHandler}
+              />
             </div>
           </div>
 

@@ -21,7 +21,6 @@ import hashCode from "../lib/hashCode";
 gsap.registerPlugin(ScrollToPlugin);
 
 const Game = (props) => {
-  console.log(props);
   const { loaderProps, bgProps } = props;
   const [loaded, setLoaded] = useState(false);
   const router = useRouter();

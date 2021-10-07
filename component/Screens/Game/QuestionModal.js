@@ -13,7 +13,7 @@ import classes from "./QuestionModal.module.scss";
 const temp =
   "https://res.cloudinary.com/npc2021/image/upload/v1633447448/nutricia_research_center_building_f753839aae.jpg";
 
-const QuestionModal = (props) => {
+const QuestionModal = () => {
   const game = useSelector((state) => state.game);
   const dispatch = useDispatch();
   const { questionList, currentQuestionIndex } = game;

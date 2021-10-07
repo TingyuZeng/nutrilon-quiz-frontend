@@ -2,9 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import hashCode from "../lib/hashCode";
 import { syncPlayerData } from "./playerSlice";
-import { uiActions } from "./uiSlice";
 
-const MAX_TIME = 30 * 1000;
+const MAX_TIME = 15 * 1000;
 const MAX_SCORE = 10;
 const MIN_SCORE = 5;
 

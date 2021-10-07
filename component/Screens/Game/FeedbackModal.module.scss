@@ -50,7 +50,7 @@
         top: max(5%, 32px);
         left: 50%;
         transform: translateX(-50%);
-        width: fit-content;
+        width: 100%;
         margin: auto;
 
         display: flex;
@@ -58,8 +58,15 @@
         gap: 24px;
 
         .header {
+          width: fit-content;
+          margin: auto;
           color: #fff;
           background: colors.$blue-dark;
+        }
+
+        .exit {
+          position: absolute;
+          right: 24px;
         }
       }
     }
