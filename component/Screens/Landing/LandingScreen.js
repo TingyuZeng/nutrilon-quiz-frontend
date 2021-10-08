@@ -13,7 +13,9 @@ const LandingScreen = (props) => {
           <Button size="m">
             <Link href="/levels">开始游戏</Link>
           </Button>
-          <Button size="m">游戏说明</Button>
+          <Button size="m">
+            <Link href="/result">游戏说明</Link>
+          </Button>
         </div>
       </div>
 

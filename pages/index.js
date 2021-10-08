@@ -1,17 +1,19 @@
 import Head from "next/head";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import classes from "../styles/Home.module.css";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+
+import { useDispatch } from "react-redux";
 import { playerActions } from "../store/playerSlice";
+
 import logError from "../lib/logError";
 import Loader from "../component/ui/Loader/Loader";
 
+import classes from "../styles/Home.module.scss";
+
 export default function Home({ APPID, LANDINGURL }) {
   const router = useRouter();
-  const player = useSelector((state) => state.player);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

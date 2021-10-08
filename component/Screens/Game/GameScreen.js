@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
@@ -17,6 +18,8 @@ import { getBrandImage } from "../../../lib/brandAssets";
 gsap.registerPlugin(ScrollToPlugin);
 
 const GameScreen = (props) => {
+  const router = useRouter();
+
   const ui = useSelector((state) => state.ui);
   const { answerList, currentQuestionIndex } = useSelector(
     (state) => state.game
@@ -63,7 +66,10 @@ const GameScreen = (props) => {
   useEffect(() => {
     if (currentQuestionIndex === 10) {
       console.log("game finished!");
-      // TODO: UPLOAD USER GAME SCORES HERE
+      // TODO: UI NOTIFICATION
+
+      // Redirect the player to check the result
+      router.push("/result");
     }
   }, [currentQuestionIndex]);
 

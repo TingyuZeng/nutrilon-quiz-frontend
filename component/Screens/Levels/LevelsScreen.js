@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import Button from "../../ui/Button/Button";
 import Header from "../../ui/Header/Header";
+import Nav from "../../ui/Header/Nav";
 import LevelRing from "../../ui/LevelRing/LevelRing";
 
 import classes from "./LevelsScreen.module.scss";
@@ -23,32 +24,12 @@ const LevelsScreen = () => {
 
   return (
     <>
-      <div className={classes.nav}>
-        <section className={classes.header}>
-          <Button
-            size="m"
-            color="blue"
-            type="circle"
-            src="/icons/icon-angle-bracket.svg"
-            alt="icon of previous"
-            onClick={() => router.back()}
-          />
-          <Header className={classes.title}>选择参观景点</Header>
-          <Button
-            size="m"
-            color="blue"
-            type="circle"
-            src="/icons/icon-me.svg"
-            alt="icon of me"
-          />
-        </section>
-
-        <section className={classes.side}>
-          <Button size="s" color="blue" className={classes.btn}>
-            游戏说明
-          </Button>
-        </section>
-      </div>
+      <Nav
+        title="选择参观景点"
+        className={classes.title}
+        sideText="游戏说明"
+        sideHref="/manual"
+      />
 
       <div className={classes.content}>
         <section className={classes.map}>

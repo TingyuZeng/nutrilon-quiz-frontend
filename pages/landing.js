@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+
 import { useSelector, useDispatch } from "react-redux";
 import { playerActions } from "../store/playerSlice";
-import logError from "../lib/logError";
 
+import logError from "../lib/logError";
 import Bg from "../component/ui/Background/Bg";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 import AvatarScreen from "../component/Screens/Avatar/AvatarScreen";

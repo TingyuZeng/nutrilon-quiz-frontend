@@ -1,16 +1,14 @@
 import { getPlaiceholder } from "plaiceholder";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
-
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 
-import Bg from "../component/ui/Background/Bg";
+import { useSelector, useDispatch } from "react-redux";
+import { getCurrentLevelQuestions } from "../store/gameSlice";
 
+import Bg from "../component/ui/Background/Bg";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 import GameScreen from "../component/Screens/Game/GameScreen";
-import { getCurrentLevelQuestions } from "../store/gameSlice";
 
 gsap.registerPlugin(ScrollToPlugin);
 

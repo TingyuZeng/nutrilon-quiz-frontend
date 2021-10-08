@@ -11,42 +11,11 @@
   margin-top: 150px;
 }
 
-.header {
-  padding: 32px 16px;
-
-  display: flex;
-  gap: 16px;
-
-  justify-content: space-between;
-  align-items: center;
-
-  .title {
-    padding: 0.4em 0;
-    flex: 1;
-    background: none;
-    box-shadow: none;
-  }
-
-  button {
-    flex: 0 0 48px;
-    width: 48px !important;
-    min-width: 48px !important;
-    max-width: 48px !important;
-    height: 48px !important;
-    min-height: 48px !important;
-    max-height: 48px !important;
-  }
-}
-
-.side {
-  min-height: 36px;
-  position: relative;
-  left: -32px;
-
-  .btn {
-    padding-left: calc(32px + 1em);
-    padding-right: 1.5em;
-  }
+.title {
+  padding: 0.4em 0;
+  flex: 1;
+  background: none;
+  box-shadow: none;
 }
 
 .map {
