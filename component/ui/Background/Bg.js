@@ -1,11 +1,15 @@
 import { useEffect, useRef } from "react";
-import { getBgProps } from "../../../lib/brandAssets";
+import { getBrandImage } from "../../../lib/brandAssets";
 import classNames from "../../../lib/classNames";
 import shuffle from "../../../lib/shuffle";
 import Img from "../Image/Img";
 import classes from "./Bg.module.scss";
 
-const Bg = ({ bgProps = getBgProps("default"), stretch = true, className }) => {
+const Bg = ({
+  bgProps = getBrandImage("default"),
+  stretch = true,
+  className,
+}) => {
   if (stretch) {
     bgProps.width = null;
     bgProps.height = null;

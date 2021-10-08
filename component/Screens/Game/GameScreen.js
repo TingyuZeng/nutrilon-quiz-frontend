@@ -12,7 +12,7 @@ import GameConsole from "./GameConsole";
 import ClientOnlyPortal from "../../ui/ClientOnlyPortal/ClientOnlyPortal";
 import QuestionModal from "./QuestionModal";
 import FeedbackModal from "./FeedbackModal";
-import { getBgProps } from "../../../lib/brandAssets";
+import { getBrandImage } from "../../../lib/brandAssets";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -69,7 +69,7 @@ const GameScreen = (props) => {
 
   return (
     <>
-      <Bg bgProps={getBgProps("level1")} stretch={false} />
+      <Bg bgProps={getBrandImage("level1")} stretch={false} />
 
       <GameQuestionMap />
 

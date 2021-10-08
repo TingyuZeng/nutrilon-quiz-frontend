@@ -45,6 +45,17 @@
         z-index: -1;
       }
 
+      .bear {
+        position: absolute;
+        right: 0;
+        bottom: -16px;
+        width: 40%;
+
+        &.left {
+          left: 0;
+        }
+      }
+
       .info {
         position: absolute;
         top: max(5%, 32px);

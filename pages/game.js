@@ -15,7 +15,7 @@ import { getCurrentLevelQuestions } from "../store/gameSlice";
 gsap.registerPlugin(ScrollToPlugin);
 
 const Game = (props) => {
-  const { loaderProps } = props;
+  console.log(props);
   const [loaded, setLoaded] = useState(false);
 
   const game = useSelector((state) => state.game);
@@ -48,7 +48,7 @@ export default Game;
 
 export const getStaticProps = async () => {
   const { base64: dropletBase64, img: dropletImg } = await getPlaiceholder(
-    "https://res.cloudinary.com/npc2021/image/upload/v1631799581/asset_droplet_97fae8690e.png",
+    "https://res.cloudinary.com/npc2021/image/upload/v1633694487/ice_bear_6_2x_d602a7eb32.png",
     { size: 10 }
   );
 

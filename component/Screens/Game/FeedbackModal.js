@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "../../../store/uiSlice";
 import Bg from "../../ui/Background/Bg";
 import classes from "./FeedbackModal.module.scss";
-import { getBgProps } from "../../../lib/brandAssets";
+import { getBrandImage } from "../../../lib/brandAssets";
 import Img from "../../ui/Image/Img";
 import Header from "../../ui/Header/Header";
 import Button from "../../ui/Button/Button";
@@ -45,9 +45,14 @@ const FeedbackModal = () => {
 
           <div className={classes.scores}>
             <Img
-              {...getBgProps(result ? "correctModal" : "incorrectModal")}
+              {...getBrandImage(result ? "correctModal" : "incorrectModal")}
               className={classes.bgSky}
             />
+            <Img
+              {...getBrandImage(result ? "bear6" : "bear2")}
+              className={classNames(classes.bear, !result && classes.left)}
+            />
+
             <div className={classes.info}>
               <Header className={classes.header}>能量值</Header>
               <FeedbackModalScore result={result} score={score} />

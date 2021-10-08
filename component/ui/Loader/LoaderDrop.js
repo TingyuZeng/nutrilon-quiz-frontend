@@ -1,9 +1,9 @@
 import Img from "../Image/Img";
 import ProgressBar from "./ProgressBar";
 import classes from "./LoaderDrop.module.scss";
-import { getBgProps } from "../../../lib/brandAssets";
+import { getBrandImage } from "../../../lib/brandAssets";
 
-const LoaderDrop = ({ loaderProps = getBgProps("droplet") }) => {
+const LoaderDrop = ({ loaderProps = getBrandImage("droplet") }) => {
   return (
     <div className={classes.wrapper}>
       <Img
