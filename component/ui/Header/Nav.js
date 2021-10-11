@@ -19,7 +19,7 @@ const Nav = ({
   sideHref = "/manual",
 }) => {
   const router = useRouter();
-  if (!leftClickHandler) leftClickHandler = () => router.back();
+  if (!leftClickHandler) leftClickHandler = () => router.push("/landing");
   if (!rightClickHandler) rightClickHandler = () => router.push("/me");
 
   return (

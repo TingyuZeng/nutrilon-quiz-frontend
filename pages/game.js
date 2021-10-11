@@ -13,7 +13,6 @@ import GameScreen from "../component/Screens/Game/GameScreen";
 gsap.registerPlugin(ScrollToPlugin);
 
 const Game = (props) => {
-  console.log(props);
   const [loaded, setLoaded] = useState(false);
 
   const game = useSelector((state) => state.game);

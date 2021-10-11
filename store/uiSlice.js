@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { syncPlayerData } from "./playerSlice";
 
 const initialState = {
   questionModal: false,
   feedbackModal: false,
+  syncModal: false,
 };
 
 const uiSlice = createSlice({
@@ -20,6 +22,12 @@ const uiSlice = createSlice({
     },
     hideFeedback: (state) => {
       state.feedbackModal = false;
+    },
+    showSync: (state) => {
+      state.syncModal = true;
+    },
+    hideSync: (state) => {
+      state.syncModal = false;
     },
   },
 });

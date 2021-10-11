@@ -74,8 +74,6 @@ const AvatarScreen = (props) => {
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
 
-  console.log(player);
-
   //record current page and paginate direction
   const [[page, direction], setPage] = useState([0, 0]);
   const changePage = (newDirection) => {

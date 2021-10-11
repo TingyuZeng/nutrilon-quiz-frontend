@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import Button from "../../ui/Button/Button";
@@ -10,17 +11,21 @@ import classes from "./LevelsScreen.module.scss";
 
 const LevelsScreen = () => {
   const player = useSelector((state) => state.player);
-
-  const currentLevelIndex = player.currentLevel;
-  const levels = [0, 1, 2, 3].map((index) =>
-    index < currentLevelIndex
-      ? "passed"
-      : index === currentLevelIndex
-      ? "active"
-      : "inactive"
-  );
+  const [levels, setLevels] = useState([]);
 
   const router = useRouter();
+
+  useEffect(() => {
+    setLevels(
+      [0, 1, 2, 3].map((index) =>
+        index < player.currentLevel
+          ? "passed"
+          : index === player.currentLevel
+          ? "active"
+          : "inactive"
+      )
+    );
+  }, [player.currentLevel]);
 
   return (
     <>
@@ -64,7 +69,12 @@ const LevelsScreen = () => {
         </section>
 
         <section className={classes.action}>
-          <Button onClick={() => router.push("/game")}>即刻启程</Button>
+          {player.currentLevel !== 4 && (
+            <Button onClick={() => router.push("/game")}>即刻启程</Button>
+          )}
+          {player.currentLevel === 4 && (
+            <Button onClick={() => router.push("/me")}>领取证书</Button>
+          )}
         </section>
       </div>
     </>

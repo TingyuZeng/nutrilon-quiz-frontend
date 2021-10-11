@@ -9,6 +9,7 @@ export default function handler(req, res) {
 
   // hashid must be included
   // it should be stored in localStorage
+  console.log(req.body);
   const { hashid, id, update } = req.body;
 
   if (!hashid) return res.status(400).json({ message: "Hashid not found" });

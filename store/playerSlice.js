@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { uiActions } from "./uiSlice";
 
 export const initialState = {
   id: null,
@@ -21,9 +22,6 @@ export const initialState = {
   certificates: [],
 };
 
-// TODO?
-// const fetchPlayerData = createAsyncThunk();
-
 export const syncPlayerData = createAsyncThunk(
   "player/syncPlayerData",
   async (dataToBeUpdated, thunkAPI) => {
@@ -34,6 +32,9 @@ export const syncPlayerData = createAsyncThunk(
       id,
       update: dataToBeUpdated,
     });
+
+    console.log(res.data);
+
     return res.data;
   }
 );
