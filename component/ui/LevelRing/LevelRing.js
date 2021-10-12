@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import classNames from "../../../lib/classNames";
 import Button from "../Button/Button";
-import ButtonCircle from "../Button/ButtonCircle";
 import Img from "../Image/Img";
 import classes from "./LevelRing.module.scss";
 

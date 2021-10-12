@@ -27,8 +27,16 @@ const Test = (props) => {
   }, []);
 
   const clickHandler = () => {
-    // router.push("/levels");
-    dispatch(syncPlayerData({ nickname: "Tingyu" }));
+    const certifiedDate = Date();
+    dispatch(
+      syncPlayerData({
+        lastCertificateDate: certifiedDate,
+        certificates: [
+          ...player.certificates,
+          { date: certifiedDate, cohort: 1 },
+        ],
+      })
+    );
   };
 
   return (

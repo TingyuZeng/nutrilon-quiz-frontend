@@ -1,0 +1,131 @@
+@use "./colors";
+
+.nav {
+  position: relative;
+
+  .heading {
+    background: none;
+    box-shadow: none;
+  }
+}
+
+.info {
+  @extend ._section;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .profile {
+    width: 96px !important;
+    height: 96px !important;
+    overflow: hidden;
+
+    img {
+      width: 85%;
+      height: 85%;
+      border-radius: 50%;
+    }
+  }
+
+  .status {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+.asset {
+  @extend ._section;
+
+  .levels {
+    margin: 32px auto 72px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 24px;
+
+    .level {
+      width: 120px;
+      height: 120px;
+
+      flex: 1 0 auto;
+
+      position: relative !important;
+    }
+  }
+}
+
+.puzzle {
+  @extend ._section;
+
+  .badge {
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+
+    .btn {
+      z-index: 10;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0.6em 1em;
+    }
+
+    .avatar {
+      position: absolute;
+      bottom: 0;
+      transform-origin: bottom;
+    }
+
+    .mom {
+      transform: scale(0.45) translate(120%, 10%);
+    }
+
+    .dad {
+      transform: scale(0.5) translate(-50%, 10%);
+    }
+
+    .baby {
+      transform: scale(0.65) translateX(-50%);
+    }
+  }
+}
+
+.actions {
+  @extend ._section;
+
+  .danger {
+    margin-top: 0.8em;
+    color: colors.$orange;
+  }
+}
+
+._section {
+  margin: 16px 32px 32px;
+
+  h2 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+    color: colors.$blue-dark;
+    margin-bottom: 0.8em;
+  }
+
+  h3 {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 300;
+    color: colors.$gray;
+    margin-bottom: 1em;
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+    color: colors.$blue-dark;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+  }
+}

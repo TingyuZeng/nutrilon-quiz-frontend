@@ -4,7 +4,10 @@ import { syncPlayerData } from "./playerSlice";
 const initialState = {
   questionModal: false,
   feedbackModal: false,
-  syncModal: false,
+  notificationModal: false,
+  notificationText: "",
+  notificationQRCode: true,
+  notificationHandler: null,
 };
 
 const uiSlice = createSlice({
@@ -23,11 +26,18 @@ const uiSlice = createSlice({
     hideFeedback: (state) => {
       state.feedbackModal = false;
     },
-    showSync: (state) => {
-      state.syncModal = true;
+    showNotification: (state, action) => {
+      const { text, qrcode, handler } = action.payload;
+      state.notificationText = text;
+      state.notificationQRCode = !!qrcode;
+      state.notificationHandler = handler || null;
+      state.notificationModal = true;
     },
-    hideSync: (state) => {
-      state.syncModal = false;
+    hideNotification: (state) => {
+      state.notificationModal = false;
+      state.notificationText = "";
+      state.notificationQRCode = true;
+      state.notificationHandler = null;
     },
   },
 });

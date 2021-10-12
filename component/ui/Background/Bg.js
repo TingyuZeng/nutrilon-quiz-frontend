@@ -1,7 +1,5 @@
-import { useEffect, useRef } from "react";
 import { getBrandImage } from "../../../lib/brandAssets";
 import classNames from "../../../lib/classNames";
-import shuffle from "../../../lib/shuffle";
 import Img from "../Image/Img";
 import classes from "./Bg.module.scss";
 

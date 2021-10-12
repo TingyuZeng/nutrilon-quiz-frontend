@@ -14,7 +14,8 @@ import { playerActions, syncPlayerData } from "../store/playerSlice";
 import { uiActions } from "../store/uiSlice";
 import classes from "../styles/Result.module.scss";
 
-const Result = () => {
+const Result = ({ images }) => {
+  console.log(images);
   const [loaded, setLoaded] = useState(false);
 
   const router = useRouter();
@@ -177,22 +178,15 @@ export default Result;
 
 export const getStaticProps = async () => {
   const imagePaths = [
-    "https://res.cloudinary.com/npc2021/image/upload/v1633953078/badge_0_1dd164079a.png",
-    "https://res.cloudinary.com/npc2021/image/upload/v1633953079/badge_1_b858ba1d50.png",
-    "https://res.cloudinary.com/npc2021/image/upload/v1633953079/badge_2_f3bd7fc197.png",
-    "https://res.cloudinary.com/npc2021/image/upload/v1633953079/badge_3_5c141f3b95.png",
-    "https://res.cloudinary.com/npc2021/image/upload/v1633953079/badge_4_a8f021d107.png",
-    "https://res.cloudinary.com/npc2021/image/upload/v1633953079/badge_5_1c6df3b036.png",
+    "https://res.cloudinary.com/npc2021/image/upload/v1634043439/avatar_baby_s_3614a640c0.png",
+    "https://res.cloudinary.com/npc2021/image/upload/v1634043439/avatar_mom_s_df5ad37b3f.png",
+    "https://res.cloudinary.com/npc2021/image/upload/v1634043439/avatar_dad_s_08af861b0c.png",
   ];
   const images = await Promise.all(
     imagePaths.map(async (src, index) => {
       const { base64, img } = await getPlaiceholder(src, { size: 16 });
       return {
         ...img,
-        alt: `badge collected ${
-          (index / (imagePaths.length - 1)) * 100
-        }% percent`,
-        title: `badge ${index}`,
         blurDataURL: base64,
       };
     })

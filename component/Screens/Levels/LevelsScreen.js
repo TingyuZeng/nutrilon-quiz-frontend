@@ -42,7 +42,7 @@ const LevelsScreen = () => {
             level={0}
             status={levels[0]}
             custom={{ bottom: "0", left: "8%", transform: "translateY(40%)" }}
-            text="Zoetermeer"
+            text="祖特梅尔"
           />
           <LevelRing
             level={1}
@@ -52,19 +52,19 @@ const LevelsScreen = () => {
               bottom: "175px",
               transform: "translateY(50%)",
             }}
-            text="Utrecht"
+            text="乌得勒支"
           />
           <LevelRing
             level={2}
             status={levels[2]}
             custom={{ left: "3%", top: "80px" }}
-            text="Cuijk"
+            text="克伊克"
           />
           <LevelRing
             level={3}
             status={levels[3]}
             custom={{ top: "-1%", right: "6%" }}
-            text="Amsterdam"
+            text="阿姆斯特丹"
           />
         </section>
 
