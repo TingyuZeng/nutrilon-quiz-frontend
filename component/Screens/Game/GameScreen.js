@@ -14,6 +14,7 @@ import ClientOnlyPortal from "../../ui/ClientOnlyPortal/ClientOnlyPortal";
 import QuestionModal from "./QuestionModal";
 import FeedbackModal from "./FeedbackModal";
 import { getLevelMap } from "../../../lib/brandAssets";
+import useSSRLayoutEffect from "../../../hooks/useSSRLayoutEffect";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -29,7 +30,7 @@ const GameScreen = () => {
   const dispatch = useDispatch();
 
   // Styling and animation
-  useEffect(() => {
+  useSSRLayoutEffect(() => {
     const bgEl = document.querySelector("[data-background-image]");
     document.querySelector("#__next").style.height = `${
       bgEl.getBoundingClientRect().height
