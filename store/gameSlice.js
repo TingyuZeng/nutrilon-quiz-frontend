@@ -133,8 +133,6 @@ const gameSlice = createSlice({
         ({ correctAnswer }) => correctAnswer
       );
     });
-
-    //TODO: UI SLICE IF API FAILED
   },
 });
 

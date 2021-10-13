@@ -67,8 +67,6 @@ const GameScreen = () => {
   useEffect(() => {
     if (currentQuestionIndex === 10) {
       console.log("game finished!");
-      // TODO: UI NOTIFICATION
-
       // Redirect the player to check the result
       router.push("/result");
     }

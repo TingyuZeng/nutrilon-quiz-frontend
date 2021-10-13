@@ -67,9 +67,9 @@ const LevelRing = ({
     <motion.div
       className={classNames(classes.wrapper, classes[status], className)}
       variants={variants}
-      transition={float ? transition : notransition}
+      // transition={float ? transition : notransition}
       initial="initial"
-      animate={float ? "float" : "bycss"}
+      // animate={float ? "float" : "bycss"}
       onClick={status === "active" && !!onClick ? onClick : undefined}
     >
       <Img

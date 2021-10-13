@@ -3,9 +3,6 @@
 import axios from "axios";
 import hashCode from "../../lib/hashCode";
 
-// TODO
-// Specify each error, response with relevant http status code
-
 // get existing player info by hashid from db
 const getPlayerByHashid = async (hashid) => {
   console.log("getPlayerByHashid");
