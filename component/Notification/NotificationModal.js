@@ -20,7 +20,7 @@ const NotificationModal = () => {
   const router = useRouter();
   const containerRef = useRef(null);
 
-  if (!ui.notificationModal) return null;
+  if (!ui.notificationModal && !ui.syncModal) return null;
 
   if (ui.syncModal) {
     return (

@@ -21,6 +21,7 @@ const LandingScreen = (props) => {
 
       <div className={classes.levels}>
         <LevelRing
+          float
           size="42vw"
           active={true}
           custom={{
@@ -32,6 +33,7 @@ const LandingScreen = (props) => {
           src="https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_1_0c0bad1164.png"
         />
         <LevelRing
+          float
           size="52vw"
           active={true}
           custom={{
@@ -43,6 +45,7 @@ const LandingScreen = (props) => {
           src="https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_2_249f115968.png"
         />
         <LevelRing
+          float
           size="49vw"
           active={true}
           custom={{
@@ -54,6 +57,7 @@ const LandingScreen = (props) => {
           src="https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_3_ff792ef78e.png"
         />
         <LevelRing
+          float
           size="57vw"
           active={true}
           custom={{

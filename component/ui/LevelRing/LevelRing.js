@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import classNames from "../../../lib/classNames";
+import { getRandomFloat, getRandomInt } from "../../../lib/getRandomNumber";
 import Button from "../Button/Button";
 import Img from "../Image/Img";
 import classes from "./LevelRing.module.scss";
@@ -24,6 +25,8 @@ const LevelRing = ({
   className,
   size,
   text,
+  float = false,
+  onClick,
 }) => {
   size =
     typeof size === "number"
@@ -31,10 +34,38 @@ const LevelRing = ({
       : /\D/.test(size)
       ? size
       : `${size}px`;
+
+  const variants = {
+    initial: { width: size, height: size, ...custom },
+    float: {
+      filter: [
+        // `drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3))`,
+        null,
+        `drop-shadow(0 ${getRandomInt(10, 20)}px 15px rgba(0, 0, 0, 0.1));`,
+      ],
+      y: [null, -getRandomInt(-8, 8)],
+      x: [null, getRandomInt(-5, 5)],
+    },
+  };
+
+  const transition = {
+    repeat: Infinity,
+    duration: getRandomInt(3, 8),
+    delay: getRandomFloat(0, 3),
+    repeatType: "reverse",
+  };
+  const notransition = {
+    duration: 0,
+  };
+
   return (
     <motion.div
       className={classNames(classes.wrapper, classes[status], className)}
       initial={{ width: size, height: size, ...custom }}
+      variants={variants}
+      transition={float ? transition : notransition}
+      animate={float ? "float" : "initial"}
+      onClick={onClick}
     >
       <Img
         src={src ? src : LEVELCOVERS[level]}

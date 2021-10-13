@@ -11,7 +11,6 @@ import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 import { getBadge } from "../lib/brandAssets";
 import classNames from "../lib/classNames";
 import { playerActions, syncPlayerData } from "../store/playerSlice";
-import { uiActions } from "../store/uiSlice";
 import classes from "../styles/Result.module.scss";
 
 const Result = ({ images }) => {
