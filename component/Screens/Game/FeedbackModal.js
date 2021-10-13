@@ -33,7 +33,13 @@ const FeedbackModal = () => {
 
   return (
     <>
-      <div className={classes.backdrop} onClick={hideModalsHandler} />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, ease: "anticipate" }}
+        className={classes.backdrop}
+        onClick={hideModalsHandler}
+      />
       <div className={classes.modal}>
         <motion.div
           className={classNames(classes.content, !result && classes.negative)}

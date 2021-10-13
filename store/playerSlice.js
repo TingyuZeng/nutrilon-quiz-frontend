@@ -25,6 +25,9 @@ export const initialState = {
 export const syncPlayerData = createAsyncThunk(
   "player/syncPlayerData",
   async (dataToBeUpdated, thunkAPI) => {
+    const dispatch = thunkAPI.dispatch();
+    dispatch(uiActions.showSync());
+
     const hashid = localStorage.getItem("NUTRILON_PLAYER");
     const { id } = thunkAPI.getState().player;
     const res = await axios.put("/api/updatePlayerInfo", {
@@ -33,7 +36,7 @@ export const syncPlayerData = createAsyncThunk(
       update: dataToBeUpdated,
     });
 
-    console.log(res.data);
+    dispatch(uiActions.hideSync());
 
     return res.data;
   }
