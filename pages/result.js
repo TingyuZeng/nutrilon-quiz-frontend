@@ -10,6 +10,7 @@ import Img from "../component/ui/Image/Img";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 import { getBadge } from "../lib/brandAssets";
 import classNames from "../lib/classNames";
+import { gameActions } from "../store/gameSlice";
 import { playerActions, syncPlayerData } from "../store/playerSlice";
 import classes from "../styles/Result.module.scss";
 
@@ -38,8 +39,19 @@ const Result = ({ images }) => {
     level: 0,
   });
 
-  // Handler
-  const sync = () => {
+  // Handlers
+  const goToLanding = () => {
+    dispatch(gameActions.resetGame());
+    router.replace("/landing");
+  };
+
+  const goToMe = () => {
+    dispatch(gameActions.resetGame());
+    router.replace("/me");
+  };
+
+  // Syncing
+  useEffect(() => {
     if (isFinished && isPassed) {
       const dataToBeUpdated = {};
       dataToBeUpdated[`score${currentLevel + 1}`] = game.currentLevelScore;
@@ -49,17 +61,7 @@ const Result = ({ images }) => {
       dispatch(playerActions.replacePlayerInfo(dataToBeUpdated));
       dispatch(syncPlayerData(dataToBeUpdated));
     }
-  };
-
-  const goToLanding = () => {
-    sync();
-    router.replace("/landing");
-  };
-
-  const goToMe = () => {
-    sync();
-    router.replace("/me");
-  };
+  }, []);
 
   useEffect(() => {
     if (!isFinished)
@@ -123,6 +125,7 @@ const Result = ({ images }) => {
             leftIcon="/icons/icon-x.svg"
             leftAlt="icon of leaving the page"
             leftClickHandler={goToLanding}
+            rightClickHandler={goToMe}
           />
 
           <section className={classes.score__panel}>
