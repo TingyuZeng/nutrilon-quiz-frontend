@@ -39,7 +39,6 @@ const LevelRing = ({
     initial: {
       width: size,
       height: size,
-      filter: "drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2))",
       ...custom,
     },
     float: {
@@ -66,10 +65,10 @@ const LevelRing = ({
   return (
     <motion.div
       className={classNames(classes.wrapper, classes[status], className)}
-      variants={variants}
+      // variants={variants}
       // transition={float ? transition : notransition}
-      initial="initial"
       // animate={float ? "float" : "bycss"}
+      initial={{ width: size, height: size, ...custom }}
       onClick={status === "active" && !!onClick ? onClick : undefined}
     >
       <Img
