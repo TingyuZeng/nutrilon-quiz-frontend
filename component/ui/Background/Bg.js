@@ -7,6 +7,7 @@ const Bg = ({
   bgProps = getBrandImage("default"),
   stretch = true,
   className,
+  ...rest
 }) => {
   if (stretch) {
     bgProps.width = null;
@@ -23,6 +24,7 @@ const Bg = ({
       {...bgProps}
       className={classNames(classes.bg, className)}
       data-background-image
+      {...rest}
     />
   );
 };

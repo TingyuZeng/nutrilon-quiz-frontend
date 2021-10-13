@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
@@ -29,8 +29,10 @@ const GameScreen = () => {
   const { isAnswered } = answerList;
   const dispatch = useDispatch();
 
+  const [bgLoaded, setBgLoaded] = useState(false);
+
   // Styling and animation
-  useSSRLayoutEffect(() => {
+  useEffect(() => {
     const bgEl = document.querySelector("[data-background-image]");
     document.querySelector("#__next").style.height = `${
       bgEl.getBoundingClientRect().height
@@ -41,6 +43,8 @@ const GameScreen = () => {
       scrollTo: document.documentElement.scrollHeight,
       ease: "power3.in",
     });
+
+    setBgLoaded(true);
 
     return () => {
       document.querySelector("#__next").removeAttribute("style");
@@ -75,9 +79,15 @@ const GameScreen = () => {
 
   return (
     <>
-      <Bg bgProps={getLevelMap(currentLevel)} stretch={false} />
+      <Bg
+        bgProps={getLevelMap(currentLevel)}
+        stretch={false}
+        // onLoadingComplete={() => {
+        //   setBgLoaded(true);
+        // }}
+      />
 
-      <GameQuestionMap />
+      {bgLoaded && <GameQuestionMap />}
 
       <GameConsole />
 
