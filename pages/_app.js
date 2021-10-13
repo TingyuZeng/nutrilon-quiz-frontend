@@ -44,10 +44,6 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Head>
-        <script id="adobe-font" />
-      </Head>
-
       <Provider store={store}>
         <WeChatAuth>
           <ClientOnlyPortal selector="[data-notification]">

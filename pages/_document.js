@@ -9,7 +9,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <script id="adobe-font" />
+        </Head>
         <body>
           <div data-notification />
           <div data-fixed />
