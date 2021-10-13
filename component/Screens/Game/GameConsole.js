@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classNames from "../../../lib/classNames";
+import { uiActions } from "../../../store/uiSlice";
 import Button from "../../ui/Button/Button";
 import ClientOnlyPortal from "../../ui/ClientOnlyPortal/ClientOnlyPortal";
 import classes from "./GameConsole.module.scss";
@@ -12,6 +13,27 @@ const GameConsole = (props) => {
   const game = useSelector((state) => state.game);
   const { life } = player;
   const { currentLevelScore } = game;
+  const dispatch = useDispatch();
+
+  const goToMeHandler = () => {
+    dispatch(
+      uiActions.showNotification({
+        text: "您要退出游戏吗？您已消耗的1点动力值不会被自动恢复。",
+        qrcode: false,
+        handler: "goToMe",
+      })
+    );
+  };
+
+  const goBackHandler = () => {
+    dispatch(
+      uiActions.showNotification({
+        text: "您要退出游戏吗？您已消耗的1点动力值不会被自动恢复。",
+        qrcode: false,
+        handler: "goBack",
+      })
+    );
+  };
 
   return (
     <ClientOnlyPortal selector="[data-fixed]">
@@ -26,6 +48,7 @@ const GameConsole = (props) => {
             color="white"
             type="circle"
             ring={false}
+            onClick={goToMeHandler}
           />
 
           <div className={classes.controls}>
@@ -49,7 +72,7 @@ const GameConsole = (props) => {
                 color="white"
                 type="circle"
                 ring={false}
-                onClick={() => router.back()}
+                onClick={goBackHandler}
               />
             </div>
           </div>

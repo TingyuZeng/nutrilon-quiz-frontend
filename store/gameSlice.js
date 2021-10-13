@@ -105,7 +105,7 @@ const gameSlice = createSlice({
 
       state.answerList.isCorrect[index] = isCurrentCorrect;
       const currentQuestionScore = isCurrentCorrect
-        ? Math.round(MAX_SCORE - ((MAX_SCORE - MIN_SCORE) / MAX_TIME) * time)
+        ? Math.ceil(MAX_SCORE - ((MAX_SCORE - MIN_SCORE) / MAX_TIME) * time)
         : 0;
 
       state.answerList.scores[index] = currentQuestionScore;

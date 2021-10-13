@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { uiActions } from "./uiSlice";
 
+export const LIFE_INTERVAL = 30 * 60 * 1000;
+
 export const initialState = {
   id: null,
   openid: "",
@@ -18,6 +20,7 @@ export const initialState = {
   scoreTotal: 0,
   currentLevel: 0,
   life: 3,
+  lastGameAt: "",
   lastCertificateDate: null,
   certificates: [],
 };
@@ -37,6 +40,38 @@ export const syncPlayerData = createAsyncThunk(
     });
 
     dispatch(uiActions.hideSync());
+
+    return res.data;
+  }
+);
+
+export const startANewGame = createAsyncThunk(
+  "player/startANewGame",
+  async (_, thunkAPI) => {
+    const { life, id, lastGameAt } = thunkAPI.getState().player;
+
+    if (life === 0) throw "life = 0";
+
+    let newLife = 3,
+      newLastGameAt = "",
+      lastTime = 0;
+    if (lastGameAt) lastTime = Number(lastGameAt);
+    const currentTime = Date.now();
+
+    if (currentTime - lastTime >= LIFE_INTERVAL) {
+      newLife = life;
+      newLastGameAt = currentTime.toString();
+    } else {
+      newLife = life - 1;
+      newLastGameAt = lastTime.toString();
+    }
+
+    const hashid = localStorage.getItem("NUTRILON_PLAYER");
+    const res = await axios.put("/api/updatePlayerInfo", {
+      hashid,
+      id,
+      update: { life: newLife, lastGameAt: newLastGameAt },
+    });
 
     return res.data;
   }
@@ -66,7 +101,20 @@ const playerSlice = createSlice({
       console.log(`player ${state.nickname} updated!`);
     });
     builder.addCase(syncPlayerData.rejected, (state, action) => {
+      console.log(action.error);
       console.log(`player ${state.nickname} cannot be updated!`);
+    });
+    builder.addCase(startANewGame.pending, (state, action) => {
+      state.life--;
+      console.log(`player ${state.nickname} starting a new game...`);
+    });
+    builder.addCase(startANewGame.fulfilled, (state, action) => {
+      state = action.payload;
+      console.log(`player ${state.nickname} started a new game!`);
+    });
+    builder.addCase(startANewGame.rejected, (state, action) => {
+      console.log(action.error);
+      console.log(`player ${state.nickname} cannot start a new game!`);
     });
   },
 });

@@ -13,14 +13,15 @@ import GameConsole from "./GameConsole";
 import ClientOnlyPortal from "../../ui/ClientOnlyPortal/ClientOnlyPortal";
 import QuestionModal from "./QuestionModal";
 import FeedbackModal from "./FeedbackModal";
-import { getBrandImage } from "../../../lib/brandAssets";
+import { getLevelMap } from "../../../lib/brandAssets";
 
 gsap.registerPlugin(ScrollToPlugin);
 
-const GameScreen = (props) => {
+const GameScreen = () => {
   const router = useRouter();
 
   const ui = useSelector((state) => state.ui);
+  const { currentLevel } = useSelector((state) => state.player);
   const { answerList, currentQuestionIndex } = useSelector(
     (state) => state.game
   );
@@ -75,7 +76,7 @@ const GameScreen = (props) => {
 
   return (
     <>
-      <Bg bgProps={getBrandImage("level1")} stretch={false} />
+      <Bg bgProps={getLevelMap(currentLevel)} stretch={false} />
 
       <GameQuestionMap />
 

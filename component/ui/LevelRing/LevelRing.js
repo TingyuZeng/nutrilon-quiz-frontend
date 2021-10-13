@@ -26,7 +26,7 @@ const LevelRing = ({
   size,
   text,
   float = false,
-  onClick,
+  onClick = undefined,
 }) => {
   size =
     typeof size === "number"
@@ -36,16 +36,21 @@ const LevelRing = ({
       : `${size}px`;
 
   const variants = {
-    initial: { width: size, height: size, ...custom },
+    initial: {
+      width: size,
+      height: size,
+      filter: "drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2))",
+      ...custom,
+    },
     float: {
       filter: [
-        // `drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3))`,
         null,
         `drop-shadow(0 ${getRandomInt(10, 20)}px 15px rgba(0, 0, 0, 0.1));`,
       ],
       y: [null, -getRandomInt(-8, 8)],
       x: [null, getRandomInt(-5, 5)],
     },
+    bycss: {},
   };
 
   const transition = {
@@ -61,11 +66,11 @@ const LevelRing = ({
   return (
     <motion.div
       className={classNames(classes.wrapper, classes[status], className)}
-      initial={{ width: size, height: size, ...custom }}
       variants={variants}
       transition={float ? transition : notransition}
-      animate={float ? "float" : "initial"}
-      onClick={onClick}
+      initial="initial"
+      animate={float ? "float" : "bycss"}
+      onClick={status === "active" && !!onClick ? onClick : undefined}
     >
       <Img
         src={src ? src : LEVELCOVERS[level]}

@@ -35,6 +35,7 @@ body {
   overflow-x: hidden !important;
 }
 
+[data-notification],
 [data-fixed] {
   z-index: 20;
   position: fixed;
@@ -46,4 +47,8 @@ body {
   > * {
     pointer-events: auto;
   }
+}
+
+[data-notification] {
+  z-index: 30;
 }

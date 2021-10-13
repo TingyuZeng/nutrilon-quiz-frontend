@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { playerActions } from "../../store/playerSlice";
+import { playerActions, startANewGame } from "../../store/playerSlice";
 import { uiActions } from "../../store/uiSlice";
 
 import Bg from "../ui/Background/Bg";
@@ -46,6 +46,23 @@ const NotificationModal = () => {
     },
     close() {
       dispatch(uiActions.hideNotification());
+    },
+    goBack() {
+      dispatch(uiActions.hideNotification());
+      router.back();
+    },
+    goHome() {
+      dispatch(uiActions.hideNotification());
+      router.replace("/");
+    },
+    goToGame() {
+      dispatch(startANewGame());
+      dispatch(uiActions.hideNotification());
+      router.push("/game");
+    },
+    goToMe() {
+      dispatch(uiActions.hideNotification());
+      router.replace("/me");
     },
   };
 

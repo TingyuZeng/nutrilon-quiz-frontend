@@ -11,6 +11,7 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <body>
+          <div data-notification />
           <div data-fixed />
 
           <Main />

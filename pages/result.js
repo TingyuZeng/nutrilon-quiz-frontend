@@ -177,9 +177,10 @@ export default Result;
 
 export const getStaticProps = async () => {
   const imagePaths = [
-    "https://res.cloudinary.com/npc2021/image/upload/v1634043439/avatar_baby_s_3614a640c0.png",
-    "https://res.cloudinary.com/npc2021/image/upload/v1634043439/avatar_mom_s_df5ad37b3f.png",
-    "https://res.cloudinary.com/npc2021/image/upload/v1634043439/avatar_dad_s_08af861b0c.png",
+    "https://res.cloudinary.com/npc2021/image/upload/v1634124975/level_01_Zoetermeer_export_2x_1ced5c04c2.png",
+    "https://res.cloudinary.com/npc2021/image/upload/v1634124976/level_02_Utrecht_export_2x_b3b0a554c4.png",
+    "https://res.cloudinary.com/npc2021/image/upload/v1634124975/level_03_Cuijk_export_2x_81ce86a53c.png",
+    "https://res.cloudinary.com/npc2021/image/upload/v1634124975/level_04_Amsterdam_export_2x_ec0b433cf2.png",
   ];
   const images = await Promise.all(
     imagePaths.map(async (src, index) => {

@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <WeChatAuth>
-        <ClientOnlyPortal selector="[data-fixed]">
+        <ClientOnlyPortal selector="[data-notification]">
           <AnimatePresence>
             <NotificationModal />
           </AnimatePresence>
