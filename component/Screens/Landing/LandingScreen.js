@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Button from "../../ui/Button/Button";
+import Img from "../../ui/Image/Img";
 import LevelRing from "../../ui/LevelRing/LevelRing";
 
 import classes from "./LandingScreen.module.scss";
@@ -8,7 +9,12 @@ const LandingScreen = (props) => {
   return (
     <>
       <div className={classes.interaction}>
-        <h1>游戏开始界面</h1>
+        {/* <h1>游戏开始界面</h1> */}
+        <Img
+          src="https://res.cloudinary.com/npc2021/image/upload/v1634138351/title_2x_9f3274c7c1.png"
+          width={688}
+          height={368}
+        />
         <div className={classes.buttons}>
           <Button size="m">
             <Link href="/levels">开始游戏</Link>
