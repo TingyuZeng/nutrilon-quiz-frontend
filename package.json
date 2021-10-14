@@ -1,6 +1,7 @@
 {
   "name": "nutrilon-quiz-game",
   "version": "0.1.0",
+  "author": "Tingyu Zeng",
   "private": true,
   "scripts": {
     "dev": "next dev",
