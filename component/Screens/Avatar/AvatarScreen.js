@@ -1,8 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { playerActions } from "../../../store/store";
-import axios from "axios";
 import useScreenSize from "../../../hooks/useScreenSize";
 
 import Bg from "../../ui/Background/Bg";
@@ -10,7 +8,7 @@ import Button from "../../ui/Button/Button";
 import Header from "../../ui/Header/Header";
 
 import classes from "./AvatarScreen.module.scss";
-import { syncPlayerData } from "../../../store/playerSlice";
+import { playerActions, syncPlayerData } from "../../../store/playerSlice";
 
 const BGS = [
   {
@@ -111,6 +109,7 @@ const AvatarScreen = (props) => {
   // Selecting avatars
   const selectAvatarHandler = (index) => {
     dispatch(syncPlayerData({ avatar: index }));
+    dispatch(playerActions.replacePlayerInfo({ avatar: index }));
   };
 
   return (
