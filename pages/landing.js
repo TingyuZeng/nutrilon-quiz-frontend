@@ -14,6 +14,7 @@ import LandingScreen from "../component/Screens/Landing/LandingScreen";
 const Landing = (props) => {
   const [loaded, setLoaded] = useState(false);
   const [synced, setSynced] = useState(false);
+  const [isFirst, setIsFirst] = useState(false);
   const router = useRouter();
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
@@ -55,6 +56,11 @@ const Landing = (props) => {
         setLoaded(true);
       });
   }, []);
+
+  useEffect(() => {
+    if (!player.avatar) setIsFirst(true);
+    else setIsFirst(false);
+  }, [player.avatar]);
 
   return (
     <>
