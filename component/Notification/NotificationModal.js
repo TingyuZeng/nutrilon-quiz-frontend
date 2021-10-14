@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+import { getBrandImage } from "../../lib/brandAssets";
 import { playerActions, startANewGame } from "../../store/playerSlice";
 import { uiActions } from "../../store/uiSlice";
 
@@ -42,7 +43,7 @@ const NotificationModal = () => {
     logout() {
       dispatch(playerActions.logout());
       dispatch(uiActions.hideNotification());
-      router.replace("/");
+      router.replace("/logout");
     },
     close() {
       dispatch(uiActions.hideNotification());
@@ -111,7 +112,7 @@ const NotificationModal = () => {
           {ui.notificationQRCode && (
             <div className={classes.qrcode}>
               <Img
-                src="https://res.cloudinary.com/npc2021/image/upload/v1634054012/DEF_QR_code_9b0b26cd75.jpg"
+                {...getBrandImage("qrcode")}
                 objectFit="cover"
                 layout="fill"
               />

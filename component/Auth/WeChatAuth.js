@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const WeChatAuth = ({ children }) => {
@@ -7,12 +7,11 @@ const WeChatAuth = ({ children }) => {
   const player = useSelector((state) => state.player);
   useEffect(() => {
     if (
-      !player.id &&
-      router.pathname !== "/test" &&
-      router.pathname !== "/" &&
-      router.pathname !== "/landing"
+      player.id ||
+      ["/test", "/", "/landing", "/logout"].includes(router.pathname)
     )
-      router.push("/");
+      return;
+    else router.push("/");
   }, []);
   return <>{children}</>;
 };
