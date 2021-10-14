@@ -58,7 +58,7 @@ const Landing = (props) => {
   }, []);
 
   useEffect(() => {
-    if (!player.avatar) setIsFirst(true);
+    if (![0, 1, 2].includes(player.avatar)) setIsFirst(true);
     else setIsFirst(false);
   }, [player.avatar]);
 
@@ -72,9 +72,9 @@ const Landing = (props) => {
         </div>
       )}
 
-      {loaded && synced && !player.avatar && <AvatarScreen />}
+      {loaded && synced && isFirst && <AvatarScreen />}
 
-      {loaded && synced && player.avatar && <LandingScreen />}
+      {loaded && synced && !isFirst && <LandingScreen />}
 
       <Bg />
     </>
