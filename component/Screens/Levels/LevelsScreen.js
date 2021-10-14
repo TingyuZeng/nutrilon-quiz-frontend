@@ -1,5 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
+
 import { useDispatch, useSelector } from "react-redux";
 import { LIFE_INTERVAL, playerActions } from "../../../store/playerSlice";
 import { uiActions } from "../../../store/uiSlice";
@@ -9,6 +12,8 @@ import Nav from "../../ui/Header/Nav";
 import LevelRing from "../../ui/LevelRing/LevelRing";
 
 import classes from "./LevelsScreen.module.scss";
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const LevelsScreen = () => {
   const player = useSelector((state) => state.player);
@@ -44,6 +49,19 @@ const LevelsScreen = () => {
       )
     );
   }, [player.currentLevel]);
+
+  // scroll to bottom
+  useEffect(() => {
+    const tween = gsap.to(window, {
+      duration: 1,
+      delay: 0.5,
+      scrollTo: document.documentElement.scrollHeight,
+      ease: "power3.in",
+    });
+    return () => {
+      tween?.kill();
+    };
+  }, []);
 
   const startANewGameHandler = () => {
     if (player.life <= 0)
