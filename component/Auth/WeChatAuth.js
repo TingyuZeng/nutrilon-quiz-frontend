@@ -6,7 +6,12 @@ const WeChatAuth = ({ children }) => {
   const router = useRouter();
   const player = useSelector((state) => state.player);
   useEffect(() => {
-    if (!player.id && router.pathname !== "/test" && router.pathname !== "/")
+    if (
+      !player.id &&
+      router.pathname !== "/test" &&
+      router.pathname !== "/" &&
+      router.pathname !== "/landing"
+    )
       router.push("/");
   }, []);
   return <>{children}</>;
