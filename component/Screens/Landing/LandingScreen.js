@@ -9,7 +9,6 @@ const LandingScreen = (props) => {
   return (
     <>
       <div className={classes.interaction}>
-        {/* <h1>游戏开始界面</h1> */}
         <Img
           src="https://res.cloudinary.com/npc2021/image/upload/v1634138351/title_2x_9f3274c7c1.png"
           width={688}

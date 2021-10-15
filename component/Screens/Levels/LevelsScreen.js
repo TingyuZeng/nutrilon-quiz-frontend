@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 
@@ -21,6 +21,7 @@ const LevelsScreen = () => {
   const [levels, setLevels] = useState([]);
 
   const router = useRouter();
+  const btnRef = useRef(null);
 
   // Check player last game time
   useEffect(() => {
@@ -55,7 +56,7 @@ const LevelsScreen = () => {
     const tween = gsap.to(window, {
       duration: 1,
       delay: 0.5,
-      scrollTo: document.documentElement.scrollHeight,
+      scrollTo: btnRef.current,
       ease: "power3.in",
     });
     return () => {
@@ -127,7 +128,7 @@ const LevelsScreen = () => {
           />
         </section>
 
-        <section className={classes.action}>
+        <section className={classes.action} ref={btnRef}>
           {player.currentLevel !== 4 && (
             <Button onClick={startANewGameHandler}>即刻启程</Button>
           )}

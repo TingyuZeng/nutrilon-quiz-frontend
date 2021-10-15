@@ -35,7 +35,10 @@
   .buttons {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    // gap: 16px;
+    > button:first-of-type {
+      margin-bottom: 16px;
+    }
   }
 }
 
