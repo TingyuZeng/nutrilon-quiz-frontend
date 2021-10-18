@@ -74,8 +74,8 @@
   border: none;
   font-weight: 600;
   text-align: center;
-  // letter-spacing: 0.08em;
   letter-spacing: 1.28px;
+  letter-spacing: 0.08em;
 }
 
 // SHAPES
@@ -83,6 +83,7 @@
 .rect {
   @extend ._btn;
   border-radius: 100px;
+  padding: 10px 32px;
   padding: 0.6em 2em;
 }
 

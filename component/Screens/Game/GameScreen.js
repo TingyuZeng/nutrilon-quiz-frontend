@@ -14,7 +14,6 @@ import ClientOnlyPortal from "../../ui/ClientOnlyPortal/ClientOnlyPortal";
 import QuestionModal from "./QuestionModal";
 import FeedbackModal from "./FeedbackModal";
 import { getLevelMap } from "../../../lib/brandAssets";
-import useSSRLayoutEffect from "../../../hooks/useSSRLayoutEffect";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -79,13 +78,7 @@ const GameScreen = () => {
 
   return (
     <>
-      <Bg
-        bgProps={getLevelMap(currentLevel)}
-        stretch={false}
-        // onLoadingComplete={() => {
-        //   setBgLoaded(true);
-        // }}
-      />
+      <Bg bgProps={getLevelMap(currentLevel)} stretch={false} />
 
       {bgLoaded && <GameQuestionMap />}
 

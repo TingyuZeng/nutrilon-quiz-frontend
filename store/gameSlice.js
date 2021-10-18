@@ -15,7 +15,11 @@ for (let i = 0; i < 10; i += 1) {
     feedback: "",
     answers: { A: "", B: "", C: "", D: "" },
     correctAnswer: "",
-    media: {},
+    media: {
+      width: 0,
+      height: 0,
+      url: "",
+    },
   };
 }
 

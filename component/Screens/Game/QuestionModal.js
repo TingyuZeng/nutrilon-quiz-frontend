@@ -17,6 +17,7 @@ const QuestionModal = () => {
   const dispatch = useDispatch();
   const { questionList, currentQuestionIndex } = game;
   const question = questionList.questions[currentQuestionIndex];
+  const imageSrc = question.media?.url;
 
   const hideQuestionModalHandler = () => {
     dispatch(uiActions.hideQuestion());
@@ -37,7 +38,7 @@ const QuestionModal = () => {
       transition={{ duration: 1, type: "tween", ease: "anticipate" }}
     >
       <Img
-        src={temp}
+        src={imageSrc || temp}
         className={classes.image}
         layout="fill"
         objectFit="cover"
