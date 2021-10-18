@@ -29,7 +29,7 @@
 
   .status {
     display: flex;
-    gap: 32px;
+    // gap: 32px;
     justify-content: center;
     flex-wrap: wrap;
   }
@@ -42,9 +42,11 @@
     margin: 32px auto 72px;
     display: flex;
     flex-wrap: nowrap;
-    gap: 24px;
+    // gap: 24px;
 
     .level {
+      margin-right: 24px;
+
       width: 120px;
       height: 120px;
 

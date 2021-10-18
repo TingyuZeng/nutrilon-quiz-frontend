@@ -14,7 +14,11 @@
 
   .digits {
     display: flex;
-    gap: 16px;
+    // gap: 16px;
+
+    & > span:not(:last-of-type) {
+      margin-right: 16px;
+    }
 
     span {
       font-size: 40px;

@@ -10,7 +10,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 16px;
+  // gap: 16px;
 
   border: solid 3px colors.$gray-dark;
   border-radius: 12px;
@@ -22,6 +22,7 @@
   }
 
   span:first-of-type {
+    margin-bottom: 16px;
     font-size: 24px;
     line-height: 32px;
     border: solid 3px colors.$gray-dark;

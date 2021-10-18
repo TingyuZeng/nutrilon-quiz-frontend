@@ -32,11 +32,11 @@
 
     display: flex;
     flex-direction: column;
-    gap: 54px;
+    // gap: 54px;
 
     .answers {
       padding: 0;
-      margin: 0;
+      margin: 54px 0 0;
       display: flex;
       flex-direction: column;
       // gap: 24px;

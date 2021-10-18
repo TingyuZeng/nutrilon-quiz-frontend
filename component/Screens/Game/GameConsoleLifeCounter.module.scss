@@ -13,7 +13,8 @@
 .wrapper {
   display: flex;
   flex-direction: row;
-  gap: 6px;
+  // gap: 6px;
+  justify-content: space-around;
 
   span {
     width: 8px;

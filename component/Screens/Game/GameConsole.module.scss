@@ -48,7 +48,11 @@
   .controls {
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    // gap: 16px;
+
+    & > div:not(:last-of-type) {
+      margin-right: 16px;
+    }
 
     .control {
       @extend ._btn;
