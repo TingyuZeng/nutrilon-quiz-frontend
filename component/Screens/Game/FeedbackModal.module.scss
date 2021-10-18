@@ -58,7 +58,7 @@
 
       .info {
         position: absolute;
-        top: max(5%, 32px);
+        top: 32px;
         left: 50%;
         transform: translateX(-50%);
         width: 100%;
@@ -71,7 +71,7 @@
         .header {
           width: fit-content;
           margin: auto;
-          padding-bottom: 24px;
+          margin-bottom: 24px;
           color: #fff;
           background: colors.$blue-dark;
         }

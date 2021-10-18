@@ -9,7 +9,7 @@
 
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   // gap: 16px;
 
   border: solid 3px colors.$gray-dark;
@@ -22,7 +22,7 @@
   }
 
   span:first-of-type {
-    margin-bottom: 16px;
+    margin-right: 16px;
     font-size: 24px;
     line-height: 32px;
     border: solid 3px colors.$gray-dark;

@@ -17,6 +17,7 @@
   align-items: center;
 
   .title {
+    padding: 6px 16px;
     padding: 0.4em 16px;
     flex: 1;
     background: none;
@@ -40,7 +41,9 @@
   left: -32px;
 
   .btn {
+    padding-left: 48px;
     padding-left: calc(32px + 1em);
+    padding-right: 24px;
     padding-right: 1.5em;
   }
 }

@@ -8,6 +8,7 @@ import AvatarScreen from "../component/Screens/Avatar/AvatarScreen";
 import Bg from "../component/ui/Background/Bg";
 import Button from "../component/ui/Button/Button";
 import { syncPlayerData } from "../store/playerSlice";
+import Loader from "../component/ui/Loader/Loader";
 
 const Test = (props) => {
   const router = useRouter();
@@ -41,8 +42,9 @@ const Test = (props) => {
 
   return (
     <>
+      <Loader />
       <Bg />
-      {/* <AvatarScreen /> */}
+      <AvatarScreen />
       <Button onClick={clickHandler} />
       <Button
         onClick={() => {

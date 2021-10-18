@@ -25,7 +25,6 @@ const LevelRing = ({
   className,
   size,
   text,
-  float = false,
   onClick = undefined,
 }) => {
   size =
@@ -35,39 +34,9 @@ const LevelRing = ({
       ? size
       : `${size}px`;
 
-  const variants = {
-    initial: {
-      width: size,
-      height: size,
-      ...custom,
-    },
-    float: {
-      filter: [
-        null,
-        `drop-shadow(0 ${getRandomInt(10, 20)}px 15px rgba(0, 0, 0, 0.1));`,
-      ],
-      y: [null, -getRandomInt(-8, 8)],
-      x: [null, getRandomInt(-5, 5)],
-    },
-    bycss: {},
-  };
-
-  const transition = {
-    repeat: Infinity,
-    duration: getRandomInt(3, 8),
-    delay: getRandomFloat(0, 3),
-    repeatType: "reverse",
-  };
-  const notransition = {
-    duration: 0,
-  };
-
   return (
     <motion.div
       className={classNames(classes.wrapper, classes[status], className)}
-      // variants={variants}
-      // transition={float ? transition : notransition}
-      // animate={float ? "float" : "bycss"}
       initial={{ width: size, height: size, ...custom }}
       onClick={status === "active" && !!onClick ? onClick : undefined}
     >

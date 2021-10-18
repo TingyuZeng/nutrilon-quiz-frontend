@@ -14,7 +14,8 @@
   display: flex;
   flex-direction: row;
   // gap: 6px;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  width: 80%;
 
   span {
     width: 8px;

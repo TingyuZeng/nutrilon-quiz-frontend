@@ -58,7 +58,8 @@ const Landing = (props) => {
   }, []);
 
   useEffect(() => {
-    if (![0, 1, 2].includes(Number(player.avatar))) setIsFirst(true);
+    if (player.avatar === null || ![0, 1, 2].includes(Number(player.avatar)))
+      setIsFirst(true);
     else setIsFirst(false);
   }, [player.avatar]);
 

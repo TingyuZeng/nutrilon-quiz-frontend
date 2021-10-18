@@ -108,8 +108,8 @@ const AvatarScreen = (props) => {
 
   // Selecting avatars
   const selectAvatarHandler = (index) => {
-    dispatch(syncPlayerData({ avatar: index }));
     dispatch(playerActions.replacePlayerInfo({ avatar: index }));
+    dispatch(syncPlayerData({ avatar: index }));
   };
 
   return (

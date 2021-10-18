@@ -40,6 +40,7 @@ const FeedbackModal = () => {
         className={classes.backdrop}
         onClick={hideModalsHandler}
       />
+
       <div className={classes.modal}>
         <motion.div
           className={classNames(classes.content, !result && classes.negative)}

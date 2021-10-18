@@ -163,7 +163,10 @@ const Me = () => {
           </Button>
           <Img
             {...getAvatar(player.avatar || 2)}
-            className={classNames(classes.avatar, avatarClassName)}
+            className={classNames(
+              classes.avatar,
+              avatarClassName || classes.baby
+            )}
           />
         </div>
       </section>

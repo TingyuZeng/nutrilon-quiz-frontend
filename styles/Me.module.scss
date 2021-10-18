@@ -71,6 +71,7 @@
       bottom: 0;
       left: 50%;
       transform: translate(-50%, -50%);
+      padding: 10px 16px;
       padding: 0.6em 1em;
     }
 
@@ -98,6 +99,7 @@
   @extend ._section;
 
   .danger {
+    margin-top: 12px;
     margin-top: 0.8em;
     color: colors.$orange;
   }
@@ -111,6 +113,7 @@
     line-height: 32px;
     font-weight: 600;
     color: colors.$blue-dark;
+    margin-bottom: 12px;
     margin-bottom: 0.8em;
   }
 
@@ -119,6 +122,7 @@
     line-height: 18px;
     font-weight: 300;
     color: colors.$gray;
+    margin-bottom: 16px;
     margin-bottom: 1em;
   }
 
@@ -127,7 +131,9 @@
     line-height: 22px;
     font-weight: 600;
     color: colors.$blue-dark;
+    margin-bottom: 8px;
     margin-bottom: 0.5em;
+    margin-top: 8px;
     margin-top: 0.5em;
   }
 }
