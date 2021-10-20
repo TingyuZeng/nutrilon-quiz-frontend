@@ -32,6 +32,7 @@ const GameScreen = () => {
 
   // Styling and animation
   useEffect(() => {
+    gsap.registerPlugin(ScrollToPlugin);
     const bgEl = document.querySelector("[data-background-image]");
     document.querySelector("#__next").style.height = `${
       bgEl.getBoundingClientRect().height

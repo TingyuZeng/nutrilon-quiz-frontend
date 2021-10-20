@@ -9,13 +9,22 @@ import Bg from "../component/ui/Background/Bg";
 import Button from "../component/ui/Button/Button";
 import { syncPlayerData } from "../store/playerSlice";
 import Loader from "../component/ui/Loader/Loader";
+import hashCode from "../lib/hashCode";
+import LoaderDrop from "../component/ui/Loader/LoaderDrop";
+import { uiActions } from "../store/uiSlice";
 
 const Test = (props) => {
   const router = useRouter();
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
   console.log(player);
+
   useEffect(() => {
+    if (localStorage.getItem("NUTRILON_PLAYER"))
+      localStorage.removeItem("NUTRILON_PLAYER");
+
+    localStorage.setItem("NUTRILON_PLAYER", "12345-1814718944");
+
     axios
       .get("./api/getPlayer", {
         params: {
@@ -23,35 +32,43 @@ const Test = (props) => {
         },
       })
       .then((res) => {
-        dispatch(playerActions.replacePlayerInfo(res.data));
+        dispatch(playerActions.setTester(res.data));
+        dispatch(
+          uiActions.showNotification({
+            text: "Welcome to test the game. By clicking the button below you may continue with the game. But to obtain a certificate, you first have to logout as a test player manually on your profile page.",
+            qrcode: false,
+            handler: "goToLevelsAsTester",
+          })
+        );
+      })
+      .catch((error) => {
+        dispatch(
+          uiActions.showNotification({
+            text: "Error accessing the test account, click the button below to try again.",
+            qrcode: true,
+            handler: "reload",
+          })
+        );
       });
   }, []);
 
   const clickHandler = () => {
-    const certifiedDate = Date();
     dispatch(
-      syncPlayerData({
-        lastCertificateDate: certifiedDate,
-        certificates: [
-          ...player.certificates,
-          { date: certifiedDate, cohort: 1 },
-        ],
+      uiActions.showNotification({
+        text: "Welcome to test the game. By clicking the button below you may continue with the game. But to obtain a certificate, you first have to logout as a test player manually on your profile page.",
+        qrcode: false,
+        handler: "goToLevelsAsTester",
       })
     );
   };
 
   return (
     <>
-      <Loader />
+      <LoaderDrop />
       <Bg />
-      <AvatarScreen />
-      <Button onClick={clickHandler} />
-      <Button
-        onClick={() => {
-          router.push("/game");
-        }}
-      >
-        to Game
+
+      <Button className="btn--test" onClick={clickHandler}>
+        Start Testing
       </Button>
     </>
   );

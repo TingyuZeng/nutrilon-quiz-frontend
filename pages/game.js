@@ -10,8 +10,6 @@ import Bg from "../component/ui/Background/Bg";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 import GameScreen from "../component/Screens/Game/GameScreen";
 
-gsap.registerPlugin(ScrollToPlugin);
-
 const Game = (props) => {
   const [loaded, setLoaded] = useState(false);
 

@@ -4,7 +4,11 @@ import { useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getBrandImage } from "../../lib/brandAssets";
-import { playerActions, startANewGame } from "../../store/playerSlice";
+import {
+  playerActions,
+  startANewGame,
+  syncPlayerData,
+} from "../../store/playerSlice";
 import { uiActions } from "../../store/uiSlice";
 
 import Bg from "../ui/Background/Bg";
@@ -52,9 +56,37 @@ const NotificationModal = () => {
       dispatch(uiActions.hideNotification());
       router.back();
     },
+    reload() {
+      dispatch(uiActions.hideNotification());
+      router.reload();
+    },
     goHome() {
       dispatch(uiActions.hideNotification());
       router.replace("/");
+    },
+    goToLevels() {
+      dispatch(uiActions.hideNotification());
+      router.replace("/levels");
+    },
+    goToLevelsAsTester() {
+      dispatch(
+        syncPlayerData({
+          avatar: null,
+          shopurl: "",
+          score1: 0,
+          score2: 0,
+          score3: 0,
+          score4: 0,
+          scoreTotal: 0,
+          currentLevel: 0,
+          life: 3,
+          lastGameAt: "",
+          lastCertificateDate: null,
+          certificates: [],
+        })
+      );
+      dispatch(uiActions.hideNotification());
+      router.replace("/levels");
     },
     goToGame() {
       dispatch(startANewGame());

@@ -86,6 +86,14 @@ const playerSlice = createSlice({
     replacePlayerInfo: (state, action) => {
       state = Object.assign(state, action.payload);
     },
+    setTester: (state, action) => {
+      state = Object.assign(state, action.payload);
+
+      const { id, openid, hashid, headimgurl, nickname, ...resetState } =
+        initialState;
+
+      state = Object.assign(state, resetState);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(syncPlayerData.pending, (state, action) => {

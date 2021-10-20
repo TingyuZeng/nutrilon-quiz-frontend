@@ -13,8 +13,6 @@ import LevelRing from "../../ui/LevelRing/LevelRing";
 
 import classes from "./LevelsScreen.module.scss";
 
-gsap.registerPlugin(ScrollToPlugin);
-
 const LevelsScreen = () => {
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
@@ -53,6 +51,7 @@ const LevelsScreen = () => {
 
   // scroll to bottom
   useEffect(() => {
+    gsap.registerPlugin(ScrollToPlugin);
     const tween = gsap.to(window, {
       duration: 1,
       delay: 0.5,
