@@ -6,6 +6,7 @@ const initialState = {
   feedbackModal: false,
   syncModal: false,
   notificationModal: false,
+  notificationTitle: "新消息",
   notificationText: "",
   notificationQRCode: true,
   notificationHandler: null,
@@ -34,7 +35,7 @@ const uiSlice = createSlice({
       state.syncModal = false;
     },
     showNotification: (state, action) => {
-      const { text, qrcode, handler } = action.payload;
+      const { text, qrcode, handler, title } = action.payload;
       state.notificationText = text;
       state.notificationQRCode = !!qrcode;
       state.notificationHandler = handler || null;
@@ -42,6 +43,7 @@ const uiSlice = createSlice({
     },
     hideNotification: (state) => {
       state.notificationModal = false;
+      state.notificationTitle = "新消息";
       state.notificationText = "";
       state.notificationQRCode = true;
       state.notificationHandler = null;

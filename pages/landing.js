@@ -66,9 +66,17 @@ const Landing = (props) => {
   }, []);
 
   useEffect(() => {
-    if (player.avatar === null || ![0, 1, 2].includes(Number(player.avatar)))
+    if (player.avatar === null || ![0, 1, 2].includes(Number(player.avatar))) {
+      dispatch(
+        uiActions.showNotification({
+          text: "Jump on a bike with Ice Bear and together go on a journey through the Netherlands. Let Ice Bear guide you to Nutrilon’s key locations and discover everything you need to know about the brand! On your way unlock exclusive prices and marketing materials and become a Brand Ambassador. For those of you who complete all levels a certificate is waiting for you!",
+          handler: "close",
+        })
+      );
       setIsFirst(true);
-    else setIsFirst(false);
+    } else {
+      setIsFirst(false);
+    }
   }, [player.avatar]);
 
   return (
