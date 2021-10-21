@@ -2,19 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { playerActions } from "../store/playerSlice";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { getPlaiceholder } from "plaiceholder";
-import AvatarScreen from "../component/Screens/Avatar/AvatarScreen";
 import Bg from "../component/ui/Background/Bg";
 import Button from "../component/ui/Button/Button";
-import { syncPlayerData } from "../store/playerSlice";
-import Loader from "../component/ui/Loader/Loader";
-import hashCode from "../lib/hashCode";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 import { uiActions } from "../store/uiSlice";
 
 const Test = (props) => {
-  const router = useRouter();
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
   console.log(player);
@@ -37,7 +31,7 @@ const Test = (props) => {
           uiActions.showNotification({
             text: "Welcome to test the game. By clicking the button below you may continue with the game. But to obtain a certificate, you first have to logout as a test player manually on your profile page.",
             qrcode: false,
-            handler: "goToLevelsAsTester",
+            handler: "goToLandingAsTester",
           })
         );
       })

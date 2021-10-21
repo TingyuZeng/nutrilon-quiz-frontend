@@ -10,6 +10,7 @@ import Bg from "../component/ui/Background/Bg";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 import AvatarScreen from "../component/Screens/Avatar/AvatarScreen";
 import LandingScreen from "../component/Screens/Landing/LandingScreen";
+import { uiActions } from "../store/uiSlice";
 
 const Landing = (props) => {
   const [loaded, setLoaded] = useState(false);
@@ -49,8 +50,15 @@ const Landing = (props) => {
       })
       .catch((error) => {
         console.log(error);
+        dispatch(
+          uiActions.showNotification({
+            text: "服务器开小差了，请再次尝试。",
+            qrcode: true,
+            handler: "goHome",
+          })
+        );
         logError({ error, message: "Cannot get userinfo from WeChat" });
-        router.push("/");
+        setTimeout(() => router.push("/"), 5000);
       })
       .finally(() => {
         setLoaded(true);

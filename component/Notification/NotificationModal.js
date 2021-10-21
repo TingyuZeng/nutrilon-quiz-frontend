@@ -68,7 +68,7 @@ const NotificationModal = () => {
       dispatch(uiActions.hideNotification());
       router.replace("/levels");
     },
-    goToLevelsAsTester() {
+    goToLandingAsTester() {
       dispatch(
         syncPlayerData({
           avatar: null,
@@ -86,7 +86,7 @@ const NotificationModal = () => {
         })
       );
       dispatch(uiActions.hideNotification());
-      router.replace("/levels");
+      router.replace("/landing");
     },
     goToGame() {
       dispatch(startANewGame());

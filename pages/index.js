@@ -19,7 +19,9 @@ export default function Home({ APPID, LANDINGURL }) {
   useEffect(() => {
     // Check if the user exists on his phone
     const hashid = localStorage.getItem("NUTRILON_PLAYER");
-    if (hashid) {
+
+    // Test player is prohibited
+    if (hashid && hashid !== "12345-1814718944") {
       axios
         .get("/api/getPlayer", { params: { hashid } })
         .then((response) => {
@@ -46,6 +48,7 @@ export default function Home({ APPID, LANDINGURL }) {
 
     // Getting userinfo from WeChat (scope: userinfo)
     else {
+      localStorage.removeItem("NUTRILON_PLAYER");
       console.log("getting open information from WeChat...");
       window.location.assign(
         `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${LANDINGURL}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
