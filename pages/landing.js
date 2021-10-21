@@ -71,6 +71,8 @@ const Landing = (props) => {
         uiActions.showNotification({
           text: "Jump on a bike with Ice Bear and together go on a journey through the Netherlands. Let Ice Bear guide you to Nutrilon’s key locations and discover everything you need to know about the brand! On your way unlock exclusive prices and marketing materials and become a Brand Ambassador. For those of you who complete all levels a certificate is waiting for you!",
           handler: "close",
+          bear: true,
+          title: "欢迎启程",
         })
       );
       setIsFirst(true);

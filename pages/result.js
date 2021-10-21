@@ -26,7 +26,7 @@ const Result = ({ images }) => {
 
   // player state in game: level and total game
   const isFinished = game.currentQuestionIndex === 10;
-  const isPassed = game.currentLevelScore >= 60;
+  const isPassed = game.currentLevelScore >= 80;
   const isVerified = currentLevel === 3 && isFinished && isPassed;
 
   // state decides ui
@@ -57,6 +57,7 @@ const Result = ({ images }) => {
       dataToBeUpdated[`score${currentLevel + 1}`] = game.currentLevelScore;
       dataToBeUpdated["currentLevel"] = currentLevel + 1;
       dataToBeUpdated["scoreTotal"] = scoreTotal + game.currentLevelScore;
+      dataToBeUpdated["life"] = 3;
 
       dispatch(playerActions.replacePlayerInfo(dataToBeUpdated));
       dispatch(syncPlayerData(dataToBeUpdated));
@@ -180,10 +181,7 @@ export default Result;
 
 export const getStaticProps = async () => {
   const imagePaths = [
-    "https://res.cloudinary.com/npc2021/image/upload/v1634124975/level_01_Zoetermeer_export_2x_1ced5c04c2.png",
-    "https://res.cloudinary.com/npc2021/image/upload/v1634124976/level_02_Utrecht_export_2x_b3b0a554c4.png",
-    "https://res.cloudinary.com/npc2021/image/upload/v1634124975/level_03_Cuijk_export_2x_81ce86a53c.png",
-    "https://res.cloudinary.com/npc2021/image/upload/v1634124975/level_04_Amsterdam_export_2x_ec0b433cf2.png",
+    "https://res.cloudinary.com/npc2021/image/upload/v1634831082/ice_bear_4_2x_18525a2834.png",
   ];
   const images = await Promise.all(
     imagePaths.map(async (src, index) => {

@@ -5,7 +5,7 @@ import { syncPlayerData } from "./playerSlice";
 
 const MAX_TIME = 15 * 1000;
 const MAX_SCORE = 10;
-const MIN_SCORE = 5;
+const MIN_SCORE = 7;
 
 const questions = [];
 
@@ -109,7 +109,7 @@ const gameSlice = createSlice({
 
       state.answerList.isCorrect[index] = isCurrentCorrect;
       const currentQuestionScore = isCurrentCorrect
-        ? Math.ceil(MAX_SCORE - ((MAX_SCORE - MIN_SCORE) / MAX_TIME) * time)
+        ? Math.round(MAX_SCORE - ((MAX_SCORE - MIN_SCORE) / MAX_TIME) * time)
         : 0;
 
       state.answerList.scores[index] = currentQuestionScore;

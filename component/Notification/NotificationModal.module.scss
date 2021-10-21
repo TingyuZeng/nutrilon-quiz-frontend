@@ -48,6 +48,13 @@
       padding: 0 16px;
       position: relative;
 
+      .bear {
+        position: absolute;
+        width: 80px;
+        left: 20px;
+        top: -50%;
+      }
+
       .header {
         width: fit-content;
         margin: auto;
@@ -64,7 +71,7 @@
 
     .text {
       margin: 24px auto;
-      border: solid 3px colors.$gray-dark;
+      border: solid 3px colors.$blue-dark;
       width: calc(100% - 64px);
       min-height: 100px;
       border-radius: 12px;

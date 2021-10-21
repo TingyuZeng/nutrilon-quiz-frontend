@@ -120,7 +120,10 @@ const NotificationModal = () => {
           <Bg />
 
           <div className={classes.nav}>
-            <Header className={classes.header}>新消息</Header>
+            {ui.notificationBear && (
+              <Img {...getBrandImage("bear4")} className={classes.bear} />
+            )}
+            <Header className={classes.header}>{ui.notificationTitle}</Header>
             <Button
               className={classes.exit}
               type="circle"

@@ -35,12 +35,12 @@
 
 .negative {
   .sign {
-    color: colors.$orange !important;
+    color: colors.$red !important;
   }
 
   .digits {
     span {
-      background: colors.$orange !important;
+      background: colors.$red !important;
     }
   }
 }
