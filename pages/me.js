@@ -21,7 +21,6 @@ import { useRouter } from "next/router";
 const Me = () => {
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const [levels, setLevels] = useState([]);
   useEffect(() => {

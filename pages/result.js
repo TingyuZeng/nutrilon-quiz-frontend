@@ -181,7 +181,7 @@ export default Result;
 
 export const getStaticProps = async () => {
   const imagePaths = [
-    "https://res.cloudinary.com/npc2021/image/upload/v1634831082/ice_bear_4_2x_18525a2834.png",
+    "https://res.cloudinary.com/npc2021/image/upload/v1635166615/bg_pc_2826e01730.png",
   ];
   const images = await Promise.all(
     imagePaths.map(async (src, index) => {

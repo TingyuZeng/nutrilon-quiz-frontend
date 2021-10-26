@@ -51,7 +51,7 @@ const Test = (props) => {
       uiActions.showNotification({
         text: "Welcome to test the game. By clicking the button below you may continue with the game. But to obtain a certificate, you first have to logout as a test player manually on your profile page.",
         qrcode: false,
-        handler: "goToLevelsAsTester",
+        handler: "goToLandingAsTester",
       })
     );
   };
@@ -61,9 +61,9 @@ const Test = (props) => {
       <LoaderDrop />
       <Bg />
 
-      <Button className="btn--test" onClick={clickHandler}>
-        Start Testing
-      </Button>
+      <div className="btn--test">
+        <Button onClick={clickHandler}>Start Testing</Button>
+      </div>
     </>
   );
 };

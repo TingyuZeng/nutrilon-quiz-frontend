@@ -57,9 +57,14 @@ body {
 }
 
 .btn--test {
+  max-width: 500px;
+  width: 100%;
   position: fixed;
   bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
+
+  button {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
