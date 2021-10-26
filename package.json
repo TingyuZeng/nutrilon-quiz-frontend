@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@plaiceholder/next": "^2.1.0",
-    "@reduxjs/toolkit": "^1.6.1",
-    "axios": "^0.21.1",
+    "@reduxjs/toolkit": "^1.6.2",
+    "axios": "^0.24.0",
     "framer-motion": "^4.1.17",
     "gsap": "^3.8.0",
     "next": "^11.1.2",

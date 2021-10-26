@@ -89,7 +89,7 @@ const playerSlice = createSlice({
     setTester: (state, action) => {
       state = Object.assign(state, action.payload);
 
-      const { id, openid, hashid, headimgurl, nickname, ...resetState } =
+      const { openid, hashid, headimgurl, nickname, ...resetState } =
         initialState;
 
       state = Object.assign(state, resetState);

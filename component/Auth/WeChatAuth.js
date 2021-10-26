@@ -9,9 +9,10 @@ const WeChatAuth = ({ children }) => {
     if (
       player.id ||
       ["/test", "/", "/landing", "/logout"].includes(router.pathname)
-    )
+    ) {
+      console.log(router.pathname);
       return;
-    else router.push("/");
+    } else router.push("/");
   }, []);
   return <>{children}</>;
 };

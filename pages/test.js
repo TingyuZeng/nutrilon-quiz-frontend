@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { playerActions } from "../store/playerSlice";
+import { playerActions, syncPlayerData } from "../store/playerSlice";
 import { useEffect } from "react";
 import { getPlaiceholder } from "plaiceholder";
 import Bg from "../component/ui/Background/Bg";
@@ -9,9 +9,7 @@ import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 import { uiActions } from "../store/uiSlice";
 
 const Test = (props) => {
-  const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
-  console.log(player);
 
   useEffect(() => {
     if (localStorage.getItem("NUTRILON_PLAYER"))
