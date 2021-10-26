@@ -91,6 +91,7 @@ const playerSlice = createSlice({
 
       const resetState = {
         id: 29,
+        openid: "testplayer12345",
         avatar: null,
         score1: 0,
         score2: 0,

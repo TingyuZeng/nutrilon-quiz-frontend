@@ -29,14 +29,12 @@ const Manual = () => {
     () => ({
       initial: (direction) => ({
         x: direction > 0 ? screenWidth / 2 : -screenWidth / 2,
-        // scale: 0.4,
         opacity: 0,
       }),
       animate: { zIndex: 1, x: 0, opacity: 1, scale: 1 },
       exit: (direction) => ({
         zIndex: 0,
         x: direction > 0 ? -screenWidth : screenWidth,
-        // scale: 0.4,
         opacity: 0,
       }),
     }),
@@ -56,7 +54,9 @@ const Manual = () => {
     <>
       <ClientOnlyPortal selector="[data-fixed]">
         <div className={classes.title}>
-          <Header className={classes.header}>游戏说明</Header>
+          <Header className={classes.header}>
+            游戏说明 - {manualContent.index + 1}
+          </Header>
           <div className={classes.paginate}>
             <Button
               size="m"
@@ -93,7 +93,7 @@ const Manual = () => {
             opacity: { duration: 0.1 },
           }}
           drag="x"
-          whileDrag={{ scale: 0.8, filter: "blur(6px)" }}
+          whileDrag={{ scale: 0.9 }}
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={1}
           onDragEnd={(e, { offset, velocity }) => {

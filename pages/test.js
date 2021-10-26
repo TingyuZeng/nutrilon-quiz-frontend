@@ -8,7 +8,7 @@ import Button from "../component/ui/Button/Button";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 import { uiActions } from "../store/uiSlice";
 
-const Test = (props) => {
+const Test = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
