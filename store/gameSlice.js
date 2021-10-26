@@ -26,6 +26,7 @@ for (let i = 0; i < 10; i += 1) {
 export const initialState = {
   questionList: {
     level: -1,
+    name: "",
     levelInfo: "",
     isActive: false,
     openDate: "",

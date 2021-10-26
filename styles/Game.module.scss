@@ -1,0 +1,35 @@
+@use "./colors";
+
+.intro {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  padding: 60px 0;
+  //   justify-content: center;
+  align-items: center;
+
+  .levelring {
+    position: relative;
+    margin-bottom: 100px;
+  }
+
+  .text {
+    margin: 0 10%;
+    border: solid 3px colors.$blue-dark;
+    border-radius: 12px;
+    padding: 24px;
+    background: #fff;
+    line-height: 1.4;
+    font-size: 16px;
+  }
+
+  .disclaimer {
+    font-size: 14px;
+    color: colors.$gray-dark;
+    padding-bottom: 64px;
+  }
+}

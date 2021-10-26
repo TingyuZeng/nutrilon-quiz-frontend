@@ -44,6 +44,7 @@ const GameScreen = () => {
       ease: "power3.in",
     });
 
+    // show the buttons when the map is ready
     setBgLoaded(true);
 
     return () => {
