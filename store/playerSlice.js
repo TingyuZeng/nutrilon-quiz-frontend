@@ -89,8 +89,19 @@ const playerSlice = createSlice({
     setTester: (state, action) => {
       state = Object.assign(state, action.payload);
 
-      const { openid, hashid, headimgurl, nickname, ...resetState } =
-        initialState;
+      const resetState = {
+        id: 29,
+        score1: 0,
+        score2: 0,
+        score3: 0,
+        score4: 0,
+        scoreTotal: 0,
+        currentLevel: 0,
+        life: 3,
+        lastGameAt: "",
+        lastCertificateDate: null,
+        certificates: [],
+      };
 
       state = Object.assign(state, resetState);
     },

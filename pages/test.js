@@ -16,6 +16,8 @@ const Test = (props) => {
       localStorage.removeItem("NUTRILON_PLAYER");
 
     localStorage.setItem("NUTRILON_PLAYER", "12345-1814718944");
+    // init tester
+    dispatch(playerActions.setTester({}));
 
     axios
       .get("./api/getPlayer", {
@@ -24,6 +26,7 @@ const Test = (props) => {
         },
       })
       .then((res) => {
+        // received tester's image data etc
         dispatch(playerActions.setTester(res.data));
         dispatch(
           uiActions.showNotification({
