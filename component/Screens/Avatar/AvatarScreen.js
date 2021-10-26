@@ -10,7 +10,7 @@ import Header from "../../ui/Header/Header";
 import classes from "./AvatarScreen.module.scss";
 import { playerActions, syncPlayerData } from "../../../store/playerSlice";
 
-const BGS = [
+export const BGS = [
   {
     src: "https://res.cloudinary.com/npc2021/image/upload/v1632321460/bg_mom_2x_65bedb6ae0.png",
     width: 750,
@@ -65,21 +65,19 @@ const AVATARS = [
 ];
 
 // animation configs for swiping
-const SWIPE_THRESHOLD = 60000;
-const swipePower = (offset, velocity) => Math.abs(offset) * velocity;
+export const SWIPE_THRESHOLD = 60000;
+export const swipePower = (offset, velocity) => Math.abs(offset) * velocity;
 
 const AvatarScreen = (props) => {
-  const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
 
   //record current page and paginate direction
   const [[page, direction], setPage] = useState([0, 0]);
   const changePage = (newDirection) => {
-    return () =>
-      setPage(([prevPage, prevDirection]) => [
-        prevPage + newDirection,
-        newDirection,
-      ]);
+    setPage(([prevPage, prevDirection]) => [
+      prevPage + newDirection,
+      newDirection,
+    ]);
   };
 
   // translate the page to avatar index
@@ -136,9 +134,9 @@ const AvatarScreen = (props) => {
             // console.log(`velocity: ${velocity.x}`);
             const swipe = swipePower(offset.x, velocity.x);
             if (swipe > SWIPE_THRESHOLD) {
-              changePage(-1)();
+              changePage(-1);
             } else if (swipe < -SWIPE_THRESHOLD) {
-              changePage(1)();
+              changePage(1);
             }
           }}
         >
@@ -163,7 +161,7 @@ const AvatarScreen = (props) => {
               type="circle"
               src="/icons/icon-angle-bracket.svg"
               alt="icon of previous"
-              onClick={changePage(-1)}
+              onClick={() => changePage(-1)}
             />
             <span>{BGS[avatarIndex].title}</span>
             <Button
@@ -173,7 +171,7 @@ const AvatarScreen = (props) => {
               size="m"
               color="blue"
               type="circle"
-              onClick={changePage(1)}
+              onClick={() => changePage(1)}
             />
           </div>
         </div>
