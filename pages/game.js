@@ -28,7 +28,7 @@ const Game = () => {
 
   useEffect(() => {
     if (dataReceived) return;
-    setDataReceived(true);
+    if (game.questionList.levelInfo) setDataReceived(true);
   }, [game.questionList.levelInfo]);
 
   return (

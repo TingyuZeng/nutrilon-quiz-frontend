@@ -5,6 +5,7 @@
 .screen {
   z-index: 10;
   @include layouts.one-screen-wrapper;
+  overflow: hidden;
 
   pointer-events: none;
 

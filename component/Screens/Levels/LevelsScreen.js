@@ -69,7 +69,7 @@ const LevelsScreen = () => {
         uiActions.showNotification({
           text: "您暂时没有足够的动力值开启探索之旅。\r\n请您对品牌充分了解后再次进行探索。 您可以在我们的公众号中了解我们的品牌。\r\n半小时后您会获得1点动力值。",
           qrcode: true,
-          handler: "goHome",
+          handler: "close",
         })
       );
     else

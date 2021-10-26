@@ -4,6 +4,7 @@ import { useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getBrandImage } from "../../lib/brandAssets";
+import { gameActions } from "../../store/gameSlice";
 import {
   playerActions,
   startANewGame,
@@ -56,6 +57,11 @@ const NotificationModal = () => {
       dispatch(uiActions.hideNotification());
       router.back();
     },
+    goBackFromGame() {
+      dispatch(gameActions.resetGame());
+      dispatch(uiActions.hideNotification());
+      router.back();
+    },
     reload() {
       dispatch(uiActions.hideNotification());
       router.reload();
@@ -94,6 +100,11 @@ const NotificationModal = () => {
       router.push("/game");
     },
     goToMe() {
+      dispatch(uiActions.hideNotification());
+      router.replace("/me");
+    },
+    goToMeFromGame() {
+      dispatch(gameActions.resetGame());
       dispatch(uiActions.hideNotification());
       router.replace("/me");
     },

@@ -41,11 +41,13 @@ const Result = ({ images }) => {
 
   // Handlers
   const goToLanding = () => {
+    setLoaded(false);
     dispatch(gameActions.resetGame());
     router.replace("/landing");
   };
 
   const goToMe = () => {
+    setLoaded(false);
     dispatch(gameActions.resetGame());
     router.replace("/me");
   };

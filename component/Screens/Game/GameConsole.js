@@ -20,7 +20,7 @@ const GameConsole = (props) => {
       uiActions.showNotification({
         text: "您要退出游戏吗？您已消耗的1点动力值不会被自动恢复。",
         qrcode: false,
-        handler: "goToMe",
+        handler: "goToMeFromGame",
       })
     );
   };
@@ -30,7 +30,7 @@ const GameConsole = (props) => {
       uiActions.showNotification({
         text: "您要退出游戏吗？您已消耗的1点动力值不会被自动恢复。",
         qrcode: false,
-        handler: "goBack",
+        handler: "goBackFromGame",
       })
     );
   };
