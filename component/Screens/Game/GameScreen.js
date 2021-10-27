@@ -39,19 +39,14 @@ const GameScreen = () => {
       const bgEl = document.querySelector("[data-background-image]");
       const h = bgEl.getBoundingClientRect().height;
       document.querySelector("#__next").style.height = `${h}px`;
+      setBgLoaded(true);
       setHeight(h * 0.5769);
     };
 
     const bgEl = document.querySelector("[data-background-image]");
-    // bgEl.querySelectorAll("img").forEach((e) =>
-    //   e.addEventListener(
-    //     "load",
-    //     () => {
-    //       if (!bgLoaded) setBgLoaded(true);
-    //     },
-    //     { once: true }
-    //   )
-    // );
+    bgEl
+      .querySelectorAll("img")
+      .forEach((e) => e.addEventListener("load", updateHeight, { once: true }));
 
     document.querySelector("#__next").style.height = `${
       bgEl.getBoundingClientRect().height
@@ -64,7 +59,6 @@ const GameScreen = () => {
     });
 
     // show the buttons when the map is ready
-    setBgLoaded(true);
     updateHeight();
 
     return () => {
