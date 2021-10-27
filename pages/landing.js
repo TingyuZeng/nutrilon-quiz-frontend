@@ -58,6 +58,7 @@ const Landing = (props) => {
           })
         );
         logError({ error, message: "Cannot get userinfo from WeChat" });
+        localStorage.removeItem("NUTRILON_PLAYER");
         setTimeout(() => router.push("/"), 5000);
       })
       .finally(() => {
