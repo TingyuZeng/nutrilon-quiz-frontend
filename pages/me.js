@@ -65,8 +65,18 @@ const Me = () => {
       })
     );
 
-    // TODO
     // dispatch notification and website link
+    dispatch(uiActions.showSync());
+    setTimeout(() => {
+      dispatch(uiActions.hideSync());
+      dispatch(
+        uiActions.showNotification({
+          title: "恭喜你",
+          text: "请点击下方按钮前往查询你的证书。",
+          handler: "goToVerify",
+        })
+      );
+    }, 5000);
   };
 
   const exitHandler = () => {

@@ -108,6 +108,9 @@ const NotificationModal = () => {
       dispatch(uiActions.hideNotification());
       router.replace("/me");
     },
+    goToVerify() {
+      window.location.assign("https://sourl.cn/CKGPDX");
+    },
   };
 
   return (
