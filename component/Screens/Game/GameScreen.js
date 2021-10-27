@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
@@ -7,13 +7,14 @@ import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import { useSelector, useDispatch } from "react-redux";
 import { gameActions } from "../../../store/gameSlice";
 
-import Bg from "../../ui/Background/Bg";
 import GameQuestionMap from "./GameQuestionMap";
 import GameConsole from "./GameConsole";
 import ClientOnlyPortal from "../../ui/ClientOnlyPortal/ClientOnlyPortal";
 import QuestionModal from "./QuestionModal";
 import FeedbackModal from "./FeedbackModal";
 import { getLevelMap } from "../../../lib/brandAssets";
+import Image from "next/image";
+import classes from "./GameScreen.module.scss";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -28,41 +29,15 @@ const GameScreen = () => {
   const { isAnswered } = answerList;
   const dispatch = useDispatch();
 
-  const [bgLoaded, setBgLoaded] = useState(false);
-  const [height, setHeight] = useState(0);
-
-  // Styling and animation
+  // scroll to bottom
   useEffect(() => {
     gsap.registerPlugin(ScrollToPlugin);
-
-    const updateHeight = () => {
-      const bgEl = document.querySelector("[data-background-image]");
-      const h = bgEl.getBoundingClientRect().height;
-      document.querySelector("#__next").style.height = `${h}px`;
-      setBgLoaded(true);
-      setHeight(h * 0.5769);
-    };
-
-    const bgEl = document.querySelector("[data-background-image]");
-    bgEl
-      .querySelectorAll("img")
-      .forEach((e) => e.addEventListener("load", updateHeight, { once: true }));
-
-    document.querySelector("#__next").style.height = `${
-      bgEl.getBoundingClientRect().height
-    }px`;
-
     const tween = gsap.to(window, {
       duration: 1,
       scrollTo: document.documentElement.scrollHeight,
       ease: "power3.in",
     });
-
-    // show the buttons when the map is ready
-    updateHeight();
-
     return () => {
-      document.querySelector("#__next").removeAttribute("style");
       tween?.kill();
     };
   }, []);
@@ -94,9 +69,11 @@ const GameScreen = () => {
 
   return (
     <>
-      <Bg bgProps={getLevelMap(currentLevel)} stretch={false} />
+      <div className={classes.bg}>
+        <Image {...getLevelMap(currentLevel)} />
+      </div>
 
-      {bgLoaded && <GameQuestionMap height={height} />}
+      <GameQuestionMap />
 
       <GameConsole />
 

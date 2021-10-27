@@ -149,7 +149,7 @@ const Result = ({ images }) => {
             />
             {isFinished && !isPassed && (
               <span className={classes.caption}>
-                您只差{60 - result.score}分便挑战成功
+                您只差{80 - result.score}分便挑战成功
               </span>
             )}
           </section>

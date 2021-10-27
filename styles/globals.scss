@@ -45,6 +45,7 @@ body {
   width: 100%;
   max-width: 500px;
   overflow-x: hidden !important;
+  overflow-y: hidden;
 
   pointer-events: none;
   > * {

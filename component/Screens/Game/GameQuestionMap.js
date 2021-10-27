@@ -4,7 +4,7 @@ import { uiActions } from "../../../store/uiSlice";
 import Button from "../../ui/Button/Button";
 import classes from "./GameQuestionMap.module.scss";
 
-const GameQuestionMap = ({ height }) => {
+const GameQuestionMap = () => {
   const game = useSelector((state) => state.game);
   const dispatch = useDispatch();
   const { answerList, currentQuestionIndex } = game;
@@ -45,12 +45,7 @@ const GameQuestionMap = ({ height }) => {
   });
   return (
     <>
-      <div
-        className={classes.btns}
-        style={height ? { height: `${height}px` } : null}
-      >
-        {questionBtns}
-      </div>
+      <div className={classes.btns}>{questionBtns}</div>
     </>
   );
 };
