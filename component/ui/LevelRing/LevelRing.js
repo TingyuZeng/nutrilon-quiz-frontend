@@ -6,7 +6,7 @@ import Img from "../Image/Img";
 import classes from "./LevelRing.module.scss";
 
 const LEVELCOVERS = [
-  "https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_1_0c0bad1164.png",
+  "https://res.cloudinary.com/npc2021/image/upload/v1635339071/level_cover_1_f24804047a.png",
   "https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_2_249f115968.png",
   "https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_3_ff792ef78e.png",
   "https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_4_4d0a70795c.png",

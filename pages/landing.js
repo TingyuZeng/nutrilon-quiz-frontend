@@ -69,7 +69,7 @@ const Landing = (props) => {
     if (player.avatar === null || ![0, 1, 2].includes(Number(player.avatar))) {
       dispatch(
         uiActions.showNotification({
-          text: "Jump on a bike with Ice Bear and together go on a journey through the Netherlands. Let Ice Bear guide you to Nutrilon’s key locations and discover everything you need to know about the brand! On your way unlock exclusive prices and marketing materials and become a Brand Ambassador. For those of you who complete all levels a certificate is waiting for you!",
+          text: "快来和小北极熊一起踏上荷兰之旅。 小北极熊会带你前往 Nutrilon 的重要景点，在那里您可以探索发现想要了解的关于Nutrilon品牌和产品的一切信息！ 你可以在旅途中集齐拼图的所有部分，来解锁独家宣传资料库，并成为官方认证的品牌大使。 对成功通过全部等级的人，官方证书正等着你！",
           handler: "close",
           bear: true,
           title: "欢迎启程",

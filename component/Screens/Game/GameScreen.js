@@ -29,21 +29,29 @@ const GameScreen = () => {
   const dispatch = useDispatch();
 
   const [bgLoaded, setBgLoaded] = useState(false);
+  const [height, setHeight] = useState(0);
 
   // Styling and animation
   useEffect(() => {
     gsap.registerPlugin(ScrollToPlugin);
 
+    const updateHeight = () => {
+      const bgEl = document.querySelector("[data-background-image]");
+      const h = bgEl.getBoundingClientRect().height;
+      document.querySelector("#__next").style.height = `${h}px`;
+      setHeight(h * 0.5769);
+    };
+
     const bgEl = document.querySelector("[data-background-image]");
-    bgEl.querySelectorAll("img").forEach((e) =>
-      e.addEventListener(
-        "load",
-        () => {
-          if (!bgLoaded) setBgLoaded(true);
-        },
-        { once: true }
-      )
-    );
+    // bgEl.querySelectorAll("img").forEach((e) =>
+    //   e.addEventListener(
+    //     "load",
+    //     () => {
+    //       if (!bgLoaded) setBgLoaded(true);
+    //     },
+    //     { once: true }
+    //   )
+    // );
 
     document.querySelector("#__next").style.height = `${
       bgEl.getBoundingClientRect().height
@@ -57,6 +65,7 @@ const GameScreen = () => {
 
     // show the buttons when the map is ready
     setBgLoaded(true);
+    updateHeight();
 
     return () => {
       document.querySelector("#__next").removeAttribute("style");
@@ -93,7 +102,7 @@ const GameScreen = () => {
     <>
       <Bg bgProps={getLevelMap(currentLevel)} stretch={false} />
 
-      {bgLoaded && <GameQuestionMap />}
+      {bgLoaded && <GameQuestionMap height={height} />}
 
       <GameConsole />
 

@@ -45,7 +45,10 @@ const GameQuestionMap = ({ height }) => {
   });
   return (
     <>
-      <div className={classes.btns} style={height ? { height } : null}>
+      <div
+        className={classes.btns}
+        style={height ? { height: `${height}px` } : null}
+      >
         {questionBtns}
       </div>
     </>

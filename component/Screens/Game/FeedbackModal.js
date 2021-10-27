@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
+import { useRef } from "react";
 
 import { uiActions } from "../../../store/uiSlice";
 import Bg from "../../ui/Background/Bg";
@@ -15,6 +16,7 @@ import FeedbackModalScore from "./FeedbackModalScore";
 const FeedbackModal = () => {
   const game = useSelector((state) => state.game);
   const dispatch = useDispatch();
+  const constraintRef = useRef(null);
 
   const {
     currentQuestionIndex,
@@ -41,12 +43,14 @@ const FeedbackModal = () => {
         onClick={hideModalsHandler}
       />
 
-      <div className={classes.modal}>
+      <div className={classes.modal} ref={constraintRef}>
         <motion.div
           className={classNames(classes.content, !result && classes.negative)}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, ease: "anticipate" }}
+          drag="y"
+          dragConstraints={constraintRef}
         >
           <Bg className={classes.bg} />
 

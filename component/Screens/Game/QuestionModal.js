@@ -42,6 +42,7 @@ const QuestionModal = () => {
         className={classes.image}
         layout="fill"
         objectFit="cover"
+        objectPosition="center"
       />
 
       <Button
