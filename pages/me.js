@@ -171,7 +171,7 @@ const Me = () => {
             {badge.todo === 0 ? "领取证书" : "未验证"}
           </Button>
           <Img
-            {...getAvatar(player.avatar || 2)}
+            {...getAvatar(player.avatar ?? 2)}
             className={classNames(
               classes.avatar,
               avatarClassName || classes.baby
