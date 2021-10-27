@@ -15,7 +15,7 @@ import { playerActions, syncPlayerData } from "../store/playerSlice";
 import classes from "../styles/Result.module.scss";
 
 const Result = ({ images }) => {
-  console.log(images);
+  // console.log(images);
   const [loaded, setLoaded] = useState(false);
 
   const router = useRouter();
@@ -40,10 +40,10 @@ const Result = ({ images }) => {
   });
 
   // Handlers
-  const goToLanding = () => {
+  const goToLevels = () => {
     setLoaded(false);
     dispatch(gameActions.resetGame());
-    router.replace("/landing");
+    router.replace("/levels");
   };
 
   const goToMe = () => {
@@ -73,7 +73,7 @@ const Result = ({ images }) => {
         content: "您尚未完成本次挑战\r\n不能查看当前能量值",
         score: "???",
         hint: "准备好了吗？",
-        buttons: [{ text: "开始挑战", handler: goToLanding }],
+        buttons: [{ text: "开始挑战", handler: goToLevels }],
         level: currentLevel < 0 ? 0 : currentLevel,
       });
     else if (isFinished && !isPassed)
@@ -82,7 +82,7 @@ const Result = ({ images }) => {
         content: "能量值不足\r\n收集到0枚智慧拼图",
         score: game.currentLevelScore,
         hint: "准备好了吗？",
-        buttons: [{ text: "重新挑战", handler: goToLanding }],
+        buttons: [{ text: "重新挑战", handler: goToLevels }],
         level: currentLevel < 0 ? 0 : currentLevel,
       });
     else if (isFinished && isPassed && !isVerified)
@@ -92,7 +92,7 @@ const Result = ({ images }) => {
         score: game.currentLevelScore,
         hint: "继续探索之旅，收集所有智慧拼图",
         buttons: [
-          { text: "继续旅程", handler: goToLanding },
+          { text: "继续旅程", handler: goToLevels },
           { text: "下载素材", handler: goToMe },
         ],
         level: currentLevel + 1,
@@ -127,7 +127,7 @@ const Result = ({ images }) => {
             )}
             leftIcon="/icons/icon-x.svg"
             leftAlt="icon of leaving the page"
-            leftClickHandler={goToLanding}
+            leftClickHandler={goToLevels}
             rightClickHandler={goToMe}
           />
 
