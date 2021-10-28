@@ -5,7 +5,7 @@ import { syncPlayerData } from "./playerSlice";
 
 const MAX_TIME = 20 * 1000;
 const MAX_SCORE = 10;
-const MIN_SCORE = 7;
+const MIN_SCORE = 8;
 
 const questions = [];
 

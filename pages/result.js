@@ -26,7 +26,7 @@ const Result = ({ images }) => {
 
   // player state in game: level and total game
   const isFinished = game.currentQuestionIndex === 10;
-  const isPassed = game.currentLevelScore >= 80;
+  const isPassed = game.currentLevelScore >= 70;
   const isVerified = currentLevel === 3 && isFinished && isPassed;
 
   // state decides ui
