@@ -10,7 +10,7 @@ import Img from "../component/ui/Image/Img";
 import LoaderDrop from "../component/ui/Loader/LoaderDrop";
 import { getBadge } from "../lib/brandAssets";
 import classNames from "../lib/classNames";
-import { gameActions } from "../store/gameSlice";
+import { gameActions, PASSING_LEVEL_SCORE } from "../store/gameSlice";
 import { playerActions, syncPlayerData } from "../store/playerSlice";
 import classes from "../styles/Result.module.scss";
 
@@ -26,7 +26,7 @@ const Result = ({ images }) => {
 
   // player state in game: level and total game
   const isFinished = game.currentQuestionIndex === 10;
-  const isPassed = game.currentLevelScore >= 70;
+  const isPassed = game.currentLevelScore >= PASSING_LEVEL_SCORE;
   const isVerified = currentLevel === 3 && isFinished && isPassed;
 
   // state decides ui
@@ -149,7 +149,7 @@ const Result = ({ images }) => {
             />
             {isFinished && !isPassed && (
               <span className={classes.caption}>
-                您只差{80 - result.score}分便挑战成功
+                您只差{PASSING_LEVEL_SCORE - result.score}分便挑战成功
               </span>
             )}
           </section>

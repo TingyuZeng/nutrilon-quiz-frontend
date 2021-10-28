@@ -50,7 +50,7 @@ const Game = () => {
           >
             <LevelRing
               className={classes.levelring}
-              leve={game.questionList.level}
+              level={game.questionList.level}
               text={game.questionList.name}
               onClick={clickHandler}
             />

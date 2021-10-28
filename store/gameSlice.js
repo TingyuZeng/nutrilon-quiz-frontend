@@ -6,6 +6,7 @@ import { syncPlayerData } from "./playerSlice";
 const MAX_TIME = 20 * 1000;
 const MAX_SCORE = 10;
 const MIN_SCORE = 8;
+export const PASSING_LEVEL_SCORE = 70;
 
 const questions = [];
 
