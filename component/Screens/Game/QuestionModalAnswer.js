@@ -6,12 +6,16 @@ import { gameActions } from "../../../store/gameSlice";
 import classNames from "../../../lib/classNames";
 import { uiActions } from "../../../store/uiSlice";
 
-const QuestionModalAnswer = ({ answer, answerKey }) => {
+const QuestionModalAnswer = ({
+  answer,
+  answerKey,
+  chooseAnAnswerHandler,
+  selected,
+}) => {
   const dispatch = useDispatch();
-  const [selected, setSelected] = useState(false);
 
   const clickHandler = () => {
-    setSelected((state) => !state);
+    chooseAnAnswerHandler(answerKey);
   };
   const confirmHandler = () => {
     dispatch(gameActions.scorecurrentQuestionIndex(answer));

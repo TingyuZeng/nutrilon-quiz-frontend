@@ -3,7 +3,7 @@ import axios from "axios";
 import hashCode from "../lib/hashCode";
 import { syncPlayerData } from "./playerSlice";
 
-const MAX_TIME = 15 * 1000;
+const MAX_TIME = 20 * 1000;
 const MAX_SCORE = 10;
 const MIN_SCORE = 7;
 
@@ -120,9 +120,9 @@ const gameSlice = createSlice({
       // when currentQuestionIndex === 10, it means the player finishes the game
       if (state.currentQuestionIndex < 10) state.currentQuestionIndex++;
     },
-    recordStartTime: (state) => {
+    recordStartTime: (state, action) => {
       state.endTime = 0;
-      state.startTime = Date.now();
+      state.startTime = action.payload;
     },
     resetStartTime: (state) => {
       state.startTime = 0;

@@ -45,7 +45,7 @@ const GameScreen = () => {
   // start or reset the timer for scoring
   useEffect(() => {
     if (ui.questionModal) {
-      dispatch(gameActions.recordStartTime());
+      dispatch(gameActions.recordStartTime(Date.now()));
     } else {
       dispatch(gameActions.resetStartTime());
     }

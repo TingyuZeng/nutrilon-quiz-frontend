@@ -8,6 +8,7 @@ import QuestionModalQuestion from "./QuestionModalQuestion";
 import { uiActions } from "../../../store/uiSlice";
 
 import classes from "./QuestionModal.module.scss";
+import { useState } from "react";
 
 const temp =
   "https://res.cloudinary.com/npc2021/image/upload/v1633447448/nutricia_research_center_building_f753839aae.jpg";
@@ -23,10 +24,21 @@ const QuestionModal = () => {
     dispatch(uiActions.hideQuestion());
   };
 
+  const [chosenAnswer, setChosenAnswer] = useState("");
+  const chooseAnAnswerHandler = (answerKey) => {
+    setChosenAnswer(answerKey);
+  };
+
   const optionEls = Object.entries(question.answers)
     .filter(([key, _]) => key !== "id")
     .map(([key, value]) => (
-      <QuestionModalAnswer answer={value} answerKey={key} key={key + value} />
+      <QuestionModalAnswer
+        answer={value}
+        answerKey={key}
+        key={key + value}
+        selected={chosenAnswer === key}
+        chooseAnAnswerHandler={chooseAnAnswerHandler}
+      />
     ));
 
   return (
