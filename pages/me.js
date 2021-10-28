@@ -17,6 +17,13 @@ import { getAvatar, getBadge } from "../lib/brandAssets";
 import { syncPlayerData } from "../store/playerSlice";
 import { uiActions } from "../store/uiSlice";
 
+const ASSET_LINKS = [
+  "https://drive.google.com/file/d/11DoEOUtOnTdPOn3N5FzENfZMvGxONoxk/view?usp=sharing",
+  "https://drive.google.com/file/d/11DoEOUtOnTdPOn3N5FzENfZMvGxONoxk/view?usp=sharing",
+  "https://drive.google.com/file/d/11DoEOUtOnTdPOn3N5FzENfZMvGxONoxk/view?usp=sharing",
+  "https://drive.google.com/file/d/11DoEOUtOnTdPOn3N5FzENfZMvGxONoxk/view?usp=sharing",
+];
+
 const Me = () => {
   const player = useSelector((state) => state.player);
   const dispatch = useDispatch();
@@ -29,6 +36,10 @@ const Me = () => {
       )
     );
   }, [player.currentLevel]);
+
+  const goToAssets = (index) => {
+    window.location.assign(ASSET_LINKS[index]);
+  };
 
   const { width } = useScreenSize();
 
@@ -131,24 +142,28 @@ const Me = () => {
             status={levels[0]}
             text="祖特梅尔"
             className={classes.level}
+            onClick={levels[0] === "active" ? goToAssets.bind(null, 0) : null}
           />
           <LevelRing
             level={1}
             status={levels[1]}
             text="乌得勒支"
             className={classes.level}
+            onClick={levels[1] === "active" ? goToAssets.bind(null, 1) : null}
           />
           <LevelRing
             level={2}
             status={levels[2]}
             text="克伊克"
             className={classes.level}
+            onClick={levels[2] === "active" ? goToAssets.bind(null, 2) : null}
           />
           <LevelRing
             level={3}
             status={levels[3]}
             text="阿姆斯特丹"
             className={classes.level}
+            onClick={levels[3] === "active" ? goToAssets.bind(null, 3) : null}
           />
         </motion.div>
       </section>
