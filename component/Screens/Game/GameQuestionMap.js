@@ -43,11 +43,7 @@ const GameQuestionMap = () => {
       </Button>
     );
   });
-  return (
-    <>
-      <div className={classes.btns}>{questionBtns}</div>
-    </>
-  );
+  return <div className={classes.btns}>{questionBtns}</div>;
 };
 
 export default GameQuestionMap;

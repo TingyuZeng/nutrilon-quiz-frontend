@@ -14,9 +14,8 @@ import LevelRing from "../component/ui/LevelRing/LevelRing";
 import useScreenSize from "../hooks/useScreenSize";
 import Img from "../component/ui/Image/Img";
 import { getAvatar, getBadge } from "../lib/brandAssets";
-import { playerActions, syncPlayerData } from "../store/playerSlice";
+import { syncPlayerData } from "../store/playerSlice";
 import { uiActions } from "../store/uiSlice";
-import { useRouter } from "next/router";
 
 const Me = () => {
   const player = useSelector((state) => state.player);
