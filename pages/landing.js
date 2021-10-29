@@ -12,7 +12,7 @@ import AvatarScreen from "../component/Screens/Avatar/AvatarScreen";
 import LandingScreen from "../component/Screens/Landing/LandingScreen";
 import { uiActions } from "../store/uiSlice";
 
-const Landing = (props) => {
+const Landing = () => {
   const [loaded, setLoaded] = useState(false);
   const [synced, setSynced] = useState(false);
   const [isFirst, setIsFirst] = useState(false);
@@ -68,15 +68,15 @@ const Landing = (props) => {
 
   useEffect(() => {
     if (player.avatar === null || ![0, 1, 2].includes(Number(player.avatar))) {
+      setIsFirst(true);
       dispatch(
         uiActions.showNotification({
-          text: "快来和小北极熊一起踏上荷兰之旅。 小北极熊会带你前往 Nutrilon 的重要景点，在那里您可以探索发现想要了解的关于Nutrilon品牌和产品的一切信息！ 你可以在旅途中集齐拼图的所有部分，来解锁独家宣传资料库，并成为官方认证的品牌大使。 对成功通过全部等级的人，官方证书正等着你！",
+          text: "快来和小北极熊一起踏上荷兰之旅。 小北极熊会带你前往 Nutrilon 的重要景点，在那里您可以探索发现想要了解的关于Nutrilon品牌和产品的一切信息！ 你可以在旅途中集齐拼图的所有部分，来解锁独家宣传资料库，并成为官方认证的品牌大使。 对成功通过全部等级的人，官方证书正等着你！\r\n\r\n在开始游戏之前，请仔细阅读游戏说明。",
           handler: "close",
           bear: true,
           title: "欢迎启程",
         })
       );
-      setIsFirst(true);
     } else {
       setIsFirst(false);
     }

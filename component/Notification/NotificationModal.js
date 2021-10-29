@@ -92,6 +92,7 @@ const NotificationModal = () => {
         })
       );
       dispatch(uiActions.hideNotification());
+      console.log("redirecting to landing");
       router.replace("/landing");
     },
     goToGame() {

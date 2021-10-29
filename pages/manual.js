@@ -55,7 +55,7 @@ const Manual = () => {
       <ClientOnlyPortal selector="[data-fixed]">
         <div className={classes.title}>
           <Header className={classes.header}>
-            游戏说明 - {manualContent.index + 1} / 10
+            游戏说明 - {manualContent.index + 1}/10
           </Header>
           <div className={classes.paginate}>
             <Button

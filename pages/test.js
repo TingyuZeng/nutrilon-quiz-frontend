@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { playerActions, syncPlayerData } from "../store/playerSlice";
+import { playerActions } from "../store/playerSlice";
 import { useEffect } from "react";
 import { getPlaiceholder } from "plaiceholder";
 import Bg from "../component/ui/Background/Bg";
@@ -10,6 +10,7 @@ import { uiActions } from "../store/uiSlice";
 
 const Test = () => {
   const dispatch = useDispatch();
+  const player = useSelector((state) => state.player);
 
   useEffect(() => {
     if (localStorage.getItem("NUTRILON_PLAYER"))
@@ -48,6 +49,7 @@ const Test = () => {
   }, []);
 
   const clickHandler = () => {
+    console.log(player.openid);
     dispatch(
       uiActions.showNotification({
         text: "Welcome to test the game. By clicking the button below you may continue with the game. But to obtain a certificate, you first have to logout as a test player manually on your profile page.",
