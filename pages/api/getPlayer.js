@@ -1,6 +1,7 @@
 //https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
 
 import axios from "axios";
+import getJWTToken from "../../lib/api/get-jwt-token";
 import hashCode from "../../lib/hashCode";
 
 // get existing player info by hashid from db
@@ -45,12 +46,18 @@ const getPlayerByOpenid = async (openid) => {
 const newPlayer = async ({ openid, hashid, nickname, headimgurl }) => {
   console.log("newPlayer");
   try {
-    const response = await axios.post(`${process.env.BACKEND}/players`, {
-      openid,
-      hashid,
-      nickname,
-      headimgurl,
-    });
+    const jwt = await getJWTToken();
+
+    const response = await axios.post(
+      `${process.env.BACKEND}/players`,
+      {
+        openid,
+        hashid,
+        nickname,
+        headimgurl,
+      },
+      { headers: { Authorization: `Bearer ${jwt}` } }
+    );
     const player = response.data;
 
     if (!response || !player.openid)

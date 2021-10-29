@@ -1,5 +1,6 @@
 import axios from "axios";
 import { errorHandler } from "../../lib/api/error-handler";
+import getJWTToken from "../../lib/api/get-jwt-token";
 import { initialState as playerState } from "../../store/playerSlice";
 
 export default function handler(req, res) {
@@ -41,10 +42,14 @@ export default function handler(req, res) {
       // If the player info is not correct, abort the update
       if (!isValidPlayer) throw "Invalid user";
 
+      // get JWT token
+      const jwt = await getJWTToken();
+
       // Update the valid player's info
       const response = await axios.put(
         `${process.env.BACKEND}/players/${validId}`,
-        update
+        update,
+        { headers: { Authorization: `Bearer ${jwt}` } }
       );
 
       // Success
