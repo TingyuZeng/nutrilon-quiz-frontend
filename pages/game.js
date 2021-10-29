@@ -10,6 +10,8 @@ import GameScreen from "../component/Screens/Game/GameScreen";
 import LevelRing from "../component/ui/LevelRing/LevelRing";
 import Button from "../component/ui/Button/Button";
 import classes from "../styles/Game.module.scss";
+import { getBrandImage } from "../lib/brandAssets";
+import Img from "../component/ui/Image/Img";
 
 const Game = () => {
   const [dataReceived, setDataReceived] = useState(false);
@@ -48,12 +50,15 @@ const Game = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1.5 }}
           >
-            <LevelRing
-              className={classes.levelring}
-              level={game.questionList.level}
-              text={game.questionList.name}
-              onClick={clickHandler}
-            />
+            <div className={classes.visual}>
+              <LevelRing
+                className={classes.levelring}
+                level={game.questionList.level}
+                text={game.questionList.name}
+                onClick={clickHandler}
+              />
+              <Img {...getBrandImage("bear6")} className={classes.bear} />
+            </div>
             <p className={classes.text}>{game.questionList.levelInfo}</p>
             <p className={classes.disclaimer}>重要提示：母乳是宝宝最好的食物</p>
             <Button onClick={clickHandler}>开始挑战</Button>

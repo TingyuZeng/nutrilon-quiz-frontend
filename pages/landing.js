@@ -67,11 +67,20 @@ const Landing = () => {
   }, []);
 
   useEffect(() => {
-    if (player.avatar === null || ![0, 1, 2].includes(Number(player.avatar))) {
+    // Check validity of the player avatar
+    if (
+      typeof player.avatar === "number" &&
+      ![0, 1, 2].includes(player.avatar)
+    ) {
+      dispatch(playerActions.replacePlayerInfo({ avatar: null }));
+    }
+
+    // Pop-up for first time player
+    if (player.avatar === null) {
       setIsFirst(true);
       dispatch(
         uiActions.showNotification({
-          text: "快来和小北极熊一起踏上荷兰之旅。 小北极熊会带你前往 Nutrilon 的重要景点，在那里您可以探索发现想要了解的关于Nutrilon品牌和产品的一切信息！ 你可以在旅途中集齐拼图的所有部分，来解锁独家宣传资料库，并成为官方认证的品牌大使。 对成功通过全部等级的人，官方证书正等着你！\r\n\r\n在开始游戏之前，请仔细阅读游戏说明。",
+          text: "快来和小北极熊一起踏上荷兰之旅。 小北极熊会带你前往 Nutrilon 的重要景点，在那里您可以探索发现想要了解的关于Nutrilon品牌和产品的一切信息！ 你可以在旅途中集齐拼图的所有部分，来解锁独家宣传资料库，并成为官方认证的品牌大使。 对成功通过全部等级的人，官方证书正等着你！\r\n\r\n下面请你选择你的游戏形象，并仔细阅读游戏说明后再开始游戏。",
           handler: "close",
           bear: true,
           title: "欢迎启程",
@@ -87,8 +96,16 @@ const Landing = () => {
       {!loaded && <LoaderDrop />}
 
       {loaded && !synced && (
-        <div>
-          <div>player not found</div>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <p style={{ width: "80%", textAlign: "center" }}>player not found</p>
         </div>
       )}
 

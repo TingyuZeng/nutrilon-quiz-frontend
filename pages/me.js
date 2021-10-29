@@ -18,10 +18,10 @@ import { syncPlayerData } from "../store/playerSlice";
 import { uiActions } from "../store/uiSlice";
 
 const ASSET_LINKS = [
-  "https://drive.google.com/drive/folders/15wTmKI7VLjUtCzzF6SWQirGXq1sX0g_k?usp=sharing",
-  "https://drive.google.com/drive/folders/15p__JGjVm8YMAQMrehM7vBIbcEV36Rv1?usp=sharing",
-  "https://drive.google.com/drive/folders/1Y0czPAz0kuzwKT6e5OqXF0U1MqT8E2i7?usp=sharing",
-  "https://drive.google.com/drive/folders/1TLHcQ7i2LASPrT1U4qJETXzQ1Fa_FnOv?usp=sharing",
+  "https://www.dropbox.com/sh/k1d395e1kurtmth/AACubgqmV99HevT69d7TALQOa?dl=0",
+  "https://www.dropbox.com/sh/j99bhuklhkasfte/AACyAphrMJLf2zhU_YRs6QCQa?dl=0",
+  "https://www.dropbox.com/sh/nsmmx8t0479oyh4/AABEOCKorbJrc_UFimrL80w_a?dl=0",
+  "https://www.dropbox.com/sh/lnaagm1v4mnwl8y/AACj6zAblcidUXLyT-H7xZy6a?dl=0",
 ];
 
 const Me = () => {
