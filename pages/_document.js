@@ -11,6 +11,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <script id="adobe-font" />
+          <link href="/fonts/fonts.css" rel="stylesheet" />
         </Head>
         <body>
           <div data-notification />
