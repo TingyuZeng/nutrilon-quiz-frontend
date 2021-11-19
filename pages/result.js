@@ -62,7 +62,14 @@ const Result = ({ images }) => {
       dataToBeUpdated["life"] = 3;
 
       dispatch(playerActions.replacePlayerInfo(dataToBeUpdated));
-      dispatch(syncPlayerData(dataToBeUpdated));
+
+      try {
+        (async () => {
+          await dispatch(syncPlayerData(dataToBeUpdated));
+        })();
+      } catch (error) {
+        console.error(error);
+      }
     }
   }, []);
 

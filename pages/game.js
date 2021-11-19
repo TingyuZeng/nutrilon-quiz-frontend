@@ -25,7 +25,13 @@ const Game = () => {
   };
 
   useEffect(() => {
-    dispatch(getCurrentLevelQuestions());
+    try {
+      (async () => {
+        await dispatch(getCurrentLevelQuestions());
+      })();
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   useEffect(() => {

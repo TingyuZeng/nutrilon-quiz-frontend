@@ -74,8 +74,8 @@ const NotificationModal = () => {
       dispatch(uiActions.hideNotification());
       router.replace("/levels");
     },
-    goToLandingAsTester() {
-      dispatch(
+    async goToLandingAsTester() {
+      await dispatch(
         syncPlayerData({
           avatar: null,
           shopurl: "",
@@ -95,8 +95,8 @@ const NotificationModal = () => {
       console.log("redirecting to landing");
       router.replace("/landing");
     },
-    goToGame() {
-      dispatch(startANewGame());
+    async goToGame() {
+      await dispatch(startANewGame());
       dispatch(uiActions.hideNotification());
       router.push("/game");
     },

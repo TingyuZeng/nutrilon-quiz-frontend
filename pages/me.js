@@ -65,15 +65,22 @@ const Me = () => {
 
   const getCertificateHandler = () => {
     const certifiedDate = Date();
-    dispatch(
-      syncPlayerData({
-        lastCertificateDate: certifiedDate,
-        certificates: [
-          ...player.certificates,
-          { date: certifiedDate, cohort: 1 },
-        ],
-      })
-    );
+
+    try {
+      (async () => {
+        await dispatch(
+          syncPlayerData({
+            lastCertificateDate: certifiedDate,
+            certificates: [
+              ...player.certificates,
+              { date: certifiedDate, cohort: 1 },
+            ],
+          })
+        );
+      })();
+    } catch (error) {
+      console.error(error);
+    }
 
     // dispatch notification and website link
     dispatch(uiActions.showSync());

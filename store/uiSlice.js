@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { startANewGame, syncPlayerData } from "./playerSlice";
 
 const initialState = {
   questionModal: false,
