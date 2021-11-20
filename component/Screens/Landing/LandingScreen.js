@@ -35,7 +35,7 @@ const LandingScreen = (props) => {
             maxWidth: "210px",
             maxHeight: "210px",
           }}
-          src="https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_1_0c0bad1164.png"
+          level={0}
         />
         <LevelRing
           float
@@ -47,7 +47,7 @@ const LandingScreen = (props) => {
             maxWidth: "260px",
             maxHeight: "260px",
           }}
-          src="https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_2_249f115968.png"
+          level={1}
         />
         <LevelRing
           float
@@ -59,7 +59,7 @@ const LandingScreen = (props) => {
             maxWidth: "245px",
             maxHeight: "245px",
           }}
-          src="https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_3_ff792ef78e.png"
+          level={2}
         />
         <LevelRing
           float
@@ -71,7 +71,7 @@ const LandingScreen = (props) => {
             maxWidth: "285px",
             maxHeight: "285px",
           }}
-          src="https://res.cloudinary.com/npc2021/image/upload/v1632823131/level_cover_4_4d0a70795c.png"
+          level={3}
         />
       </div>
     </>
