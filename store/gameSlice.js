@@ -43,7 +43,6 @@ export const initialState = {
   currentQuestionIndex: 0,
   currentLevelScore: 0,
   startTime: 0,
-  endTime: 0,
 };
 
 export const getCurrentLevelQuestions = createAsyncThunk(
@@ -89,14 +88,12 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     scorecurrentQuestionIndex: (state, action) => {
-      const answer = action.payload;
+      const { answer, endTime } = action.payload;
       if (!answer) return;
 
-      state.endTime = Date.now();
-      let time = state.endTime - state.startTime;
+      let time = endTime - state.startTime;
       if (time < 0) {
         state.startTime = null;
-        state.endTime = null;
         return;
       } else if (time > MAX_TIME) time = MAX_TIME;
 
@@ -122,12 +119,10 @@ const gameSlice = createSlice({
       if (state.currentQuestionIndex < 10) state.currentQuestionIndex++;
     },
     recordStartTime: (state, action) => {
-      state.endTime = 0;
       state.startTime = action.payload;
     },
     resetStartTime: (state) => {
       state.startTime = 0;
-      state.endTime = 0;
     },
     resetGame: (state) => (state = initialState),
   },

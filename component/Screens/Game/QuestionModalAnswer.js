@@ -18,7 +18,9 @@ const QuestionModalAnswer = ({
     chooseAnAnswerHandler(answerKey);
   };
   const confirmHandler = () => {
-    dispatch(gameActions.scorecurrentQuestionIndex(answer));
+    dispatch(
+      gameActions.scorecurrentQuestionIndex({ answer, endTime: Date.now() })
+    );
     dispatch(uiActions.showFeedback());
   };
 
